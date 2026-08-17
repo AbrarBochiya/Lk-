@@ -1,0 +1,528 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  ADMIN
+  MANAGER
+  STAFF
+}
+enum RecordStatus {
+  DRAFT
+  POSTED
+  APPROVED
+  REJECTED
+  REVERSED
+}
+enum EntityStatus {
+  ACTIVE
+  INACTIVE
+}
+enum ExpenseType {
+  SHOP
+  CENTRAL
+  PERSONAL
+}
+enum AllocationMethod {
+  UNALLOCATED
+  EQUAL
+  SALES_CONTRIBUTION
+  MANUAL
+}
+enum BillStatus {
+  DRAFT
+  UNPAID
+  PARTIALLY_PAID
+  PAID
+  OVERDUE
+  REVERSED
+}
+enum PaymentMethod {
+  CASH
+  UPI
+  CARD
+  BANK_TRANSFER
+  CHEQUE
+  OTHER
+}
+enum ClosingStatus {
+  DRAFT
+  SUBMITTED
+  APPROVED
+  REJECTED
+  REVERSED
+}
+enum AuditAction {
+  CREATE
+  UPDATE
+  SOFT_DELETE
+  APPROVE
+  REJECT
+  PAYMENT_ALLOCATION
+  REVERSAL
+  LOGIN
+  LOGOUT
+  PASSWORD_CHANGE
+  EMAIL_CHANGE
+}
+enum LedgerEntryType {
+  BILL
+  PAYMENT
+  CREDIT_NOTE
+  DEBIT_NOTE
+  OPENING_BALANCE
+  REVERSAL
+}
+enum CashMovementType {
+  INFLOW
+  OUTFLOW
+  WITHDRAWAL
+  ADJUSTMENT
+  REVERSAL
+}
+enum Severity {
+  INFO
+  WARNING
+  CRITICAL
+}
+
+model Business {
+  id          String       @id @default(cuid())
+  name        String
+  legalName   String?
+  address     String?
+  city        String?
+  state       String?
+  contact     String?
+  status      EntityStatus @default(ACTIVE)
+  notes       String?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  shops       Shop[]
+  sales       DailySale[]
+  expenses    Expense[]
+  suppliers   Supplier[]
+  bills       SupplierBill[]
+  payments    SupplierPayment[]
+  categories  ProductCategory[]
+  closings    DailyClosing[]
+  targets     ShopTarget[]
+
+  @@index([status])
+}
+
+model Shop {
+  id            String       @id @default(cuid())
+  businessId    String
+  business      Business     @relation(fields: [businessId], references: [id])
+  name          String
+  branch        String?
+  address       String?
+  city          String?
+  state         String?
+  managerName   String?
+  contactNumber String?
+  openingDate   DateTime?
+  status        EntityStatus @default(ACTIVE)
+  monthlyTarget Decimal?     @db.Decimal(18, 2)
+  dailyTarget   Decimal?     @db.Decimal(18, 2)
+  notes         String?
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  access        UserShopAccess[]
+  sales         DailySale[]
+  expenses      Expense[]
+  bills         SupplierBill[]
+  closings      DailyClosing[]
+  targets       ShopTarget[]
+  categorySales DailyCategorySale[]
+  cashMovements CashMovement[]
+
+  @@unique([businessId, name])
+  @@index([businessId, status])
+}
+
+model User {
+  id            String       @id @default(cuid())
+  name          String
+  email         String       @unique
+  passwordHash  String
+  role          Role         @default(STAFF)
+  status        EntityStatus @default(ACTIVE)
+  sessionVersion Int         @default(0)
+  lastLoginAt   DateTime?
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  shopAccess    UserShopAccess[]
+  sessions      Session[]
+  createdSales  DailySale[]  @relation("SaleCreatedBy")
+  updatedSales  DailySale[]  @relation("SaleUpdatedBy")
+  createdExpenses Expense[]  @relation("ExpenseCreatedBy")
+  updatedExpenses Expense[]  @relation("ExpenseUpdatedBy")
+  auditLogs     AuditLog[]
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  tokenHash String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  ipAddress String?
+  userAgent String?
+
+  @@index([userId, expiresAt])
+}
+
+model UserShopAccess {
+  userId String
+  shopId String
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  shop   Shop @relation(fields: [shopId], references: [id], onDelete: Cascade)
+  canEdit Boolean @default(false)
+  canApprove Boolean @default(false)
+
+  @@id([userId, shopId])
+}
+
+model DailySale {
+  id           String       @id @default(cuid())
+  businessId   String
+  shopId       String
+  business     Business     @relation(fields: [businessId], references: [id])
+  shop         Shop         @relation(fields: [shopId], references: [id])
+  saleDate     DateTime     @db.Date
+  shift        String       @default("FULL_DAY")
+  cashSales    Decimal      @default(0) @db.Decimal(18, 2)
+  upiSales     Decimal      @default(0) @db.Decimal(18, 2)
+  cardSales    Decimal      @default(0) @db.Decimal(18, 2)
+  bankSales    Decimal      @default(0) @db.Decimal(18, 2)
+  otherSales   Decimal      @default(0) @db.Decimal(18, 2)
+  returns      Decimal      @default(0) @db.Decimal(18, 2)
+  cogs         Decimal      @default(0) @db.Decimal(18, 2)
+  billCount    Int          @default(0)
+  customerCount Int         @default(0)
+  notes        String?
+  status       RecordStatus @default(POSTED)
+  reversalOfId String?      @unique
+  reversalOf   DailySale?   @relation("SaleReversal", fields: [reversalOfId], references: [id])
+  reversal     DailySale?   @relation("SaleReversal")
+  createdById  String
+  updatedById  String
+  createdBy    User         @relation("SaleCreatedBy", fields: [createdById], references: [id])
+  updatedBy    User         @relation("SaleUpdatedBy", fields: [updatedById], references: [id])
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  categorySales DailyCategorySale[]
+
+  @@unique([shopId, saleDate, shift])
+  @@index([businessId, saleDate])
+  @@index([shopId, saleDate])
+  @@index([status])
+}
+
+model ProductCategory {
+  id         String   @id @default(cuid())
+  businessId String
+  business   Business @relation(fields: [businessId], references: [id])
+  name       String
+  isActive   Boolean  @default(true)
+  products   Product[]
+  sales      DailyCategorySale[]
+  createdAt  DateTime @default(now())
+  @@unique([businessId, name])
+}
+
+model Product {
+  id         String @id @default(cuid())
+  categoryId String
+  category   ProductCategory @relation(fields: [categoryId], references: [id])
+  name       String
+  sku        String? @unique
+  isActive   Boolean @default(true)
+  createdAt  DateTime @default(now())
+}
+
+model DailyCategorySale {
+  id         String @id @default(cuid())
+  dailySaleId String
+  categoryId String
+  shopId     String
+  dailySale  DailySale @relation(fields: [dailySaleId], references: [id], onDelete: Cascade)
+  category   ProductCategory @relation(fields: [categoryId], references: [id])
+  shop       Shop @relation(fields: [shopId], references: [id])
+  sales      Decimal @db.Decimal(18, 2)
+  quantity   Int @default(0)
+  cogs       Decimal @default(0) @db.Decimal(18, 2)
+  @@unique([dailySaleId, categoryId])
+  @@index([shopId, categoryId])
+}
+
+model ExpenseCategory {
+  id       String @id @default(cuid())
+  name     String @unique
+  isActive Boolean @default(true)
+  expenses Expense[]
+}
+
+model Expense {
+  id          String @id @default(cuid())
+  businessId  String
+  shopId      String?
+  categoryId  String
+  business    Business @relation(fields: [businessId], references: [id])
+  shop        Shop? @relation(fields: [shopId], references: [id])
+  category    ExpenseCategory @relation(fields: [categoryId], references: [id])
+  expenseDate DateTime @db.Date
+  type        ExpenseType
+  description String
+  amount      Decimal @db.Decimal(18, 2)
+  paymentMethod PaymentMethod
+  vendor      String?
+  notes       String?
+  allocationMethod AllocationMethod @default(UNALLOCATED)
+  status      RecordStatus @default(POSTED)
+  reversalOfId String? @unique
+  reversalOf  Expense? @relation("ExpenseReversal", fields: [reversalOfId], references: [id])
+  reversal    Expense? @relation("ExpenseReversal")
+  createdById String
+  updatedById String
+  createdBy   User @relation("ExpenseCreatedBy", fields: [createdById], references: [id])
+  updatedBy   User @relation("ExpenseUpdatedBy", fields: [updatedById], references: [id])
+  allocations CentralExpenseAllocation[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([businessId, expenseDate, type])
+  @@index([shopId, expenseDate])
+  @@index([categoryId, expenseDate])
+}
+
+model CentralExpenseAllocation {
+  id        String @id @default(cuid())
+  expenseId String
+  shopId    String
+  expense   Expense @relation(fields: [expenseId], references: [id], onDelete: Cascade)
+  amount    Decimal @db.Decimal(18, 2)
+  percentage Decimal @db.Decimal(7, 4)
+  @@unique([expenseId, shopId])
+  @@index([shopId])
+}
+
+model Supplier {
+  id            String @id @default(cuid())
+  businessId    String
+  business      Business @relation(fields: [businessId], references: [id])
+  name          String
+  contactPerson String?
+  phone         String?
+  email         String?
+  address       String?
+  gstin         String?
+  paymentTermsDays Int @default(0)
+  openingBalance Decimal @default(0) @db.Decimal(18, 2)
+  status        EntityStatus @default(ACTIVE)
+  notes         String?
+  bills         SupplierBill[]
+  payments      SupplierPayment[]
+  ledger        SupplierLedgerEntry[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  @@unique([businessId, name])
+  @@index([businessId, status])
+}
+
+model SupplierBill {
+  id            String @id @default(cuid())
+  supplierId    String
+  businessId    String
+  shopId        String?
+  supplier      Supplier @relation(fields: [supplierId], references: [id])
+  business      Business @relation(fields: [businessId], references: [id])
+  shop          Shop? @relation(fields: [shopId], references: [id])
+  invoiceNumber String
+  invoiceDate   DateTime @db.Date
+  dueDate       DateTime @db.Date
+  subtotal      Decimal @db.Decimal(18, 2)
+  discount      Decimal @default(0) @db.Decimal(18, 2)
+  tax           Decimal @default(0) @db.Decimal(18, 2)
+  total         Decimal @db.Decimal(18, 2)
+  paidAmount    Decimal @default(0) @db.Decimal(18, 2)
+  status        BillStatus @default(UNPAID)
+  notes         String?
+  items         SupplierBillItem[]
+  allocations   PaymentAllocation[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  @@unique([supplierId, invoiceNumber])
+  @@index([businessId, dueDate, status])
+  @@index([supplierId, status])
+}
+
+model SupplierBillItem {
+  id          String @id @default(cuid())
+  billId      String
+  bill        SupplierBill @relation(fields: [billId], references: [id], onDelete: Cascade)
+  description String
+  quantity    Decimal @db.Decimal(14, 3)
+  rate        Decimal @db.Decimal(18, 2)
+  discount    Decimal @default(0) @db.Decimal(18, 2)
+  tax         Decimal @default(0) @db.Decimal(18, 2)
+  total       Decimal @db.Decimal(18, 2)
+}
+
+model SupplierPayment {
+  id          String @id @default(cuid())
+  supplierId  String
+  businessId  String
+  supplier    Supplier @relation(fields: [supplierId], references: [id])
+  business    Business @relation(fields: [businessId], references: [id])
+  paymentDate DateTime @db.Date
+  amount      Decimal @db.Decimal(18, 2)
+  method      PaymentMethod
+  reference   String?
+  notes       String?
+  status      RecordStatus @default(POSTED)
+  allocations PaymentAllocation[]
+  createdAt   DateTime @default(now())
+  @@index([supplierId, paymentDate])
+}
+
+model PaymentAllocation {
+  id        String @id @default(cuid())
+  paymentId String
+  billId    String
+  payment   SupplierPayment @relation(fields: [paymentId], references: [id], onDelete: Cascade)
+  bill      SupplierBill @relation(fields: [billId], references: [id])
+  amount    Decimal @db.Decimal(18, 2)
+  createdAt DateTime @default(now())
+  @@unique([paymentId, billId])
+  @@index([billId])
+}
+
+model SupplierLedgerEntry {
+  id         String @id @default(cuid())
+  supplierId String
+  supplier   Supplier @relation(fields: [supplierId], references: [id])
+  entryDate  DateTime @db.Date
+  type       LedgerEntryType
+  referenceId String?
+  debit      Decimal @default(0) @db.Decimal(18, 2)
+  credit     Decimal @default(0) @db.Decimal(18, 2)
+  description String
+  createdAt DateTime @default(now())
+  @@index([supplierId, entryDate])
+}
+
+model DailyClosing {
+  id          String @id @default(cuid())
+  businessId  String
+  shopId      String
+  business    Business @relation(fields: [businessId], references: [id])
+  shop        Shop @relation(fields: [shopId], references: [id])
+  closingDate DateTime @db.Date
+  expectedCash Decimal @db.Decimal(18, 2)
+  countedCash  Decimal @db.Decimal(18, 2)
+  variance     Decimal @db.Decimal(18, 2)
+  explanation  String?
+  status       ClosingStatus @default(DRAFT)
+  approvedAt   DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  @@unique([shopId, closingDate])
+  @@index([businessId, closingDate, status])
+}
+
+model CashMovement {
+  id          String @id @default(cuid())
+  shopId      String?
+  shop        Shop? @relation(fields: [shopId], references: [id])
+  movementDate DateTime @db.Date
+  type        CashMovementType
+  amount      Decimal @db.Decimal(18, 2)
+  description String
+  referenceId String?
+  createdAt   DateTime @default(now())
+  @@index([shopId, movementDate])
+}
+
+model ShopTarget {
+  id          String @id @default(cuid())
+  businessId  String
+  shopId      String?
+  business    Business @relation(fields: [businessId], references: [id])
+  shop        Shop? @relation(fields: [shopId], references: [id])
+  periodStart DateTime @db.Date
+  periodEnd   DateTime @db.Date
+  sales       Decimal? @db.Decimal(18, 2)
+  grossProfit Decimal? @db.Decimal(18, 2)
+  operatingProfit Decimal? @db.Decimal(18, 2)
+  expense     Decimal? @db.Decimal(18, 2)
+  margin      Decimal? @db.Decimal(7, 4)
+  @@index([businessId, periodStart, periodEnd])
+  @@index([shopId, periodStart])
+}
+
+model Alert {
+  id         String @id @default(cuid())
+  name       String
+  rule       String
+  threshold  Decimal @db.Decimal(18, 4)
+  severity   Severity
+  businessId String?
+  shopId     String?
+  isActive   Boolean @default(true)
+  createdAt  DateTime @default(now())
+}
+
+model SavedFilter {
+  id        String @id @default(cuid())
+  userId    String
+  name      String
+  module    String
+  filters   Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@unique([userId, module, name])
+}
+
+model Document {
+  id          String @id @default(cuid())
+  ownerType   String
+  ownerId     String
+  fileName    String
+  storageKey  String @unique
+  mimeType    String
+  size        Int
+  uploadedById String
+  createdAt   DateTime @default(now())
+  @@index([ownerType, ownerId])
+}
+
+model AuditLog {
+  id         String @id @default(cuid())
+  userId     String?
+  user       User? @relation(fields: [userId], references: [id])
+  action     AuditAction
+  module     String
+  recordId   String?
+  oldValue   Json?
+  newValue   Json?
+  reason     String?
+  ipAddress  String?
+  createdAt  DateTime @default(now())
+  @@index([module, recordId])
+  @@index([userId, createdAt])
+  @@index([createdAt])
+}
+
+model SystemSetting {
+  key       String @id
+  value     Json
+  updatedAt DateTime @updatedAt
+}
