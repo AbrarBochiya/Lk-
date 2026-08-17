@@ -1,2 +1,0 @@
-import Link from "next/link";
-export default function Unauthorized() { return <main className="grid min-h-screen place-items-center p-6"><div className="card max-w-md p-8 text-center"><p className="label">Access restricted</p><h1 className="mt-2 text-3xl font-semibold">You don’t have permission</h1><p className="mt-3 text-[#66736b]">Your role or assigned shops do not permit access to this page.</p><Link className="button-primary mt-6 inline-flex items-center" href="/dashboard">Return to dashboard</Link></div></main>; }
