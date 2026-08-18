@@ -135,6 +135,7 @@ export const ShopScalarFieldEnum = {
   archivedAt: 'archivedAt',
   monthlyTarget: 'monthlyTarget',
   dailyTarget: 'dailyTarget',
+  defaultMarginPercent: 'defaultMarginPercent',
   notes: 'notes',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -204,6 +205,7 @@ export const DailySaleScalarFieldEnum = {
   source: 'source',
   cancelledAt: 'cancelledAt',
   cogs: 'cogs',
+  appliedMarginPercent: 'appliedMarginPercent',
   billCount: 'billCount',
   customerCount: 'customerCount',
   notes: 'notes',

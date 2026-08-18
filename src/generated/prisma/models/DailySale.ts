@@ -37,6 +37,7 @@ export type DailySaleAvgAggregateOutputType = {
   tax: runtime.Decimal | null
   amountReceived: runtime.Decimal | null
   cogs: runtime.Decimal | null
+  appliedMarginPercent: runtime.Decimal | null
   billCount: number | null
   customerCount: number | null
 }
@@ -52,6 +53,7 @@ export type DailySaleSumAggregateOutputType = {
   tax: runtime.Decimal | null
   amountReceived: runtime.Decimal | null
   cogs: runtime.Decimal | null
+  appliedMarginPercent: runtime.Decimal | null
   billCount: number | null
   customerCount: number | null
 }
@@ -78,6 +80,7 @@ export type DailySaleMinAggregateOutputType = {
   source: $Enums.SaleSource | null
   cancelledAt: Date | null
   cogs: runtime.Decimal | null
+  appliedMarginPercent: runtime.Decimal | null
   billCount: number | null
   customerCount: number | null
   notes: string | null
@@ -111,6 +114,7 @@ export type DailySaleMaxAggregateOutputType = {
   source: $Enums.SaleSource | null
   cancelledAt: Date | null
   cogs: runtime.Decimal | null
+  appliedMarginPercent: runtime.Decimal | null
   billCount: number | null
   customerCount: number | null
   notes: string | null
@@ -144,6 +148,7 @@ export type DailySaleCountAggregateOutputType = {
   source: number
   cancelledAt: number
   cogs: number
+  appliedMarginPercent: number
   billCount: number
   customerCount: number
   notes: number
@@ -168,6 +173,7 @@ export type DailySaleAvgAggregateInputType = {
   tax?: true
   amountReceived?: true
   cogs?: true
+  appliedMarginPercent?: true
   billCount?: true
   customerCount?: true
 }
@@ -183,6 +189,7 @@ export type DailySaleSumAggregateInputType = {
   tax?: true
   amountReceived?: true
   cogs?: true
+  appliedMarginPercent?: true
   billCount?: true
   customerCount?: true
 }
@@ -209,6 +216,7 @@ export type DailySaleMinAggregateInputType = {
   source?: true
   cancelledAt?: true
   cogs?: true
+  appliedMarginPercent?: true
   billCount?: true
   customerCount?: true
   notes?: true
@@ -242,6 +250,7 @@ export type DailySaleMaxAggregateInputType = {
   source?: true
   cancelledAt?: true
   cogs?: true
+  appliedMarginPercent?: true
   billCount?: true
   customerCount?: true
   notes?: true
@@ -275,6 +284,7 @@ export type DailySaleCountAggregateInputType = {
   source?: true
   cancelledAt?: true
   cogs?: true
+  appliedMarginPercent?: true
   billCount?: true
   customerCount?: true
   notes?: true
@@ -395,6 +405,7 @@ export type DailySaleGroupByOutputType = {
   source: $Enums.SaleSource
   cancelledAt: Date | null
   cogs: runtime.Decimal
+  appliedMarginPercent: runtime.Decimal
   billCount: number
   customerCount: number
   notes: string | null
@@ -451,6 +462,7 @@ export type DailySaleWhereInput = {
   source?: Prisma.EnumSaleSourceFilter<"DailySale"> | $Enums.SaleSource
   cancelledAt?: Prisma.DateTimeNullableFilter<"DailySale"> | Date | string | null
   cogs?: Prisma.DecimalFilter<"DailySale"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: Prisma.DecimalFilter<"DailySale"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: Prisma.IntFilter<"DailySale"> | number
   customerCount?: Prisma.IntFilter<"DailySale"> | number
   notes?: Prisma.StringNullableFilter<"DailySale"> | string | null
@@ -491,6 +503,7 @@ export type DailySaleOrderByWithRelationInput = {
   source?: Prisma.SortOrder
   cancelledAt?: Prisma.SortOrderInput | Prisma.SortOrder
   cogs?: Prisma.SortOrder
+  appliedMarginPercent?: Prisma.SortOrder
   billCount?: Prisma.SortOrder
   customerCount?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -537,6 +550,7 @@ export type DailySaleWhereUniqueInput = Prisma.AtLeast<{
   source?: Prisma.EnumSaleSourceFilter<"DailySale"> | $Enums.SaleSource
   cancelledAt?: Prisma.DateTimeNullableFilter<"DailySale"> | Date | string | null
   cogs?: Prisma.DecimalFilter<"DailySale"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: Prisma.DecimalFilter<"DailySale"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: Prisma.IntFilter<"DailySale"> | number
   customerCount?: Prisma.IntFilter<"DailySale"> | number
   notes?: Prisma.StringNullableFilter<"DailySale"> | string | null
@@ -576,6 +590,7 @@ export type DailySaleOrderByWithAggregationInput = {
   source?: Prisma.SortOrder
   cancelledAt?: Prisma.SortOrderInput | Prisma.SortOrder
   cogs?: Prisma.SortOrder
+  appliedMarginPercent?: Prisma.SortOrder
   billCount?: Prisma.SortOrder
   customerCount?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -617,6 +632,7 @@ export type DailySaleScalarWhereWithAggregatesInput = {
   source?: Prisma.EnumSaleSourceWithAggregatesFilter<"DailySale"> | $Enums.SaleSource
   cancelledAt?: Prisma.DateTimeNullableWithAggregatesFilter<"DailySale"> | Date | string | null
   cogs?: Prisma.DecimalWithAggregatesFilter<"DailySale"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: Prisma.DecimalWithAggregatesFilter<"DailySale"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: Prisma.IntWithAggregatesFilter<"DailySale"> | number
   customerCount?: Prisma.IntWithAggregatesFilter<"DailySale"> | number
   notes?: Prisma.StringNullableWithAggregatesFilter<"DailySale"> | string | null
@@ -648,6 +664,7 @@ export type DailySaleCreateInput = {
   source?: $Enums.SaleSource
   cancelledAt?: Date | string | null
   cogs?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: number
   customerCount?: number
   notes?: string | null
@@ -685,6 +702,7 @@ export type DailySaleUncheckedCreateInput = {
   source?: $Enums.SaleSource
   cancelledAt?: Date | string | null
   cogs?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: number
   customerCount?: number
   notes?: string | null
@@ -718,6 +736,7 @@ export type DailySaleUpdateInput = {
   source?: Prisma.EnumSaleSourceFieldUpdateOperationsInput | $Enums.SaleSource
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cogs?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: Prisma.IntFieldUpdateOperationsInput | number
   customerCount?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -755,6 +774,7 @@ export type DailySaleUncheckedUpdateInput = {
   source?: Prisma.EnumSaleSourceFieldUpdateOperationsInput | $Enums.SaleSource
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cogs?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: Prisma.IntFieldUpdateOperationsInput | number
   customerCount?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -790,6 +810,7 @@ export type DailySaleCreateManyInput = {
   source?: $Enums.SaleSource
   cancelledAt?: Date | string | null
   cogs?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: number
   customerCount?: number
   notes?: string | null
@@ -821,6 +842,7 @@ export type DailySaleUpdateManyMutationInput = {
   source?: Prisma.EnumSaleSourceFieldUpdateOperationsInput | $Enums.SaleSource
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cogs?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: Prisma.IntFieldUpdateOperationsInput | number
   customerCount?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -851,6 +873,7 @@ export type DailySaleUncheckedUpdateManyInput = {
   source?: Prisma.EnumSaleSourceFieldUpdateOperationsInput | $Enums.SaleSource
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cogs?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: Prisma.IntFieldUpdateOperationsInput | number
   customerCount?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -910,6 +933,7 @@ export type DailySaleCountOrderByAggregateInput = {
   source?: Prisma.SortOrder
   cancelledAt?: Prisma.SortOrder
   cogs?: Prisma.SortOrder
+  appliedMarginPercent?: Prisma.SortOrder
   billCount?: Prisma.SortOrder
   customerCount?: Prisma.SortOrder
   notes?: Prisma.SortOrder
@@ -932,6 +956,7 @@ export type DailySaleAvgOrderByAggregateInput = {
   tax?: Prisma.SortOrder
   amountReceived?: Prisma.SortOrder
   cogs?: Prisma.SortOrder
+  appliedMarginPercent?: Prisma.SortOrder
   billCount?: Prisma.SortOrder
   customerCount?: Prisma.SortOrder
 }
@@ -958,6 +983,7 @@ export type DailySaleMaxOrderByAggregateInput = {
   source?: Prisma.SortOrder
   cancelledAt?: Prisma.SortOrder
   cogs?: Prisma.SortOrder
+  appliedMarginPercent?: Prisma.SortOrder
   billCount?: Prisma.SortOrder
   customerCount?: Prisma.SortOrder
   notes?: Prisma.SortOrder
@@ -991,6 +1017,7 @@ export type DailySaleMinOrderByAggregateInput = {
   source?: Prisma.SortOrder
   cancelledAt?: Prisma.SortOrder
   cogs?: Prisma.SortOrder
+  appliedMarginPercent?: Prisma.SortOrder
   billCount?: Prisma.SortOrder
   customerCount?: Prisma.SortOrder
   notes?: Prisma.SortOrder
@@ -1013,6 +1040,7 @@ export type DailySaleSumOrderByAggregateInput = {
   tax?: Prisma.SortOrder
   amountReceived?: Prisma.SortOrder
   cogs?: Prisma.SortOrder
+  appliedMarginPercent?: Prisma.SortOrder
   billCount?: Prisma.SortOrder
   customerCount?: Prisma.SortOrder
 }
@@ -1208,14 +1236,6 @@ export type DailySaleUncheckedCreateNestedOneWithoutReversalOfInput = {
   connect?: Prisma.DailySaleWhereUniqueInput
 }
 
-export type DecimalFieldUpdateOperationsInput = {
-  set?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
-}
-
 export type EnumSaleSourceFieldUpdateOperationsInput = {
   set?: $Enums.SaleSource
 }
@@ -1288,6 +1308,7 @@ export type DailySaleCreateWithoutBusinessInput = {
   source?: $Enums.SaleSource
   cancelledAt?: Date | string | null
   cogs?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: number
   customerCount?: number
   notes?: string | null
@@ -1323,6 +1344,7 @@ export type DailySaleUncheckedCreateWithoutBusinessInput = {
   source?: $Enums.SaleSource
   cancelledAt?: Date | string | null
   cogs?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: number
   customerCount?: number
   notes?: string | null
@@ -1387,6 +1409,7 @@ export type DailySaleScalarWhereInput = {
   source?: Prisma.EnumSaleSourceFilter<"DailySale"> | $Enums.SaleSource
   cancelledAt?: Prisma.DateTimeNullableFilter<"DailySale"> | Date | string | null
   cogs?: Prisma.DecimalFilter<"DailySale"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: Prisma.DecimalFilter<"DailySale"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: Prisma.IntFilter<"DailySale"> | number
   customerCount?: Prisma.IntFilter<"DailySale"> | number
   notes?: Prisma.StringNullableFilter<"DailySale"> | string | null
@@ -1418,6 +1441,7 @@ export type DailySaleCreateWithoutShopInput = {
   source?: $Enums.SaleSource
   cancelledAt?: Date | string | null
   cogs?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: number
   customerCount?: number
   notes?: string | null
@@ -1453,6 +1477,7 @@ export type DailySaleUncheckedCreateWithoutShopInput = {
   source?: $Enums.SaleSource
   cancelledAt?: Date | string | null
   cogs?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: number
   customerCount?: number
   notes?: string | null
@@ -1512,6 +1537,7 @@ export type DailySaleCreateWithoutCreatedByInput = {
   source?: $Enums.SaleSource
   cancelledAt?: Date | string | null
   cogs?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: number
   customerCount?: number
   notes?: string | null
@@ -1548,6 +1574,7 @@ export type DailySaleUncheckedCreateWithoutCreatedByInput = {
   source?: $Enums.SaleSource
   cancelledAt?: Date | string | null
   cogs?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: number
   customerCount?: number
   notes?: string | null
@@ -1590,6 +1617,7 @@ export type DailySaleCreateWithoutUpdatedByInput = {
   source?: $Enums.SaleSource
   cancelledAt?: Date | string | null
   cogs?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: number
   customerCount?: number
   notes?: string | null
@@ -1626,6 +1654,7 @@ export type DailySaleUncheckedCreateWithoutUpdatedByInput = {
   source?: $Enums.SaleSource
   cancelledAt?: Date | string | null
   cogs?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: number
   customerCount?: number
   notes?: string | null
@@ -1700,6 +1729,7 @@ export type DailySaleCreateWithoutReversalInput = {
   source?: $Enums.SaleSource
   cancelledAt?: Date | string | null
   cogs?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: number
   customerCount?: number
   notes?: string | null
@@ -1736,6 +1766,7 @@ export type DailySaleUncheckedCreateWithoutReversalInput = {
   source?: $Enums.SaleSource
   cancelledAt?: Date | string | null
   cogs?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: number
   customerCount?: number
   notes?: string | null
@@ -1773,6 +1804,7 @@ export type DailySaleCreateWithoutReversalOfInput = {
   source?: $Enums.SaleSource
   cancelledAt?: Date | string | null
   cogs?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: number
   customerCount?: number
   notes?: string | null
@@ -1809,6 +1841,7 @@ export type DailySaleUncheckedCreateWithoutReversalOfInput = {
   source?: $Enums.SaleSource
   cancelledAt?: Date | string | null
   cogs?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: number
   customerCount?: number
   notes?: string | null
@@ -1857,6 +1890,7 @@ export type DailySaleUpdateWithoutReversalInput = {
   source?: Prisma.EnumSaleSourceFieldUpdateOperationsInput | $Enums.SaleSource
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cogs?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: Prisma.IntFieldUpdateOperationsInput | number
   customerCount?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1893,6 +1927,7 @@ export type DailySaleUncheckedUpdateWithoutReversalInput = {
   source?: Prisma.EnumSaleSourceFieldUpdateOperationsInput | $Enums.SaleSource
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cogs?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: Prisma.IntFieldUpdateOperationsInput | number
   customerCount?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1936,6 +1971,7 @@ export type DailySaleUpdateWithoutReversalOfInput = {
   source?: Prisma.EnumSaleSourceFieldUpdateOperationsInput | $Enums.SaleSource
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cogs?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: Prisma.IntFieldUpdateOperationsInput | number
   customerCount?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1972,6 +2008,7 @@ export type DailySaleUncheckedUpdateWithoutReversalOfInput = {
   source?: Prisma.EnumSaleSourceFieldUpdateOperationsInput | $Enums.SaleSource
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cogs?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: Prisma.IntFieldUpdateOperationsInput | number
   customerCount?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2004,6 +2041,7 @@ export type DailySaleCreateWithoutCategorySalesInput = {
   source?: $Enums.SaleSource
   cancelledAt?: Date | string | null
   cogs?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: number
   customerCount?: number
   notes?: string | null
@@ -2040,6 +2078,7 @@ export type DailySaleUncheckedCreateWithoutCategorySalesInput = {
   source?: $Enums.SaleSource
   cancelledAt?: Date | string | null
   cogs?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: number
   customerCount?: number
   notes?: string | null
@@ -2088,6 +2127,7 @@ export type DailySaleUpdateWithoutCategorySalesInput = {
   source?: Prisma.EnumSaleSourceFieldUpdateOperationsInput | $Enums.SaleSource
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cogs?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: Prisma.IntFieldUpdateOperationsInput | number
   customerCount?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2124,6 +2164,7 @@ export type DailySaleUncheckedUpdateWithoutCategorySalesInput = {
   source?: Prisma.EnumSaleSourceFieldUpdateOperationsInput | $Enums.SaleSource
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cogs?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: Prisma.IntFieldUpdateOperationsInput | number
   customerCount?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2157,6 +2198,7 @@ export type DailySaleCreateManyBusinessInput = {
   source?: $Enums.SaleSource
   cancelledAt?: Date | string | null
   cogs?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: number
   customerCount?: number
   notes?: string | null
@@ -2188,6 +2230,7 @@ export type DailySaleUpdateWithoutBusinessInput = {
   source?: Prisma.EnumSaleSourceFieldUpdateOperationsInput | $Enums.SaleSource
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cogs?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: Prisma.IntFieldUpdateOperationsInput | number
   customerCount?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2223,6 +2266,7 @@ export type DailySaleUncheckedUpdateWithoutBusinessInput = {
   source?: Prisma.EnumSaleSourceFieldUpdateOperationsInput | $Enums.SaleSource
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cogs?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: Prisma.IntFieldUpdateOperationsInput | number
   customerCount?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2257,6 +2301,7 @@ export type DailySaleUncheckedUpdateManyWithoutBusinessInput = {
   source?: Prisma.EnumSaleSourceFieldUpdateOperationsInput | $Enums.SaleSource
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cogs?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: Prisma.IntFieldUpdateOperationsInput | number
   customerCount?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2289,6 +2334,7 @@ export type DailySaleCreateManyShopInput = {
   source?: $Enums.SaleSource
   cancelledAt?: Date | string | null
   cogs?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: number
   customerCount?: number
   notes?: string | null
@@ -2320,6 +2366,7 @@ export type DailySaleUpdateWithoutShopInput = {
   source?: Prisma.EnumSaleSourceFieldUpdateOperationsInput | $Enums.SaleSource
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cogs?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: Prisma.IntFieldUpdateOperationsInput | number
   customerCount?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2355,6 +2402,7 @@ export type DailySaleUncheckedUpdateWithoutShopInput = {
   source?: Prisma.EnumSaleSourceFieldUpdateOperationsInput | $Enums.SaleSource
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cogs?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: Prisma.IntFieldUpdateOperationsInput | number
   customerCount?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2389,6 +2437,7 @@ export type DailySaleUncheckedUpdateManyWithoutShopInput = {
   source?: Prisma.EnumSaleSourceFieldUpdateOperationsInput | $Enums.SaleSource
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cogs?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: Prisma.IntFieldUpdateOperationsInput | number
   customerCount?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2422,6 +2471,7 @@ export type DailySaleCreateManyCreatedByInput = {
   source?: $Enums.SaleSource
   cancelledAt?: Date | string | null
   cogs?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: number
   customerCount?: number
   notes?: string | null
@@ -2454,6 +2504,7 @@ export type DailySaleCreateManyUpdatedByInput = {
   source?: $Enums.SaleSource
   cancelledAt?: Date | string | null
   cogs?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: number
   customerCount?: number
   notes?: string | null
@@ -2484,6 +2535,7 @@ export type DailySaleUpdateWithoutCreatedByInput = {
   source?: Prisma.EnumSaleSourceFieldUpdateOperationsInput | $Enums.SaleSource
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cogs?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: Prisma.IntFieldUpdateOperationsInput | number
   customerCount?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2520,6 +2572,7 @@ export type DailySaleUncheckedUpdateWithoutCreatedByInput = {
   source?: Prisma.EnumSaleSourceFieldUpdateOperationsInput | $Enums.SaleSource
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cogs?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: Prisma.IntFieldUpdateOperationsInput | number
   customerCount?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2554,6 +2607,7 @@ export type DailySaleUncheckedUpdateManyWithoutCreatedByInput = {
   source?: Prisma.EnumSaleSourceFieldUpdateOperationsInput | $Enums.SaleSource
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cogs?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: Prisma.IntFieldUpdateOperationsInput | number
   customerCount?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2584,6 +2638,7 @@ export type DailySaleUpdateWithoutUpdatedByInput = {
   source?: Prisma.EnumSaleSourceFieldUpdateOperationsInput | $Enums.SaleSource
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cogs?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: Prisma.IntFieldUpdateOperationsInput | number
   customerCount?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2620,6 +2675,7 @@ export type DailySaleUncheckedUpdateWithoutUpdatedByInput = {
   source?: Prisma.EnumSaleSourceFieldUpdateOperationsInput | $Enums.SaleSource
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cogs?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: Prisma.IntFieldUpdateOperationsInput | number
   customerCount?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2654,6 +2710,7 @@ export type DailySaleUncheckedUpdateManyWithoutUpdatedByInput = {
   source?: Prisma.EnumSaleSourceFieldUpdateOperationsInput | $Enums.SaleSource
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cogs?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   billCount?: Prisma.IntFieldUpdateOperationsInput | number
   customerCount?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2717,6 +2774,7 @@ export type DailySaleSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   source?: boolean
   cancelledAt?: boolean
   cogs?: boolean
+  appliedMarginPercent?: boolean
   billCount?: boolean
   customerCount?: boolean
   notes?: boolean
@@ -2758,6 +2816,7 @@ export type DailySaleSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   source?: boolean
   cancelledAt?: boolean
   cogs?: boolean
+  appliedMarginPercent?: boolean
   billCount?: boolean
   customerCount?: boolean
   notes?: boolean
@@ -2796,6 +2855,7 @@ export type DailySaleSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   source?: boolean
   cancelledAt?: boolean
   cogs?: boolean
+  appliedMarginPercent?: boolean
   billCount?: boolean
   customerCount?: boolean
   notes?: boolean
@@ -2834,6 +2894,7 @@ export type DailySaleSelectScalar = {
   source?: boolean
   cancelledAt?: boolean
   cogs?: boolean
+  appliedMarginPercent?: boolean
   billCount?: boolean
   customerCount?: boolean
   notes?: boolean
@@ -2845,7 +2906,7 @@ export type DailySaleSelectScalar = {
   updatedAt?: boolean
 }
 
-export type DailySaleOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "shopId" | "saleDate" | "saleTime" | "invoiceNumber" | "shift" | "cashSales" | "upiSales" | "cardSales" | "bankSales" | "otherSales" | "returns" | "discount" | "tax" | "amountReceived" | "customerName" | "customerPhone" | "source" | "cancelledAt" | "cogs" | "billCount" | "customerCount" | "notes" | "status" | "reversalOfId" | "createdById" | "updatedById" | "createdAt" | "updatedAt", ExtArgs["result"]["dailySale"]>
+export type DailySaleOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "shopId" | "saleDate" | "saleTime" | "invoiceNumber" | "shift" | "cashSales" | "upiSales" | "cardSales" | "bankSales" | "otherSales" | "returns" | "discount" | "tax" | "amountReceived" | "customerName" | "customerPhone" | "source" | "cancelledAt" | "cogs" | "appliedMarginPercent" | "billCount" | "customerCount" | "notes" | "status" | "reversalOfId" | "createdById" | "updatedById" | "createdAt" | "updatedAt", ExtArgs["result"]["dailySale"]>
 export type DailySaleInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
@@ -2904,6 +2965,7 @@ export type $DailySalePayload<ExtArgs extends runtime.Types.Extensions.InternalA
     source: $Enums.SaleSource
     cancelledAt: Date | null
     cogs: runtime.Decimal
+    appliedMarginPercent: runtime.Decimal
     billCount: number
     customerCount: number
     notes: string | null
@@ -3364,6 +3426,7 @@ export interface DailySaleFieldRefs {
   readonly source: Prisma.FieldRef<"DailySale", 'SaleSource'>
   readonly cancelledAt: Prisma.FieldRef<"DailySale", 'DateTime'>
   readonly cogs: Prisma.FieldRef<"DailySale", 'Decimal'>
+  readonly appliedMarginPercent: Prisma.FieldRef<"DailySale", 'Decimal'>
   readonly billCount: Prisma.FieldRef<"DailySale", 'Int'>
   readonly customerCount: Prisma.FieldRef<"DailySale", 'Int'>
   readonly notes: Prisma.FieldRef<"DailySale", 'String'>

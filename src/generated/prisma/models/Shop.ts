@@ -29,11 +29,13 @@ export type AggregateShop = {
 export type ShopAvgAggregateOutputType = {
   monthlyTarget: runtime.Decimal | null
   dailyTarget: runtime.Decimal | null
+  defaultMarginPercent: runtime.Decimal | null
 }
 
 export type ShopSumAggregateOutputType = {
   monthlyTarget: runtime.Decimal | null
   dailyTarget: runtime.Decimal | null
+  defaultMarginPercent: runtime.Decimal | null
 }
 
 export type ShopMinAggregateOutputType = {
@@ -52,6 +54,7 @@ export type ShopMinAggregateOutputType = {
   archivedAt: Date | null
   monthlyTarget: runtime.Decimal | null
   dailyTarget: runtime.Decimal | null
+  defaultMarginPercent: runtime.Decimal | null
   notes: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -73,6 +76,7 @@ export type ShopMaxAggregateOutputType = {
   archivedAt: Date | null
   monthlyTarget: runtime.Decimal | null
   dailyTarget: runtime.Decimal | null
+  defaultMarginPercent: runtime.Decimal | null
   notes: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -94,6 +98,7 @@ export type ShopCountAggregateOutputType = {
   archivedAt: number
   monthlyTarget: number
   dailyTarget: number
+  defaultMarginPercent: number
   notes: number
   createdAt: number
   updatedAt: number
@@ -104,11 +109,13 @@ export type ShopCountAggregateOutputType = {
 export type ShopAvgAggregateInputType = {
   monthlyTarget?: true
   dailyTarget?: true
+  defaultMarginPercent?: true
 }
 
 export type ShopSumAggregateInputType = {
   monthlyTarget?: true
   dailyTarget?: true
+  defaultMarginPercent?: true
 }
 
 export type ShopMinAggregateInputType = {
@@ -127,6 +134,7 @@ export type ShopMinAggregateInputType = {
   archivedAt?: true
   monthlyTarget?: true
   dailyTarget?: true
+  defaultMarginPercent?: true
   notes?: true
   createdAt?: true
   updatedAt?: true
@@ -148,6 +156,7 @@ export type ShopMaxAggregateInputType = {
   archivedAt?: true
   monthlyTarget?: true
   dailyTarget?: true
+  defaultMarginPercent?: true
   notes?: true
   createdAt?: true
   updatedAt?: true
@@ -169,6 +178,7 @@ export type ShopCountAggregateInputType = {
   archivedAt?: true
   monthlyTarget?: true
   dailyTarget?: true
+  defaultMarginPercent?: true
   notes?: true
   createdAt?: true
   updatedAt?: true
@@ -277,6 +287,7 @@ export type ShopGroupByOutputType = {
   archivedAt: Date | null
   monthlyTarget: runtime.Decimal | null
   dailyTarget: runtime.Decimal | null
+  defaultMarginPercent: runtime.Decimal
   notes: string | null
   createdAt: Date
   updatedAt: Date
@@ -321,6 +332,7 @@ export type ShopWhereInput = {
   archivedAt?: Prisma.DateTimeNullableFilter<"Shop"> | Date | string | null
   monthlyTarget?: Prisma.DecimalNullableFilter<"Shop"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.DecimalNullableFilter<"Shop"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: Prisma.DecimalFilter<"Shop"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.StringNullableFilter<"Shop"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Shop"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Shop"> | Date | string
@@ -354,6 +366,7 @@ export type ShopOrderByWithRelationInput = {
   archivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   monthlyTarget?: Prisma.SortOrderInput | Prisma.SortOrder
   dailyTarget?: Prisma.SortOrderInput | Prisma.SortOrder
+  defaultMarginPercent?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -392,6 +405,7 @@ export type ShopWhereUniqueInput = Prisma.AtLeast<{
   archivedAt?: Prisma.DateTimeNullableFilter<"Shop"> | Date | string | null
   monthlyTarget?: Prisma.DecimalNullableFilter<"Shop"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.DecimalNullableFilter<"Shop"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: Prisma.DecimalFilter<"Shop"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.StringNullableFilter<"Shop"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Shop"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Shop"> | Date | string
@@ -425,6 +439,7 @@ export type ShopOrderByWithAggregationInput = {
   archivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   monthlyTarget?: Prisma.SortOrderInput | Prisma.SortOrder
   dailyTarget?: Prisma.SortOrderInput | Prisma.SortOrder
+  defaultMarginPercent?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -454,6 +469,7 @@ export type ShopScalarWhereWithAggregatesInput = {
   archivedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Shop"> | Date | string | null
   monthlyTarget?: Prisma.DecimalNullableWithAggregatesFilter<"Shop"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.DecimalNullableWithAggregatesFilter<"Shop"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: Prisma.DecimalWithAggregatesFilter<"Shop"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.StringNullableWithAggregatesFilter<"Shop"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Shop"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Shop"> | Date | string
@@ -474,6 +490,7 @@ export type ShopCreateInput = {
   archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -507,6 +524,7 @@ export type ShopUncheckedCreateInput = {
   archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -538,6 +556,7 @@ export type ShopUpdateInput = {
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -571,6 +590,7 @@ export type ShopUncheckedUpdateInput = {
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -603,6 +623,7 @@ export type ShopCreateManyInput = {
   archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -623,6 +644,7 @@ export type ShopUpdateManyMutationInput = {
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -644,6 +666,7 @@ export type ShopUncheckedUpdateManyInput = {
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -685,6 +708,7 @@ export type ShopCountOrderByAggregateInput = {
   archivedAt?: Prisma.SortOrder
   monthlyTarget?: Prisma.SortOrder
   dailyTarget?: Prisma.SortOrder
+  defaultMarginPercent?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -693,6 +717,7 @@ export type ShopCountOrderByAggregateInput = {
 export type ShopAvgOrderByAggregateInput = {
   monthlyTarget?: Prisma.SortOrder
   dailyTarget?: Prisma.SortOrder
+  defaultMarginPercent?: Prisma.SortOrder
 }
 
 export type ShopMaxOrderByAggregateInput = {
@@ -711,6 +736,7 @@ export type ShopMaxOrderByAggregateInput = {
   archivedAt?: Prisma.SortOrder
   monthlyTarget?: Prisma.SortOrder
   dailyTarget?: Prisma.SortOrder
+  defaultMarginPercent?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -732,6 +758,7 @@ export type ShopMinOrderByAggregateInput = {
   archivedAt?: Prisma.SortOrder
   monthlyTarget?: Prisma.SortOrder
   dailyTarget?: Prisma.SortOrder
+  defaultMarginPercent?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -740,6 +767,7 @@ export type ShopMinOrderByAggregateInput = {
 export type ShopSumOrderByAggregateInput = {
   monthlyTarget?: Prisma.SortOrder
   dailyTarget?: Prisma.SortOrder
+  defaultMarginPercent?: Prisma.SortOrder
 }
 
 export type ShopScalarRelationFilter = {
@@ -800,6 +828,14 @@ export type NullableDateTimeFieldUpdateOperationsInput = {
 
 export type NullableDecimalFieldUpdateOperationsInput = {
   set?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
+}
+
+export type DecimalFieldUpdateOperationsInput = {
+  set?: runtime.Decimal | runtime.DecimalJsLike | number | string
   increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
   decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
   multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -987,6 +1023,7 @@ export type ShopCreateWithoutBusinessInput = {
   archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1018,6 +1055,7 @@ export type ShopUncheckedCreateWithoutBusinessInput = {
   archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1079,6 +1117,7 @@ export type ShopScalarWhereInput = {
   archivedAt?: Prisma.DateTimeNullableFilter<"Shop"> | Date | string | null
   monthlyTarget?: Prisma.DecimalNullableFilter<"Shop"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.DecimalNullableFilter<"Shop"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: Prisma.DecimalFilter<"Shop"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.StringNullableFilter<"Shop"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Shop"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Shop"> | Date | string
@@ -1099,6 +1138,7 @@ export type ShopCreateWithoutAccessInput = {
   archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1131,6 +1171,7 @@ export type ShopUncheckedCreateWithoutAccessInput = {
   archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1177,6 +1218,7 @@ export type ShopUpdateWithoutAccessInput = {
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1209,6 +1251,7 @@ export type ShopUncheckedUpdateWithoutAccessInput = {
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1239,6 +1282,7 @@ export type ShopCreateWithoutSalesInput = {
   archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1271,6 +1315,7 @@ export type ShopUncheckedCreateWithoutSalesInput = {
   archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1317,6 +1362,7 @@ export type ShopUpdateWithoutSalesInput = {
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1349,6 +1395,7 @@ export type ShopUncheckedUpdateWithoutSalesInput = {
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1379,6 +1426,7 @@ export type ShopCreateWithoutCategorySalesInput = {
   archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1411,6 +1459,7 @@ export type ShopUncheckedCreateWithoutCategorySalesInput = {
   archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1457,6 +1506,7 @@ export type ShopUpdateWithoutCategorySalesInput = {
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1489,6 +1539,7 @@ export type ShopUncheckedUpdateWithoutCategorySalesInput = {
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1519,6 +1570,7 @@ export type ShopCreateWithoutExpensesInput = {
   archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1551,6 +1603,7 @@ export type ShopUncheckedCreateWithoutExpensesInput = {
   archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1597,6 +1650,7 @@ export type ShopUpdateWithoutExpensesInput = {
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1629,6 +1683,7 @@ export type ShopUncheckedUpdateWithoutExpensesInput = {
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1659,6 +1714,7 @@ export type ShopCreateWithoutMarginsInput = {
   archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1691,6 +1747,7 @@ export type ShopUncheckedCreateWithoutMarginsInput = {
   archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1737,6 +1794,7 @@ export type ShopUpdateWithoutMarginsInput = {
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1769,6 +1827,7 @@ export type ShopUncheckedUpdateWithoutMarginsInput = {
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1799,6 +1858,7 @@ export type ShopCreateWithoutFixedCostsInput = {
   archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1831,6 +1891,7 @@ export type ShopUncheckedCreateWithoutFixedCostsInput = {
   archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1877,6 +1938,7 @@ export type ShopUpdateWithoutFixedCostsInput = {
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1909,6 +1971,7 @@ export type ShopUncheckedUpdateWithoutFixedCostsInput = {
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1939,6 +2002,7 @@ export type ShopCreateWithoutEmiPaymentsInput = {
   archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1971,6 +2035,7 @@ export type ShopUncheckedCreateWithoutEmiPaymentsInput = {
   archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2017,6 +2082,7 @@ export type ShopUpdateWithoutEmiPaymentsInput = {
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2049,6 +2115,7 @@ export type ShopUncheckedUpdateWithoutEmiPaymentsInput = {
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2079,6 +2146,7 @@ export type ShopCreateWithoutBillsInput = {
   archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2111,6 +2179,7 @@ export type ShopUncheckedCreateWithoutBillsInput = {
   archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2157,6 +2226,7 @@ export type ShopUpdateWithoutBillsInput = {
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2189,6 +2259,7 @@ export type ShopUncheckedUpdateWithoutBillsInput = {
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2219,6 +2290,7 @@ export type ShopCreateWithoutClosingsInput = {
   archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2251,6 +2323,7 @@ export type ShopUncheckedCreateWithoutClosingsInput = {
   archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2297,6 +2370,7 @@ export type ShopUpdateWithoutClosingsInput = {
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2329,6 +2403,7 @@ export type ShopUncheckedUpdateWithoutClosingsInput = {
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2359,6 +2434,7 @@ export type ShopCreateWithoutCashMovementsInput = {
   archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2391,6 +2467,7 @@ export type ShopUncheckedCreateWithoutCashMovementsInput = {
   archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2437,6 +2514,7 @@ export type ShopUpdateWithoutCashMovementsInput = {
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2469,6 +2547,7 @@ export type ShopUncheckedUpdateWithoutCashMovementsInput = {
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2499,6 +2578,7 @@ export type ShopCreateWithoutTargetsInput = {
   archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2531,6 +2611,7 @@ export type ShopUncheckedCreateWithoutTargetsInput = {
   archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2577,6 +2658,7 @@ export type ShopUpdateWithoutTargetsInput = {
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2609,6 +2691,7 @@ export type ShopUncheckedUpdateWithoutTargetsInput = {
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2639,6 +2722,7 @@ export type ShopCreateManyBusinessInput = {
   archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2659,6 +2743,7 @@ export type ShopUpdateWithoutBusinessInput = {
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2690,6 +2775,7 @@ export type ShopUncheckedUpdateWithoutBusinessInput = {
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2721,6 +2807,7 @@ export type ShopUncheckedUpdateManyWithoutBusinessInput = {
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  defaultMarginPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2863,6 +2950,7 @@ export type ShopSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   archivedAt?: boolean
   monthlyTarget?: boolean
   dailyTarget?: boolean
+  defaultMarginPercent?: boolean
   notes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -2897,6 +2985,7 @@ export type ShopSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   archivedAt?: boolean
   monthlyTarget?: boolean
   dailyTarget?: boolean
+  defaultMarginPercent?: boolean
   notes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -2919,6 +3008,7 @@ export type ShopSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   archivedAt?: boolean
   monthlyTarget?: boolean
   dailyTarget?: boolean
+  defaultMarginPercent?: boolean
   notes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -2941,12 +3031,13 @@ export type ShopSelectScalar = {
   archivedAt?: boolean
   monthlyTarget?: boolean
   dailyTarget?: boolean
+  defaultMarginPercent?: boolean
   notes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ShopOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "name" | "code" | "branch" | "address" | "city" | "state" | "managerName" | "contactNumber" | "openingDate" | "status" | "archivedAt" | "monthlyTarget" | "dailyTarget" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["shop"]>
+export type ShopOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "name" | "code" | "branch" | "address" | "city" | "state" | "managerName" | "contactNumber" | "openingDate" | "status" | "archivedAt" | "monthlyTarget" | "dailyTarget" | "defaultMarginPercent" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["shop"]>
 export type ShopInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   access?: boolean | Prisma.Shop$accessArgs<ExtArgs>
@@ -3001,6 +3092,7 @@ export type $ShopPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     archivedAt: Date | null
     monthlyTarget: runtime.Decimal | null
     dailyTarget: runtime.Decimal | null
+    defaultMarginPercent: runtime.Decimal
     notes: string | null
     createdAt: Date
     updatedAt: Date
@@ -3454,6 +3546,7 @@ export interface ShopFieldRefs {
   readonly archivedAt: Prisma.FieldRef<"Shop", 'DateTime'>
   readonly monthlyTarget: Prisma.FieldRef<"Shop", 'Decimal'>
   readonly dailyTarget: Prisma.FieldRef<"Shop", 'Decimal'>
+  readonly defaultMarginPercent: Prisma.FieldRef<"Shop", 'Decimal'>
   readonly notes: Prisma.FieldRef<"Shop", 'String'>
   readonly createdAt: Prisma.FieldRef<"Shop", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Shop", 'DateTime'>
