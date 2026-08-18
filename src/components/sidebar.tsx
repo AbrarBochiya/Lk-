@@ -3,15 +3,15 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { LayoutDashboard, ShoppingBag, Store, Package, ReceiptIndianRupee, TrendingUp, Truck, FileText, WalletCards, BookOpenText, CircleDollarSign, ClipboardCheck, ArrowLeftRight, Target, BarChart3, FolderLock, Bell, Users, ScrollText, Settings, Menu, X, Landmark } from "lucide-react";
+import { LayoutDashboard, ShoppingBag, Store, Package, ReceiptIndianRupee, TrendingUp, Truck, FileText, WalletCards, BookOpenText, CircleDollarSign, ClipboardCheck, ArrowLeftRight, Target, BarChart3, FolderLock, Bell, Users, ScrollText, Settings, Menu, X, Landmark, DatabaseBackup, CalendarClock } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const items = [
   ["Dashboard", "/dashboard", LayoutDashboard], ["Sales", "/sales", ShoppingBag], ["Shops", "/shops", Store], ["Products", "/products", Package],
-  ["Expenses", "/expenses", ReceiptIndianRupee], ["Profit & Margins", "/profit", TrendingUp], ["Suppliers", "/suppliers", Truck], ["Bills", "/bills", FileText],
+  ["Expenses", "/expenses", ReceiptIndianRupee], ["Monthly Fixed Costs", "/fixed-costs", CalendarClock], ["Loans & EMI", "/emi", Landmark], ["Profit & Margins", "/profit", TrendingUp], ["Suppliers", "/suppliers", Truck], ["Bills", "/bills", FileText],
   ["Payments", "/payments", WalletCards], ["Ledger", "/ledger", BookOpenText], ["Outstanding", "/outstanding", CircleDollarSign], ["Daily Closing", "/daily-closing", ClipboardCheck],
   ["Cash Flow", "/cash-flow", ArrowLeftRight], ["Targets", "/targets", Target], ["Reports", "/reports", BarChart3], ["Documents", "/documents", FolderLock],
-  ["Alerts", "/alerts", Bell], ["Users", "/users", Users], ["Audit Logs", "/audit-logs", ScrollText], ["Settings", "/settings", Settings],
+  ["Alerts", "/alerts", Bell], ["Users", "/users", Users], ["Audit Logs", "/audit-logs", ScrollText], ["Data & Backup", "/data-backup", DatabaseBackup], ["Settings", "/settings", Settings],
 ] as const;
 
 export function Sidebar() {

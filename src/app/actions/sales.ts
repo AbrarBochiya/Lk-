@@ -14,10 +14,19 @@ export async function createSaleAction(formData: FormData) {
   try {
     const sale = await prisma.dailySale.create({ data: { ...parsed.data, createdById: user.id, updatedById: user.id } });
     await writeAudit({ userId: user.id, action: "CREATE", module: "SALES", recordId: sale.id, newValue: parsed.data });
-    revalidatePath("/dashboard");
+    ["/sales", "/dashboard", "/reports", "/cash-flow", "/profit"].forEach(path => revalidatePath(path));
     return { ok: true };
   } catch (error) {
     if (String(error).includes("Unique constraint")) return { ok: false, error: "A sale already exists for this shop, date, and shift." };
     return { ok: false, error: "The sale could not be saved." };
   }
+}
+
+export async function cancelSaleAction(formData: FormData) {
+  const user = await requireUser(); const id = String(formData.get("id") ?? "");
+  const sale = await prisma.dailySale.findUnique({ where: { id } });
+  if (!sale || !canAccessShop(user, sale.shopId)) return;
+  await prisma.dailySale.update({ where: { id }, data: { status: "REVERSED", cancelledAt: new Date(), updatedById: user.id } });
+  await writeAudit({ userId:user.id, action:"REVERSAL", module:"SALES", recordId:id, oldValue:{ status:sale.status }, newValue:{ status:"REVERSED" } });
+  ["/sales", "/dashboard", "/reports", "/cash-flow", "/profit"].forEach(path => revalidatePath(path));
 }

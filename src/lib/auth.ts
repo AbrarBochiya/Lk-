@@ -43,5 +43,7 @@ export async function requireUser(roles?: Role[]) {
 }
 
 export function canAccessShop(user: Awaited<ReturnType<typeof requireUser>>, shopId: string) {
-  return user.role === "ADMIN" || user.shopAccess.some((access) => access.shopId === shopId);
+  return ["OWNER", "ADMIN", "ACCOUNTANT"].includes(user.role) || user.shopAccess.some((access) => access.shopId === shopId);
 }
+
+export const ADMIN_ROLES: Role[] = ["OWNER", "ADMIN"];

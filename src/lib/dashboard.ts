@@ -3,12 +3,13 @@ import { calculateProfit, calculateSale, safePercent } from "@/lib/financial";
 
 export async function getDashboardData(user: { role: string; shopAccess: Array<{ shopId: string }> }) {
   const now = new Date(); const from = new Date(now.getFullYear(), now.getMonth(), 1);
-  const shopWhere = user.role === "ADMIN" ? {} : { shopId: { in: user.shopAccess.map((a) => a.shopId) } };
+  const hasAllShops = ["OWNER", "ADMIN", "ACCOUNTANT"].includes(user.role);
+  const shopWhere = hasAllShops ? {} : { shopId: { in: user.shopAccess.map((a) => a.shopId) } };
   const [sales, expenses, bills, shopCount] = await Promise.all([
     prisma.dailySale.findMany({ where: { ...shopWhere, saleDate: { gte: from, lte: now }, status: { not: "REVERSED" } }, include: { shop: true }, orderBy: { saleDate: "asc" } }),
     prisma.expense.findMany({ where: { ...shopWhere, expenseDate: { gte: from, lte: now }, status: { not: "REVERSED" } } }),
     prisma.supplierBill.findMany({ where: { status: { in: ["UNPAID", "PARTIALLY_PAID", "OVERDUE"] } } }),
-    prisma.shop.count({ where: { status: "ACTIVE", ...(user.role === "ADMIN" ? {} : { id: { in: user.shopAccess.map((a) => a.shopId) } }) } }),
+    prisma.shop.count({ where: { status: "ACTIVE", ...(hasAllShops ? {} : { id: { in: user.shopAccess.map((a) => a.shopId) } }) } }),
   ]);
   const saleRows = sales.map((s) => ({ ...calculateSale({ cash: s.cashSales.toString(), upi: s.upiSales.toString(), card: s.cardSales.toString(), bank: s.bankSales.toString(), other: s.otherSales.toString(), returns: s.returns.toString(), cogs: s.cogs.toString() }), date: s.saleDate, shop: s.shop.name, bills: s.billCount, customers: s.customerCount }));
   const netSales = saleRows.reduce((sum, x) => sum + x.netSales, 0); const cogs = sales.reduce((sum, x) => sum + Number(x.cogs), 0);

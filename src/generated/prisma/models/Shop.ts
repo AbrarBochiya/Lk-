@@ -40,6 +40,7 @@ export type ShopMinAggregateOutputType = {
   id: string | null
   businessId: string | null
   name: string | null
+  code: string | null
   branch: string | null
   address: string | null
   city: string | null
@@ -48,6 +49,7 @@ export type ShopMinAggregateOutputType = {
   contactNumber: string | null
   openingDate: Date | null
   status: $Enums.EntityStatus | null
+  archivedAt: Date | null
   monthlyTarget: runtime.Decimal | null
   dailyTarget: runtime.Decimal | null
   notes: string | null
@@ -59,6 +61,7 @@ export type ShopMaxAggregateOutputType = {
   id: string | null
   businessId: string | null
   name: string | null
+  code: string | null
   branch: string | null
   address: string | null
   city: string | null
@@ -67,6 +70,7 @@ export type ShopMaxAggregateOutputType = {
   contactNumber: string | null
   openingDate: Date | null
   status: $Enums.EntityStatus | null
+  archivedAt: Date | null
   monthlyTarget: runtime.Decimal | null
   dailyTarget: runtime.Decimal | null
   notes: string | null
@@ -78,6 +82,7 @@ export type ShopCountAggregateOutputType = {
   id: number
   businessId: number
   name: number
+  code: number
   branch: number
   address: number
   city: number
@@ -86,6 +91,7 @@ export type ShopCountAggregateOutputType = {
   contactNumber: number
   openingDate: number
   status: number
+  archivedAt: number
   monthlyTarget: number
   dailyTarget: number
   notes: number
@@ -109,6 +115,7 @@ export type ShopMinAggregateInputType = {
   id?: true
   businessId?: true
   name?: true
+  code?: true
   branch?: true
   address?: true
   city?: true
@@ -117,6 +124,7 @@ export type ShopMinAggregateInputType = {
   contactNumber?: true
   openingDate?: true
   status?: true
+  archivedAt?: true
   monthlyTarget?: true
   dailyTarget?: true
   notes?: true
@@ -128,6 +136,7 @@ export type ShopMaxAggregateInputType = {
   id?: true
   businessId?: true
   name?: true
+  code?: true
   branch?: true
   address?: true
   city?: true
@@ -136,6 +145,7 @@ export type ShopMaxAggregateInputType = {
   contactNumber?: true
   openingDate?: true
   status?: true
+  archivedAt?: true
   monthlyTarget?: true
   dailyTarget?: true
   notes?: true
@@ -147,6 +157,7 @@ export type ShopCountAggregateInputType = {
   id?: true
   businessId?: true
   name?: true
+  code?: true
   branch?: true
   address?: true
   city?: true
@@ -155,6 +166,7 @@ export type ShopCountAggregateInputType = {
   contactNumber?: true
   openingDate?: true
   status?: true
+  archivedAt?: true
   monthlyTarget?: true
   dailyTarget?: true
   notes?: true
@@ -253,6 +265,7 @@ export type ShopGroupByOutputType = {
   id: string
   businessId: string
   name: string
+  code: string | null
   branch: string | null
   address: string | null
   city: string | null
@@ -261,6 +274,7 @@ export type ShopGroupByOutputType = {
   contactNumber: string | null
   openingDate: Date | null
   status: $Enums.EntityStatus
+  archivedAt: Date | null
   monthlyTarget: runtime.Decimal | null
   dailyTarget: runtime.Decimal | null
   notes: string | null
@@ -295,6 +309,7 @@ export type ShopWhereInput = {
   id?: Prisma.StringFilter<"Shop"> | string
   businessId?: Prisma.StringFilter<"Shop"> | string
   name?: Prisma.StringFilter<"Shop"> | string
+  code?: Prisma.StringNullableFilter<"Shop"> | string | null
   branch?: Prisma.StringNullableFilter<"Shop"> | string | null
   address?: Prisma.StringNullableFilter<"Shop"> | string | null
   city?: Prisma.StringNullableFilter<"Shop"> | string | null
@@ -303,6 +318,7 @@ export type ShopWhereInput = {
   contactNumber?: Prisma.StringNullableFilter<"Shop"> | string | null
   openingDate?: Prisma.DateTimeNullableFilter<"Shop"> | Date | string | null
   status?: Prisma.EnumEntityStatusFilter<"Shop"> | $Enums.EntityStatus
+  archivedAt?: Prisma.DateTimeNullableFilter<"Shop"> | Date | string | null
   monthlyTarget?: Prisma.DecimalNullableFilter<"Shop"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.DecimalNullableFilter<"Shop"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.StringNullableFilter<"Shop"> | string | null
@@ -317,12 +333,16 @@ export type ShopWhereInput = {
   targets?: Prisma.ShopTargetListRelationFilter
   categorySales?: Prisma.DailyCategorySaleListRelationFilter
   cashMovements?: Prisma.CashMovementListRelationFilter
+  margins?: Prisma.ShopMarginListRelationFilter
+  fixedCosts?: Prisma.MonthlyFixedCostListRelationFilter
+  emiPayments?: Prisma.EmiPaymentListRelationFilter
 }
 
 export type ShopOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   businessId?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  code?: Prisma.SortOrderInput | Prisma.SortOrder
   branch?: Prisma.SortOrderInput | Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
   city?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -331,6 +351,7 @@ export type ShopOrderByWithRelationInput = {
   contactNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   openingDate?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   monthlyTarget?: Prisma.SortOrderInput | Prisma.SortOrder
   dailyTarget?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -345,16 +366,21 @@ export type ShopOrderByWithRelationInput = {
   targets?: Prisma.ShopTargetOrderByRelationAggregateInput
   categorySales?: Prisma.DailyCategorySaleOrderByRelationAggregateInput
   cashMovements?: Prisma.CashMovementOrderByRelationAggregateInput
+  margins?: Prisma.ShopMarginOrderByRelationAggregateInput
+  fixedCosts?: Prisma.MonthlyFixedCostOrderByRelationAggregateInput
+  emiPayments?: Prisma.EmiPaymentOrderByRelationAggregateInput
 }
 
 export type ShopWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   businessId_name?: Prisma.ShopBusinessIdNameCompoundUniqueInput
+  businessId_code?: Prisma.ShopBusinessIdCodeCompoundUniqueInput
   AND?: Prisma.ShopWhereInput | Prisma.ShopWhereInput[]
   OR?: Prisma.ShopWhereInput[]
   NOT?: Prisma.ShopWhereInput | Prisma.ShopWhereInput[]
   businessId?: Prisma.StringFilter<"Shop"> | string
   name?: Prisma.StringFilter<"Shop"> | string
+  code?: Prisma.StringNullableFilter<"Shop"> | string | null
   branch?: Prisma.StringNullableFilter<"Shop"> | string | null
   address?: Prisma.StringNullableFilter<"Shop"> | string | null
   city?: Prisma.StringNullableFilter<"Shop"> | string | null
@@ -363,6 +389,7 @@ export type ShopWhereUniqueInput = Prisma.AtLeast<{
   contactNumber?: Prisma.StringNullableFilter<"Shop"> | string | null
   openingDate?: Prisma.DateTimeNullableFilter<"Shop"> | Date | string | null
   status?: Prisma.EnumEntityStatusFilter<"Shop"> | $Enums.EntityStatus
+  archivedAt?: Prisma.DateTimeNullableFilter<"Shop"> | Date | string | null
   monthlyTarget?: Prisma.DecimalNullableFilter<"Shop"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.DecimalNullableFilter<"Shop"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.StringNullableFilter<"Shop"> | string | null
@@ -377,12 +404,16 @@ export type ShopWhereUniqueInput = Prisma.AtLeast<{
   targets?: Prisma.ShopTargetListRelationFilter
   categorySales?: Prisma.DailyCategorySaleListRelationFilter
   cashMovements?: Prisma.CashMovementListRelationFilter
-}, "id" | "businessId_name">
+  margins?: Prisma.ShopMarginListRelationFilter
+  fixedCosts?: Prisma.MonthlyFixedCostListRelationFilter
+  emiPayments?: Prisma.EmiPaymentListRelationFilter
+}, "id" | "businessId_name" | "businessId_code">
 
 export type ShopOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   businessId?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  code?: Prisma.SortOrderInput | Prisma.SortOrder
   branch?: Prisma.SortOrderInput | Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
   city?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -391,6 +422,7 @@ export type ShopOrderByWithAggregationInput = {
   contactNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   openingDate?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   monthlyTarget?: Prisma.SortOrderInput | Prisma.SortOrder
   dailyTarget?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -410,6 +442,7 @@ export type ShopScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Shop"> | string
   businessId?: Prisma.StringWithAggregatesFilter<"Shop"> | string
   name?: Prisma.StringWithAggregatesFilter<"Shop"> | string
+  code?: Prisma.StringNullableWithAggregatesFilter<"Shop"> | string | null
   branch?: Prisma.StringNullableWithAggregatesFilter<"Shop"> | string | null
   address?: Prisma.StringNullableWithAggregatesFilter<"Shop"> | string | null
   city?: Prisma.StringNullableWithAggregatesFilter<"Shop"> | string | null
@@ -418,6 +451,7 @@ export type ShopScalarWhereWithAggregatesInput = {
   contactNumber?: Prisma.StringNullableWithAggregatesFilter<"Shop"> | string | null
   openingDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Shop"> | Date | string | null
   status?: Prisma.EnumEntityStatusWithAggregatesFilter<"Shop"> | $Enums.EntityStatus
+  archivedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Shop"> | Date | string | null
   monthlyTarget?: Prisma.DecimalNullableWithAggregatesFilter<"Shop"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.DecimalNullableWithAggregatesFilter<"Shop"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.StringNullableWithAggregatesFilter<"Shop"> | string | null
@@ -428,6 +462,7 @@ export type ShopScalarWhereWithAggregatesInput = {
 export type ShopCreateInput = {
   id?: string
   name: string
+  code?: string | null
   branch?: string | null
   address?: string | null
   city?: string | null
@@ -436,6 +471,7 @@ export type ShopCreateInput = {
   contactNumber?: string | null
   openingDate?: Date | string | null
   status?: $Enums.EntityStatus
+  archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
@@ -450,12 +486,16 @@ export type ShopCreateInput = {
   targets?: Prisma.ShopTargetCreateNestedManyWithoutShopInput
   categorySales?: Prisma.DailyCategorySaleCreateNestedManyWithoutShopInput
   cashMovements?: Prisma.CashMovementCreateNestedManyWithoutShopInput
+  margins?: Prisma.ShopMarginCreateNestedManyWithoutShopInput
+  fixedCosts?: Prisma.MonthlyFixedCostCreateNestedManyWithoutShopInput
+  emiPayments?: Prisma.EmiPaymentCreateNestedManyWithoutShopInput
 }
 
 export type ShopUncheckedCreateInput = {
   id?: string
   businessId: string
   name: string
+  code?: string | null
   branch?: string | null
   address?: string | null
   city?: string | null
@@ -464,6 +504,7 @@ export type ShopUncheckedCreateInput = {
   contactNumber?: string | null
   openingDate?: Date | string | null
   status?: $Enums.EntityStatus
+  archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
@@ -477,11 +518,15 @@ export type ShopUncheckedCreateInput = {
   targets?: Prisma.ShopTargetUncheckedCreateNestedManyWithoutShopInput
   categorySales?: Prisma.DailyCategorySaleUncheckedCreateNestedManyWithoutShopInput
   cashMovements?: Prisma.CashMovementUncheckedCreateNestedManyWithoutShopInput
+  margins?: Prisma.ShopMarginUncheckedCreateNestedManyWithoutShopInput
+  fixedCosts?: Prisma.MonthlyFixedCostUncheckedCreateNestedManyWithoutShopInput
+  emiPayments?: Prisma.EmiPaymentUncheckedCreateNestedManyWithoutShopInput
 }
 
 export type ShopUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   branch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -490,6 +535,7 @@ export type ShopUpdateInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   openingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -504,12 +550,16 @@ export type ShopUpdateInput = {
   targets?: Prisma.ShopTargetUpdateManyWithoutShopNestedInput
   categorySales?: Prisma.DailyCategorySaleUpdateManyWithoutShopNestedInput
   cashMovements?: Prisma.CashMovementUpdateManyWithoutShopNestedInput
+  margins?: Prisma.ShopMarginUpdateManyWithoutShopNestedInput
+  fixedCosts?: Prisma.MonthlyFixedCostUpdateManyWithoutShopNestedInput
+  emiPayments?: Prisma.EmiPaymentUpdateManyWithoutShopNestedInput
 }
 
 export type ShopUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   branch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -518,6 +568,7 @@ export type ShopUncheckedUpdateInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   openingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -531,12 +582,16 @@ export type ShopUncheckedUpdateInput = {
   targets?: Prisma.ShopTargetUncheckedUpdateManyWithoutShopNestedInput
   categorySales?: Prisma.DailyCategorySaleUncheckedUpdateManyWithoutShopNestedInput
   cashMovements?: Prisma.CashMovementUncheckedUpdateManyWithoutShopNestedInput
+  margins?: Prisma.ShopMarginUncheckedUpdateManyWithoutShopNestedInput
+  fixedCosts?: Prisma.MonthlyFixedCostUncheckedUpdateManyWithoutShopNestedInput
+  emiPayments?: Prisma.EmiPaymentUncheckedUpdateManyWithoutShopNestedInput
 }
 
 export type ShopCreateManyInput = {
   id?: string
   businessId: string
   name: string
+  code?: string | null
   branch?: string | null
   address?: string | null
   city?: string | null
@@ -545,6 +600,7 @@ export type ShopCreateManyInput = {
   contactNumber?: string | null
   openingDate?: Date | string | null
   status?: $Enums.EntityStatus
+  archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
@@ -555,6 +611,7 @@ export type ShopCreateManyInput = {
 export type ShopUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   branch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -563,6 +620,7 @@ export type ShopUpdateManyMutationInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   openingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -574,6 +632,7 @@ export type ShopUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   branch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -582,6 +641,7 @@ export type ShopUncheckedUpdateManyInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   openingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -604,10 +664,16 @@ export type ShopBusinessIdNameCompoundUniqueInput = {
   name: string
 }
 
+export type ShopBusinessIdCodeCompoundUniqueInput = {
+  businessId: string
+  code: string
+}
+
 export type ShopCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   businessId?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  code?: Prisma.SortOrder
   branch?: Prisma.SortOrder
   address?: Prisma.SortOrder
   city?: Prisma.SortOrder
@@ -616,6 +682,7 @@ export type ShopCountOrderByAggregateInput = {
   contactNumber?: Prisma.SortOrder
   openingDate?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrder
   monthlyTarget?: Prisma.SortOrder
   dailyTarget?: Prisma.SortOrder
   notes?: Prisma.SortOrder
@@ -632,6 +699,7 @@ export type ShopMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   businessId?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  code?: Prisma.SortOrder
   branch?: Prisma.SortOrder
   address?: Prisma.SortOrder
   city?: Prisma.SortOrder
@@ -640,6 +708,7 @@ export type ShopMaxOrderByAggregateInput = {
   contactNumber?: Prisma.SortOrder
   openingDate?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrder
   monthlyTarget?: Prisma.SortOrder
   dailyTarget?: Prisma.SortOrder
   notes?: Prisma.SortOrder
@@ -651,6 +720,7 @@ export type ShopMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   businessId?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  code?: Prisma.SortOrder
   branch?: Prisma.SortOrder
   address?: Prisma.SortOrder
   city?: Prisma.SortOrder
@@ -659,6 +729,7 @@ export type ShopMinOrderByAggregateInput = {
   contactNumber?: Prisma.SortOrder
   openingDate?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrder
   monthlyTarget?: Prisma.SortOrder
   dailyTarget?: Prisma.SortOrder
   notes?: Prisma.SortOrder
@@ -793,6 +864,52 @@ export type ShopUpdateOneWithoutExpensesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ShopUpdateToOneWithWhereWithoutExpensesInput, Prisma.ShopUpdateWithoutExpensesInput>, Prisma.ShopUncheckedUpdateWithoutExpensesInput>
 }
 
+export type ShopCreateNestedOneWithoutMarginsInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutMarginsInput, Prisma.ShopUncheckedCreateWithoutMarginsInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutMarginsInput
+  connect?: Prisma.ShopWhereUniqueInput
+}
+
+export type ShopUpdateOneRequiredWithoutMarginsNestedInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutMarginsInput, Prisma.ShopUncheckedCreateWithoutMarginsInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutMarginsInput
+  upsert?: Prisma.ShopUpsertWithoutMarginsInput
+  connect?: Prisma.ShopWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ShopUpdateToOneWithWhereWithoutMarginsInput, Prisma.ShopUpdateWithoutMarginsInput>, Prisma.ShopUncheckedUpdateWithoutMarginsInput>
+}
+
+export type ShopCreateNestedOneWithoutFixedCostsInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutFixedCostsInput, Prisma.ShopUncheckedCreateWithoutFixedCostsInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutFixedCostsInput
+  connect?: Prisma.ShopWhereUniqueInput
+}
+
+export type ShopUpdateOneWithoutFixedCostsNestedInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutFixedCostsInput, Prisma.ShopUncheckedCreateWithoutFixedCostsInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutFixedCostsInput
+  upsert?: Prisma.ShopUpsertWithoutFixedCostsInput
+  disconnect?: Prisma.ShopWhereInput | boolean
+  delete?: Prisma.ShopWhereInput | boolean
+  connect?: Prisma.ShopWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ShopUpdateToOneWithWhereWithoutFixedCostsInput, Prisma.ShopUpdateWithoutFixedCostsInput>, Prisma.ShopUncheckedUpdateWithoutFixedCostsInput>
+}
+
+export type ShopCreateNestedOneWithoutEmiPaymentsInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutEmiPaymentsInput, Prisma.ShopUncheckedCreateWithoutEmiPaymentsInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutEmiPaymentsInput
+  connect?: Prisma.ShopWhereUniqueInput
+}
+
+export type ShopUpdateOneWithoutEmiPaymentsNestedInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutEmiPaymentsInput, Prisma.ShopUncheckedCreateWithoutEmiPaymentsInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutEmiPaymentsInput
+  upsert?: Prisma.ShopUpsertWithoutEmiPaymentsInput
+  disconnect?: Prisma.ShopWhereInput | boolean
+  delete?: Prisma.ShopWhereInput | boolean
+  connect?: Prisma.ShopWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ShopUpdateToOneWithWhereWithoutEmiPaymentsInput, Prisma.ShopUpdateWithoutEmiPaymentsInput>, Prisma.ShopUncheckedUpdateWithoutEmiPaymentsInput>
+}
+
 export type ShopCreateNestedOneWithoutBillsInput = {
   create?: Prisma.XOR<Prisma.ShopCreateWithoutBillsInput, Prisma.ShopUncheckedCreateWithoutBillsInput>
   connectOrCreate?: Prisma.ShopCreateOrConnectWithoutBillsInput
@@ -858,6 +975,7 @@ export type ShopUpdateOneWithoutTargetsNestedInput = {
 export type ShopCreateWithoutBusinessInput = {
   id?: string
   name: string
+  code?: string | null
   branch?: string | null
   address?: string | null
   city?: string | null
@@ -866,6 +984,7 @@ export type ShopCreateWithoutBusinessInput = {
   contactNumber?: string | null
   openingDate?: Date | string | null
   status?: $Enums.EntityStatus
+  archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
@@ -879,11 +998,15 @@ export type ShopCreateWithoutBusinessInput = {
   targets?: Prisma.ShopTargetCreateNestedManyWithoutShopInput
   categorySales?: Prisma.DailyCategorySaleCreateNestedManyWithoutShopInput
   cashMovements?: Prisma.CashMovementCreateNestedManyWithoutShopInput
+  margins?: Prisma.ShopMarginCreateNestedManyWithoutShopInput
+  fixedCosts?: Prisma.MonthlyFixedCostCreateNestedManyWithoutShopInput
+  emiPayments?: Prisma.EmiPaymentCreateNestedManyWithoutShopInput
 }
 
 export type ShopUncheckedCreateWithoutBusinessInput = {
   id?: string
   name: string
+  code?: string | null
   branch?: string | null
   address?: string | null
   city?: string | null
@@ -892,6 +1015,7 @@ export type ShopUncheckedCreateWithoutBusinessInput = {
   contactNumber?: string | null
   openingDate?: Date | string | null
   status?: $Enums.EntityStatus
+  archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
@@ -905,6 +1029,9 @@ export type ShopUncheckedCreateWithoutBusinessInput = {
   targets?: Prisma.ShopTargetUncheckedCreateNestedManyWithoutShopInput
   categorySales?: Prisma.DailyCategorySaleUncheckedCreateNestedManyWithoutShopInput
   cashMovements?: Prisma.CashMovementUncheckedCreateNestedManyWithoutShopInput
+  margins?: Prisma.ShopMarginUncheckedCreateNestedManyWithoutShopInput
+  fixedCosts?: Prisma.MonthlyFixedCostUncheckedCreateNestedManyWithoutShopInput
+  emiPayments?: Prisma.EmiPaymentUncheckedCreateNestedManyWithoutShopInput
 }
 
 export type ShopCreateOrConnectWithoutBusinessInput = {
@@ -940,6 +1067,7 @@ export type ShopScalarWhereInput = {
   id?: Prisma.StringFilter<"Shop"> | string
   businessId?: Prisma.StringFilter<"Shop"> | string
   name?: Prisma.StringFilter<"Shop"> | string
+  code?: Prisma.StringNullableFilter<"Shop"> | string | null
   branch?: Prisma.StringNullableFilter<"Shop"> | string | null
   address?: Prisma.StringNullableFilter<"Shop"> | string | null
   city?: Prisma.StringNullableFilter<"Shop"> | string | null
@@ -948,6 +1076,7 @@ export type ShopScalarWhereInput = {
   contactNumber?: Prisma.StringNullableFilter<"Shop"> | string | null
   openingDate?: Prisma.DateTimeNullableFilter<"Shop"> | Date | string | null
   status?: Prisma.EnumEntityStatusFilter<"Shop"> | $Enums.EntityStatus
+  archivedAt?: Prisma.DateTimeNullableFilter<"Shop"> | Date | string | null
   monthlyTarget?: Prisma.DecimalNullableFilter<"Shop"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.DecimalNullableFilter<"Shop"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.StringNullableFilter<"Shop"> | string | null
@@ -958,6 +1087,7 @@ export type ShopScalarWhereInput = {
 export type ShopCreateWithoutAccessInput = {
   id?: string
   name: string
+  code?: string | null
   branch?: string | null
   address?: string | null
   city?: string | null
@@ -966,6 +1096,7 @@ export type ShopCreateWithoutAccessInput = {
   contactNumber?: string | null
   openingDate?: Date | string | null
   status?: $Enums.EntityStatus
+  archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
@@ -979,12 +1110,16 @@ export type ShopCreateWithoutAccessInput = {
   targets?: Prisma.ShopTargetCreateNestedManyWithoutShopInput
   categorySales?: Prisma.DailyCategorySaleCreateNestedManyWithoutShopInput
   cashMovements?: Prisma.CashMovementCreateNestedManyWithoutShopInput
+  margins?: Prisma.ShopMarginCreateNestedManyWithoutShopInput
+  fixedCosts?: Prisma.MonthlyFixedCostCreateNestedManyWithoutShopInput
+  emiPayments?: Prisma.EmiPaymentCreateNestedManyWithoutShopInput
 }
 
 export type ShopUncheckedCreateWithoutAccessInput = {
   id?: string
   businessId: string
   name: string
+  code?: string | null
   branch?: string | null
   address?: string | null
   city?: string | null
@@ -993,6 +1128,7 @@ export type ShopUncheckedCreateWithoutAccessInput = {
   contactNumber?: string | null
   openingDate?: Date | string | null
   status?: $Enums.EntityStatus
+  archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
@@ -1005,6 +1141,9 @@ export type ShopUncheckedCreateWithoutAccessInput = {
   targets?: Prisma.ShopTargetUncheckedCreateNestedManyWithoutShopInput
   categorySales?: Prisma.DailyCategorySaleUncheckedCreateNestedManyWithoutShopInput
   cashMovements?: Prisma.CashMovementUncheckedCreateNestedManyWithoutShopInput
+  margins?: Prisma.ShopMarginUncheckedCreateNestedManyWithoutShopInput
+  fixedCosts?: Prisma.MonthlyFixedCostUncheckedCreateNestedManyWithoutShopInput
+  emiPayments?: Prisma.EmiPaymentUncheckedCreateNestedManyWithoutShopInput
 }
 
 export type ShopCreateOrConnectWithoutAccessInput = {
@@ -1026,6 +1165,7 @@ export type ShopUpdateToOneWithWhereWithoutAccessInput = {
 export type ShopUpdateWithoutAccessInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   branch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1034,6 +1174,7 @@ export type ShopUpdateWithoutAccessInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   openingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1047,12 +1188,16 @@ export type ShopUpdateWithoutAccessInput = {
   targets?: Prisma.ShopTargetUpdateManyWithoutShopNestedInput
   categorySales?: Prisma.DailyCategorySaleUpdateManyWithoutShopNestedInput
   cashMovements?: Prisma.CashMovementUpdateManyWithoutShopNestedInput
+  margins?: Prisma.ShopMarginUpdateManyWithoutShopNestedInput
+  fixedCosts?: Prisma.MonthlyFixedCostUpdateManyWithoutShopNestedInput
+  emiPayments?: Prisma.EmiPaymentUpdateManyWithoutShopNestedInput
 }
 
 export type ShopUncheckedUpdateWithoutAccessInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   branch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1061,6 +1206,7 @@ export type ShopUncheckedUpdateWithoutAccessInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   openingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1073,11 +1219,15 @@ export type ShopUncheckedUpdateWithoutAccessInput = {
   targets?: Prisma.ShopTargetUncheckedUpdateManyWithoutShopNestedInput
   categorySales?: Prisma.DailyCategorySaleUncheckedUpdateManyWithoutShopNestedInput
   cashMovements?: Prisma.CashMovementUncheckedUpdateManyWithoutShopNestedInput
+  margins?: Prisma.ShopMarginUncheckedUpdateManyWithoutShopNestedInput
+  fixedCosts?: Prisma.MonthlyFixedCostUncheckedUpdateManyWithoutShopNestedInput
+  emiPayments?: Prisma.EmiPaymentUncheckedUpdateManyWithoutShopNestedInput
 }
 
 export type ShopCreateWithoutSalesInput = {
   id?: string
   name: string
+  code?: string | null
   branch?: string | null
   address?: string | null
   city?: string | null
@@ -1086,6 +1236,7 @@ export type ShopCreateWithoutSalesInput = {
   contactNumber?: string | null
   openingDate?: Date | string | null
   status?: $Enums.EntityStatus
+  archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
@@ -1099,12 +1250,16 @@ export type ShopCreateWithoutSalesInput = {
   targets?: Prisma.ShopTargetCreateNestedManyWithoutShopInput
   categorySales?: Prisma.DailyCategorySaleCreateNestedManyWithoutShopInput
   cashMovements?: Prisma.CashMovementCreateNestedManyWithoutShopInput
+  margins?: Prisma.ShopMarginCreateNestedManyWithoutShopInput
+  fixedCosts?: Prisma.MonthlyFixedCostCreateNestedManyWithoutShopInput
+  emiPayments?: Prisma.EmiPaymentCreateNestedManyWithoutShopInput
 }
 
 export type ShopUncheckedCreateWithoutSalesInput = {
   id?: string
   businessId: string
   name: string
+  code?: string | null
   branch?: string | null
   address?: string | null
   city?: string | null
@@ -1113,6 +1268,7 @@ export type ShopUncheckedCreateWithoutSalesInput = {
   contactNumber?: string | null
   openingDate?: Date | string | null
   status?: $Enums.EntityStatus
+  archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
@@ -1125,6 +1281,9 @@ export type ShopUncheckedCreateWithoutSalesInput = {
   targets?: Prisma.ShopTargetUncheckedCreateNestedManyWithoutShopInput
   categorySales?: Prisma.DailyCategorySaleUncheckedCreateNestedManyWithoutShopInput
   cashMovements?: Prisma.CashMovementUncheckedCreateNestedManyWithoutShopInput
+  margins?: Prisma.ShopMarginUncheckedCreateNestedManyWithoutShopInput
+  fixedCosts?: Prisma.MonthlyFixedCostUncheckedCreateNestedManyWithoutShopInput
+  emiPayments?: Prisma.EmiPaymentUncheckedCreateNestedManyWithoutShopInput
 }
 
 export type ShopCreateOrConnectWithoutSalesInput = {
@@ -1146,6 +1305,7 @@ export type ShopUpdateToOneWithWhereWithoutSalesInput = {
 export type ShopUpdateWithoutSalesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   branch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1154,6 +1314,7 @@ export type ShopUpdateWithoutSalesInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   openingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1167,12 +1328,16 @@ export type ShopUpdateWithoutSalesInput = {
   targets?: Prisma.ShopTargetUpdateManyWithoutShopNestedInput
   categorySales?: Prisma.DailyCategorySaleUpdateManyWithoutShopNestedInput
   cashMovements?: Prisma.CashMovementUpdateManyWithoutShopNestedInput
+  margins?: Prisma.ShopMarginUpdateManyWithoutShopNestedInput
+  fixedCosts?: Prisma.MonthlyFixedCostUpdateManyWithoutShopNestedInput
+  emiPayments?: Prisma.EmiPaymentUpdateManyWithoutShopNestedInput
 }
 
 export type ShopUncheckedUpdateWithoutSalesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   branch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1181,6 +1346,7 @@ export type ShopUncheckedUpdateWithoutSalesInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   openingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1193,11 +1359,15 @@ export type ShopUncheckedUpdateWithoutSalesInput = {
   targets?: Prisma.ShopTargetUncheckedUpdateManyWithoutShopNestedInput
   categorySales?: Prisma.DailyCategorySaleUncheckedUpdateManyWithoutShopNestedInput
   cashMovements?: Prisma.CashMovementUncheckedUpdateManyWithoutShopNestedInput
+  margins?: Prisma.ShopMarginUncheckedUpdateManyWithoutShopNestedInput
+  fixedCosts?: Prisma.MonthlyFixedCostUncheckedUpdateManyWithoutShopNestedInput
+  emiPayments?: Prisma.EmiPaymentUncheckedUpdateManyWithoutShopNestedInput
 }
 
 export type ShopCreateWithoutCategorySalesInput = {
   id?: string
   name: string
+  code?: string | null
   branch?: string | null
   address?: string | null
   city?: string | null
@@ -1206,6 +1376,7 @@ export type ShopCreateWithoutCategorySalesInput = {
   contactNumber?: string | null
   openingDate?: Date | string | null
   status?: $Enums.EntityStatus
+  archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
@@ -1219,12 +1390,16 @@ export type ShopCreateWithoutCategorySalesInput = {
   closings?: Prisma.DailyClosingCreateNestedManyWithoutShopInput
   targets?: Prisma.ShopTargetCreateNestedManyWithoutShopInput
   cashMovements?: Prisma.CashMovementCreateNestedManyWithoutShopInput
+  margins?: Prisma.ShopMarginCreateNestedManyWithoutShopInput
+  fixedCosts?: Prisma.MonthlyFixedCostCreateNestedManyWithoutShopInput
+  emiPayments?: Prisma.EmiPaymentCreateNestedManyWithoutShopInput
 }
 
 export type ShopUncheckedCreateWithoutCategorySalesInput = {
   id?: string
   businessId: string
   name: string
+  code?: string | null
   branch?: string | null
   address?: string | null
   city?: string | null
@@ -1233,6 +1408,7 @@ export type ShopUncheckedCreateWithoutCategorySalesInput = {
   contactNumber?: string | null
   openingDate?: Date | string | null
   status?: $Enums.EntityStatus
+  archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
@@ -1245,6 +1421,9 @@ export type ShopUncheckedCreateWithoutCategorySalesInput = {
   closings?: Prisma.DailyClosingUncheckedCreateNestedManyWithoutShopInput
   targets?: Prisma.ShopTargetUncheckedCreateNestedManyWithoutShopInput
   cashMovements?: Prisma.CashMovementUncheckedCreateNestedManyWithoutShopInput
+  margins?: Prisma.ShopMarginUncheckedCreateNestedManyWithoutShopInput
+  fixedCosts?: Prisma.MonthlyFixedCostUncheckedCreateNestedManyWithoutShopInput
+  emiPayments?: Prisma.EmiPaymentUncheckedCreateNestedManyWithoutShopInput
 }
 
 export type ShopCreateOrConnectWithoutCategorySalesInput = {
@@ -1266,6 +1445,7 @@ export type ShopUpdateToOneWithWhereWithoutCategorySalesInput = {
 export type ShopUpdateWithoutCategorySalesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   branch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1274,6 +1454,7 @@ export type ShopUpdateWithoutCategorySalesInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   openingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1287,12 +1468,16 @@ export type ShopUpdateWithoutCategorySalesInput = {
   closings?: Prisma.DailyClosingUpdateManyWithoutShopNestedInput
   targets?: Prisma.ShopTargetUpdateManyWithoutShopNestedInput
   cashMovements?: Prisma.CashMovementUpdateManyWithoutShopNestedInput
+  margins?: Prisma.ShopMarginUpdateManyWithoutShopNestedInput
+  fixedCosts?: Prisma.MonthlyFixedCostUpdateManyWithoutShopNestedInput
+  emiPayments?: Prisma.EmiPaymentUpdateManyWithoutShopNestedInput
 }
 
 export type ShopUncheckedUpdateWithoutCategorySalesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   branch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1301,6 +1486,7 @@ export type ShopUncheckedUpdateWithoutCategorySalesInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   openingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1313,11 +1499,15 @@ export type ShopUncheckedUpdateWithoutCategorySalesInput = {
   closings?: Prisma.DailyClosingUncheckedUpdateManyWithoutShopNestedInput
   targets?: Prisma.ShopTargetUncheckedUpdateManyWithoutShopNestedInput
   cashMovements?: Prisma.CashMovementUncheckedUpdateManyWithoutShopNestedInput
+  margins?: Prisma.ShopMarginUncheckedUpdateManyWithoutShopNestedInput
+  fixedCosts?: Prisma.MonthlyFixedCostUncheckedUpdateManyWithoutShopNestedInput
+  emiPayments?: Prisma.EmiPaymentUncheckedUpdateManyWithoutShopNestedInput
 }
 
 export type ShopCreateWithoutExpensesInput = {
   id?: string
   name: string
+  code?: string | null
   branch?: string | null
   address?: string | null
   city?: string | null
@@ -1326,6 +1516,7 @@ export type ShopCreateWithoutExpensesInput = {
   contactNumber?: string | null
   openingDate?: Date | string | null
   status?: $Enums.EntityStatus
+  archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
@@ -1339,12 +1530,16 @@ export type ShopCreateWithoutExpensesInput = {
   targets?: Prisma.ShopTargetCreateNestedManyWithoutShopInput
   categorySales?: Prisma.DailyCategorySaleCreateNestedManyWithoutShopInput
   cashMovements?: Prisma.CashMovementCreateNestedManyWithoutShopInput
+  margins?: Prisma.ShopMarginCreateNestedManyWithoutShopInput
+  fixedCosts?: Prisma.MonthlyFixedCostCreateNestedManyWithoutShopInput
+  emiPayments?: Prisma.EmiPaymentCreateNestedManyWithoutShopInput
 }
 
 export type ShopUncheckedCreateWithoutExpensesInput = {
   id?: string
   businessId: string
   name: string
+  code?: string | null
   branch?: string | null
   address?: string | null
   city?: string | null
@@ -1353,6 +1548,7 @@ export type ShopUncheckedCreateWithoutExpensesInput = {
   contactNumber?: string | null
   openingDate?: Date | string | null
   status?: $Enums.EntityStatus
+  archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
@@ -1365,6 +1561,9 @@ export type ShopUncheckedCreateWithoutExpensesInput = {
   targets?: Prisma.ShopTargetUncheckedCreateNestedManyWithoutShopInput
   categorySales?: Prisma.DailyCategorySaleUncheckedCreateNestedManyWithoutShopInput
   cashMovements?: Prisma.CashMovementUncheckedCreateNestedManyWithoutShopInput
+  margins?: Prisma.ShopMarginUncheckedCreateNestedManyWithoutShopInput
+  fixedCosts?: Prisma.MonthlyFixedCostUncheckedCreateNestedManyWithoutShopInput
+  emiPayments?: Prisma.EmiPaymentUncheckedCreateNestedManyWithoutShopInput
 }
 
 export type ShopCreateOrConnectWithoutExpensesInput = {
@@ -1386,6 +1585,7 @@ export type ShopUpdateToOneWithWhereWithoutExpensesInput = {
 export type ShopUpdateWithoutExpensesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   branch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1394,6 +1594,7 @@ export type ShopUpdateWithoutExpensesInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   openingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1407,12 +1608,16 @@ export type ShopUpdateWithoutExpensesInput = {
   targets?: Prisma.ShopTargetUpdateManyWithoutShopNestedInput
   categorySales?: Prisma.DailyCategorySaleUpdateManyWithoutShopNestedInput
   cashMovements?: Prisma.CashMovementUpdateManyWithoutShopNestedInput
+  margins?: Prisma.ShopMarginUpdateManyWithoutShopNestedInput
+  fixedCosts?: Prisma.MonthlyFixedCostUpdateManyWithoutShopNestedInput
+  emiPayments?: Prisma.EmiPaymentUpdateManyWithoutShopNestedInput
 }
 
 export type ShopUncheckedUpdateWithoutExpensesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   branch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1421,6 +1626,7 @@ export type ShopUncheckedUpdateWithoutExpensesInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   openingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1433,11 +1639,15 @@ export type ShopUncheckedUpdateWithoutExpensesInput = {
   targets?: Prisma.ShopTargetUncheckedUpdateManyWithoutShopNestedInput
   categorySales?: Prisma.DailyCategorySaleUncheckedUpdateManyWithoutShopNestedInput
   cashMovements?: Prisma.CashMovementUncheckedUpdateManyWithoutShopNestedInput
+  margins?: Prisma.ShopMarginUncheckedUpdateManyWithoutShopNestedInput
+  fixedCosts?: Prisma.MonthlyFixedCostUncheckedUpdateManyWithoutShopNestedInput
+  emiPayments?: Prisma.EmiPaymentUncheckedUpdateManyWithoutShopNestedInput
 }
 
-export type ShopCreateWithoutBillsInput = {
+export type ShopCreateWithoutMarginsInput = {
   id?: string
   name: string
+  code?: string | null
   branch?: string | null
   address?: string | null
   city?: string | null
@@ -1446,6 +1656,427 @@ export type ShopCreateWithoutBillsInput = {
   contactNumber?: string | null
   openingDate?: Date | string | null
   status?: $Enums.EntityStatus
+  archivedAt?: Date | string | null
+  monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  business: Prisma.BusinessCreateNestedOneWithoutShopsInput
+  access?: Prisma.UserShopAccessCreateNestedManyWithoutShopInput
+  sales?: Prisma.DailySaleCreateNestedManyWithoutShopInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutShopInput
+  bills?: Prisma.SupplierBillCreateNestedManyWithoutShopInput
+  closings?: Prisma.DailyClosingCreateNestedManyWithoutShopInput
+  targets?: Prisma.ShopTargetCreateNestedManyWithoutShopInput
+  categorySales?: Prisma.DailyCategorySaleCreateNestedManyWithoutShopInput
+  cashMovements?: Prisma.CashMovementCreateNestedManyWithoutShopInput
+  fixedCosts?: Prisma.MonthlyFixedCostCreateNestedManyWithoutShopInput
+  emiPayments?: Prisma.EmiPaymentCreateNestedManyWithoutShopInput
+}
+
+export type ShopUncheckedCreateWithoutMarginsInput = {
+  id?: string
+  businessId: string
+  name: string
+  code?: string | null
+  branch?: string | null
+  address?: string | null
+  city?: string | null
+  state?: string | null
+  managerName?: string | null
+  contactNumber?: string | null
+  openingDate?: Date | string | null
+  status?: $Enums.EntityStatus
+  archivedAt?: Date | string | null
+  monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  access?: Prisma.UserShopAccessUncheckedCreateNestedManyWithoutShopInput
+  sales?: Prisma.DailySaleUncheckedCreateNestedManyWithoutShopInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutShopInput
+  bills?: Prisma.SupplierBillUncheckedCreateNestedManyWithoutShopInput
+  closings?: Prisma.DailyClosingUncheckedCreateNestedManyWithoutShopInput
+  targets?: Prisma.ShopTargetUncheckedCreateNestedManyWithoutShopInput
+  categorySales?: Prisma.DailyCategorySaleUncheckedCreateNestedManyWithoutShopInput
+  cashMovements?: Prisma.CashMovementUncheckedCreateNestedManyWithoutShopInput
+  fixedCosts?: Prisma.MonthlyFixedCostUncheckedCreateNestedManyWithoutShopInput
+  emiPayments?: Prisma.EmiPaymentUncheckedCreateNestedManyWithoutShopInput
+}
+
+export type ShopCreateOrConnectWithoutMarginsInput = {
+  where: Prisma.ShopWhereUniqueInput
+  create: Prisma.XOR<Prisma.ShopCreateWithoutMarginsInput, Prisma.ShopUncheckedCreateWithoutMarginsInput>
+}
+
+export type ShopUpsertWithoutMarginsInput = {
+  update: Prisma.XOR<Prisma.ShopUpdateWithoutMarginsInput, Prisma.ShopUncheckedUpdateWithoutMarginsInput>
+  create: Prisma.XOR<Prisma.ShopCreateWithoutMarginsInput, Prisma.ShopUncheckedCreateWithoutMarginsInput>
+  where?: Prisma.ShopWhereInput
+}
+
+export type ShopUpdateToOneWithWhereWithoutMarginsInput = {
+  where?: Prisma.ShopWhereInput
+  data: Prisma.XOR<Prisma.ShopUpdateWithoutMarginsInput, Prisma.ShopUncheckedUpdateWithoutMarginsInput>
+}
+
+export type ShopUpdateWithoutMarginsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  branch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  business?: Prisma.BusinessUpdateOneRequiredWithoutShopsNestedInput
+  access?: Prisma.UserShopAccessUpdateManyWithoutShopNestedInput
+  sales?: Prisma.DailySaleUpdateManyWithoutShopNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutShopNestedInput
+  bills?: Prisma.SupplierBillUpdateManyWithoutShopNestedInput
+  closings?: Prisma.DailyClosingUpdateManyWithoutShopNestedInput
+  targets?: Prisma.ShopTargetUpdateManyWithoutShopNestedInput
+  categorySales?: Prisma.DailyCategorySaleUpdateManyWithoutShopNestedInput
+  cashMovements?: Prisma.CashMovementUpdateManyWithoutShopNestedInput
+  fixedCosts?: Prisma.MonthlyFixedCostUpdateManyWithoutShopNestedInput
+  emiPayments?: Prisma.EmiPaymentUpdateManyWithoutShopNestedInput
+}
+
+export type ShopUncheckedUpdateWithoutMarginsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  branch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  access?: Prisma.UserShopAccessUncheckedUpdateManyWithoutShopNestedInput
+  sales?: Prisma.DailySaleUncheckedUpdateManyWithoutShopNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutShopNestedInput
+  bills?: Prisma.SupplierBillUncheckedUpdateManyWithoutShopNestedInput
+  closings?: Prisma.DailyClosingUncheckedUpdateManyWithoutShopNestedInput
+  targets?: Prisma.ShopTargetUncheckedUpdateManyWithoutShopNestedInput
+  categorySales?: Prisma.DailyCategorySaleUncheckedUpdateManyWithoutShopNestedInput
+  cashMovements?: Prisma.CashMovementUncheckedUpdateManyWithoutShopNestedInput
+  fixedCosts?: Prisma.MonthlyFixedCostUncheckedUpdateManyWithoutShopNestedInput
+  emiPayments?: Prisma.EmiPaymentUncheckedUpdateManyWithoutShopNestedInput
+}
+
+export type ShopCreateWithoutFixedCostsInput = {
+  id?: string
+  name: string
+  code?: string | null
+  branch?: string | null
+  address?: string | null
+  city?: string | null
+  state?: string | null
+  managerName?: string | null
+  contactNumber?: string | null
+  openingDate?: Date | string | null
+  status?: $Enums.EntityStatus
+  archivedAt?: Date | string | null
+  monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  business: Prisma.BusinessCreateNestedOneWithoutShopsInput
+  access?: Prisma.UserShopAccessCreateNestedManyWithoutShopInput
+  sales?: Prisma.DailySaleCreateNestedManyWithoutShopInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutShopInput
+  bills?: Prisma.SupplierBillCreateNestedManyWithoutShopInput
+  closings?: Prisma.DailyClosingCreateNestedManyWithoutShopInput
+  targets?: Prisma.ShopTargetCreateNestedManyWithoutShopInput
+  categorySales?: Prisma.DailyCategorySaleCreateNestedManyWithoutShopInput
+  cashMovements?: Prisma.CashMovementCreateNestedManyWithoutShopInput
+  margins?: Prisma.ShopMarginCreateNestedManyWithoutShopInput
+  emiPayments?: Prisma.EmiPaymentCreateNestedManyWithoutShopInput
+}
+
+export type ShopUncheckedCreateWithoutFixedCostsInput = {
+  id?: string
+  businessId: string
+  name: string
+  code?: string | null
+  branch?: string | null
+  address?: string | null
+  city?: string | null
+  state?: string | null
+  managerName?: string | null
+  contactNumber?: string | null
+  openingDate?: Date | string | null
+  status?: $Enums.EntityStatus
+  archivedAt?: Date | string | null
+  monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  access?: Prisma.UserShopAccessUncheckedCreateNestedManyWithoutShopInput
+  sales?: Prisma.DailySaleUncheckedCreateNestedManyWithoutShopInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutShopInput
+  bills?: Prisma.SupplierBillUncheckedCreateNestedManyWithoutShopInput
+  closings?: Prisma.DailyClosingUncheckedCreateNestedManyWithoutShopInput
+  targets?: Prisma.ShopTargetUncheckedCreateNestedManyWithoutShopInput
+  categorySales?: Prisma.DailyCategorySaleUncheckedCreateNestedManyWithoutShopInput
+  cashMovements?: Prisma.CashMovementUncheckedCreateNestedManyWithoutShopInput
+  margins?: Prisma.ShopMarginUncheckedCreateNestedManyWithoutShopInput
+  emiPayments?: Prisma.EmiPaymentUncheckedCreateNestedManyWithoutShopInput
+}
+
+export type ShopCreateOrConnectWithoutFixedCostsInput = {
+  where: Prisma.ShopWhereUniqueInput
+  create: Prisma.XOR<Prisma.ShopCreateWithoutFixedCostsInput, Prisma.ShopUncheckedCreateWithoutFixedCostsInput>
+}
+
+export type ShopUpsertWithoutFixedCostsInput = {
+  update: Prisma.XOR<Prisma.ShopUpdateWithoutFixedCostsInput, Prisma.ShopUncheckedUpdateWithoutFixedCostsInput>
+  create: Prisma.XOR<Prisma.ShopCreateWithoutFixedCostsInput, Prisma.ShopUncheckedCreateWithoutFixedCostsInput>
+  where?: Prisma.ShopWhereInput
+}
+
+export type ShopUpdateToOneWithWhereWithoutFixedCostsInput = {
+  where?: Prisma.ShopWhereInput
+  data: Prisma.XOR<Prisma.ShopUpdateWithoutFixedCostsInput, Prisma.ShopUncheckedUpdateWithoutFixedCostsInput>
+}
+
+export type ShopUpdateWithoutFixedCostsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  branch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  business?: Prisma.BusinessUpdateOneRequiredWithoutShopsNestedInput
+  access?: Prisma.UserShopAccessUpdateManyWithoutShopNestedInput
+  sales?: Prisma.DailySaleUpdateManyWithoutShopNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutShopNestedInput
+  bills?: Prisma.SupplierBillUpdateManyWithoutShopNestedInput
+  closings?: Prisma.DailyClosingUpdateManyWithoutShopNestedInput
+  targets?: Prisma.ShopTargetUpdateManyWithoutShopNestedInput
+  categorySales?: Prisma.DailyCategorySaleUpdateManyWithoutShopNestedInput
+  cashMovements?: Prisma.CashMovementUpdateManyWithoutShopNestedInput
+  margins?: Prisma.ShopMarginUpdateManyWithoutShopNestedInput
+  emiPayments?: Prisma.EmiPaymentUpdateManyWithoutShopNestedInput
+}
+
+export type ShopUncheckedUpdateWithoutFixedCostsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  branch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  access?: Prisma.UserShopAccessUncheckedUpdateManyWithoutShopNestedInput
+  sales?: Prisma.DailySaleUncheckedUpdateManyWithoutShopNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutShopNestedInput
+  bills?: Prisma.SupplierBillUncheckedUpdateManyWithoutShopNestedInput
+  closings?: Prisma.DailyClosingUncheckedUpdateManyWithoutShopNestedInput
+  targets?: Prisma.ShopTargetUncheckedUpdateManyWithoutShopNestedInput
+  categorySales?: Prisma.DailyCategorySaleUncheckedUpdateManyWithoutShopNestedInput
+  cashMovements?: Prisma.CashMovementUncheckedUpdateManyWithoutShopNestedInput
+  margins?: Prisma.ShopMarginUncheckedUpdateManyWithoutShopNestedInput
+  emiPayments?: Prisma.EmiPaymentUncheckedUpdateManyWithoutShopNestedInput
+}
+
+export type ShopCreateWithoutEmiPaymentsInput = {
+  id?: string
+  name: string
+  code?: string | null
+  branch?: string | null
+  address?: string | null
+  city?: string | null
+  state?: string | null
+  managerName?: string | null
+  contactNumber?: string | null
+  openingDate?: Date | string | null
+  status?: $Enums.EntityStatus
+  archivedAt?: Date | string | null
+  monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  business: Prisma.BusinessCreateNestedOneWithoutShopsInput
+  access?: Prisma.UserShopAccessCreateNestedManyWithoutShopInput
+  sales?: Prisma.DailySaleCreateNestedManyWithoutShopInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutShopInput
+  bills?: Prisma.SupplierBillCreateNestedManyWithoutShopInput
+  closings?: Prisma.DailyClosingCreateNestedManyWithoutShopInput
+  targets?: Prisma.ShopTargetCreateNestedManyWithoutShopInput
+  categorySales?: Prisma.DailyCategorySaleCreateNestedManyWithoutShopInput
+  cashMovements?: Prisma.CashMovementCreateNestedManyWithoutShopInput
+  margins?: Prisma.ShopMarginCreateNestedManyWithoutShopInput
+  fixedCosts?: Prisma.MonthlyFixedCostCreateNestedManyWithoutShopInput
+}
+
+export type ShopUncheckedCreateWithoutEmiPaymentsInput = {
+  id?: string
+  businessId: string
+  name: string
+  code?: string | null
+  branch?: string | null
+  address?: string | null
+  city?: string | null
+  state?: string | null
+  managerName?: string | null
+  contactNumber?: string | null
+  openingDate?: Date | string | null
+  status?: $Enums.EntityStatus
+  archivedAt?: Date | string | null
+  monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  access?: Prisma.UserShopAccessUncheckedCreateNestedManyWithoutShopInput
+  sales?: Prisma.DailySaleUncheckedCreateNestedManyWithoutShopInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutShopInput
+  bills?: Prisma.SupplierBillUncheckedCreateNestedManyWithoutShopInput
+  closings?: Prisma.DailyClosingUncheckedCreateNestedManyWithoutShopInput
+  targets?: Prisma.ShopTargetUncheckedCreateNestedManyWithoutShopInput
+  categorySales?: Prisma.DailyCategorySaleUncheckedCreateNestedManyWithoutShopInput
+  cashMovements?: Prisma.CashMovementUncheckedCreateNestedManyWithoutShopInput
+  margins?: Prisma.ShopMarginUncheckedCreateNestedManyWithoutShopInput
+  fixedCosts?: Prisma.MonthlyFixedCostUncheckedCreateNestedManyWithoutShopInput
+}
+
+export type ShopCreateOrConnectWithoutEmiPaymentsInput = {
+  where: Prisma.ShopWhereUniqueInput
+  create: Prisma.XOR<Prisma.ShopCreateWithoutEmiPaymentsInput, Prisma.ShopUncheckedCreateWithoutEmiPaymentsInput>
+}
+
+export type ShopUpsertWithoutEmiPaymentsInput = {
+  update: Prisma.XOR<Prisma.ShopUpdateWithoutEmiPaymentsInput, Prisma.ShopUncheckedUpdateWithoutEmiPaymentsInput>
+  create: Prisma.XOR<Prisma.ShopCreateWithoutEmiPaymentsInput, Prisma.ShopUncheckedCreateWithoutEmiPaymentsInput>
+  where?: Prisma.ShopWhereInput
+}
+
+export type ShopUpdateToOneWithWhereWithoutEmiPaymentsInput = {
+  where?: Prisma.ShopWhereInput
+  data: Prisma.XOR<Prisma.ShopUpdateWithoutEmiPaymentsInput, Prisma.ShopUncheckedUpdateWithoutEmiPaymentsInput>
+}
+
+export type ShopUpdateWithoutEmiPaymentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  branch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  business?: Prisma.BusinessUpdateOneRequiredWithoutShopsNestedInput
+  access?: Prisma.UserShopAccessUpdateManyWithoutShopNestedInput
+  sales?: Prisma.DailySaleUpdateManyWithoutShopNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutShopNestedInput
+  bills?: Prisma.SupplierBillUpdateManyWithoutShopNestedInput
+  closings?: Prisma.DailyClosingUpdateManyWithoutShopNestedInput
+  targets?: Prisma.ShopTargetUpdateManyWithoutShopNestedInput
+  categorySales?: Prisma.DailyCategorySaleUpdateManyWithoutShopNestedInput
+  cashMovements?: Prisma.CashMovementUpdateManyWithoutShopNestedInput
+  margins?: Prisma.ShopMarginUpdateManyWithoutShopNestedInput
+  fixedCosts?: Prisma.MonthlyFixedCostUpdateManyWithoutShopNestedInput
+}
+
+export type ShopUncheckedUpdateWithoutEmiPaymentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  branch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  access?: Prisma.UserShopAccessUncheckedUpdateManyWithoutShopNestedInput
+  sales?: Prisma.DailySaleUncheckedUpdateManyWithoutShopNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutShopNestedInput
+  bills?: Prisma.SupplierBillUncheckedUpdateManyWithoutShopNestedInput
+  closings?: Prisma.DailyClosingUncheckedUpdateManyWithoutShopNestedInput
+  targets?: Prisma.ShopTargetUncheckedUpdateManyWithoutShopNestedInput
+  categorySales?: Prisma.DailyCategorySaleUncheckedUpdateManyWithoutShopNestedInput
+  cashMovements?: Prisma.CashMovementUncheckedUpdateManyWithoutShopNestedInput
+  margins?: Prisma.ShopMarginUncheckedUpdateManyWithoutShopNestedInput
+  fixedCosts?: Prisma.MonthlyFixedCostUncheckedUpdateManyWithoutShopNestedInput
+}
+
+export type ShopCreateWithoutBillsInput = {
+  id?: string
+  name: string
+  code?: string | null
+  branch?: string | null
+  address?: string | null
+  city?: string | null
+  state?: string | null
+  managerName?: string | null
+  contactNumber?: string | null
+  openingDate?: Date | string | null
+  status?: $Enums.EntityStatus
+  archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
@@ -1459,12 +2090,16 @@ export type ShopCreateWithoutBillsInput = {
   targets?: Prisma.ShopTargetCreateNestedManyWithoutShopInput
   categorySales?: Prisma.DailyCategorySaleCreateNestedManyWithoutShopInput
   cashMovements?: Prisma.CashMovementCreateNestedManyWithoutShopInput
+  margins?: Prisma.ShopMarginCreateNestedManyWithoutShopInput
+  fixedCosts?: Prisma.MonthlyFixedCostCreateNestedManyWithoutShopInput
+  emiPayments?: Prisma.EmiPaymentCreateNestedManyWithoutShopInput
 }
 
 export type ShopUncheckedCreateWithoutBillsInput = {
   id?: string
   businessId: string
   name: string
+  code?: string | null
   branch?: string | null
   address?: string | null
   city?: string | null
@@ -1473,6 +2108,7 @@ export type ShopUncheckedCreateWithoutBillsInput = {
   contactNumber?: string | null
   openingDate?: Date | string | null
   status?: $Enums.EntityStatus
+  archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
@@ -1485,6 +2121,9 @@ export type ShopUncheckedCreateWithoutBillsInput = {
   targets?: Prisma.ShopTargetUncheckedCreateNestedManyWithoutShopInput
   categorySales?: Prisma.DailyCategorySaleUncheckedCreateNestedManyWithoutShopInput
   cashMovements?: Prisma.CashMovementUncheckedCreateNestedManyWithoutShopInput
+  margins?: Prisma.ShopMarginUncheckedCreateNestedManyWithoutShopInput
+  fixedCosts?: Prisma.MonthlyFixedCostUncheckedCreateNestedManyWithoutShopInput
+  emiPayments?: Prisma.EmiPaymentUncheckedCreateNestedManyWithoutShopInput
 }
 
 export type ShopCreateOrConnectWithoutBillsInput = {
@@ -1506,6 +2145,7 @@ export type ShopUpdateToOneWithWhereWithoutBillsInput = {
 export type ShopUpdateWithoutBillsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   branch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1514,6 +2154,7 @@ export type ShopUpdateWithoutBillsInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   openingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1527,12 +2168,16 @@ export type ShopUpdateWithoutBillsInput = {
   targets?: Prisma.ShopTargetUpdateManyWithoutShopNestedInput
   categorySales?: Prisma.DailyCategorySaleUpdateManyWithoutShopNestedInput
   cashMovements?: Prisma.CashMovementUpdateManyWithoutShopNestedInput
+  margins?: Prisma.ShopMarginUpdateManyWithoutShopNestedInput
+  fixedCosts?: Prisma.MonthlyFixedCostUpdateManyWithoutShopNestedInput
+  emiPayments?: Prisma.EmiPaymentUpdateManyWithoutShopNestedInput
 }
 
 export type ShopUncheckedUpdateWithoutBillsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   branch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1541,6 +2186,7 @@ export type ShopUncheckedUpdateWithoutBillsInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   openingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1553,11 +2199,15 @@ export type ShopUncheckedUpdateWithoutBillsInput = {
   targets?: Prisma.ShopTargetUncheckedUpdateManyWithoutShopNestedInput
   categorySales?: Prisma.DailyCategorySaleUncheckedUpdateManyWithoutShopNestedInput
   cashMovements?: Prisma.CashMovementUncheckedUpdateManyWithoutShopNestedInput
+  margins?: Prisma.ShopMarginUncheckedUpdateManyWithoutShopNestedInput
+  fixedCosts?: Prisma.MonthlyFixedCostUncheckedUpdateManyWithoutShopNestedInput
+  emiPayments?: Prisma.EmiPaymentUncheckedUpdateManyWithoutShopNestedInput
 }
 
 export type ShopCreateWithoutClosingsInput = {
   id?: string
   name: string
+  code?: string | null
   branch?: string | null
   address?: string | null
   city?: string | null
@@ -1566,6 +2216,7 @@ export type ShopCreateWithoutClosingsInput = {
   contactNumber?: string | null
   openingDate?: Date | string | null
   status?: $Enums.EntityStatus
+  archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
@@ -1579,12 +2230,16 @@ export type ShopCreateWithoutClosingsInput = {
   targets?: Prisma.ShopTargetCreateNestedManyWithoutShopInput
   categorySales?: Prisma.DailyCategorySaleCreateNestedManyWithoutShopInput
   cashMovements?: Prisma.CashMovementCreateNestedManyWithoutShopInput
+  margins?: Prisma.ShopMarginCreateNestedManyWithoutShopInput
+  fixedCosts?: Prisma.MonthlyFixedCostCreateNestedManyWithoutShopInput
+  emiPayments?: Prisma.EmiPaymentCreateNestedManyWithoutShopInput
 }
 
 export type ShopUncheckedCreateWithoutClosingsInput = {
   id?: string
   businessId: string
   name: string
+  code?: string | null
   branch?: string | null
   address?: string | null
   city?: string | null
@@ -1593,6 +2248,7 @@ export type ShopUncheckedCreateWithoutClosingsInput = {
   contactNumber?: string | null
   openingDate?: Date | string | null
   status?: $Enums.EntityStatus
+  archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
@@ -1605,6 +2261,9 @@ export type ShopUncheckedCreateWithoutClosingsInput = {
   targets?: Prisma.ShopTargetUncheckedCreateNestedManyWithoutShopInput
   categorySales?: Prisma.DailyCategorySaleUncheckedCreateNestedManyWithoutShopInput
   cashMovements?: Prisma.CashMovementUncheckedCreateNestedManyWithoutShopInput
+  margins?: Prisma.ShopMarginUncheckedCreateNestedManyWithoutShopInput
+  fixedCosts?: Prisma.MonthlyFixedCostUncheckedCreateNestedManyWithoutShopInput
+  emiPayments?: Prisma.EmiPaymentUncheckedCreateNestedManyWithoutShopInput
 }
 
 export type ShopCreateOrConnectWithoutClosingsInput = {
@@ -1626,6 +2285,7 @@ export type ShopUpdateToOneWithWhereWithoutClosingsInput = {
 export type ShopUpdateWithoutClosingsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   branch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1634,6 +2294,7 @@ export type ShopUpdateWithoutClosingsInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   openingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1647,12 +2308,16 @@ export type ShopUpdateWithoutClosingsInput = {
   targets?: Prisma.ShopTargetUpdateManyWithoutShopNestedInput
   categorySales?: Prisma.DailyCategorySaleUpdateManyWithoutShopNestedInput
   cashMovements?: Prisma.CashMovementUpdateManyWithoutShopNestedInput
+  margins?: Prisma.ShopMarginUpdateManyWithoutShopNestedInput
+  fixedCosts?: Prisma.MonthlyFixedCostUpdateManyWithoutShopNestedInput
+  emiPayments?: Prisma.EmiPaymentUpdateManyWithoutShopNestedInput
 }
 
 export type ShopUncheckedUpdateWithoutClosingsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   branch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1661,6 +2326,7 @@ export type ShopUncheckedUpdateWithoutClosingsInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   openingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1673,11 +2339,15 @@ export type ShopUncheckedUpdateWithoutClosingsInput = {
   targets?: Prisma.ShopTargetUncheckedUpdateManyWithoutShopNestedInput
   categorySales?: Prisma.DailyCategorySaleUncheckedUpdateManyWithoutShopNestedInput
   cashMovements?: Prisma.CashMovementUncheckedUpdateManyWithoutShopNestedInput
+  margins?: Prisma.ShopMarginUncheckedUpdateManyWithoutShopNestedInput
+  fixedCosts?: Prisma.MonthlyFixedCostUncheckedUpdateManyWithoutShopNestedInput
+  emiPayments?: Prisma.EmiPaymentUncheckedUpdateManyWithoutShopNestedInput
 }
 
 export type ShopCreateWithoutCashMovementsInput = {
   id?: string
   name: string
+  code?: string | null
   branch?: string | null
   address?: string | null
   city?: string | null
@@ -1686,6 +2356,7 @@ export type ShopCreateWithoutCashMovementsInput = {
   contactNumber?: string | null
   openingDate?: Date | string | null
   status?: $Enums.EntityStatus
+  archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
@@ -1699,12 +2370,16 @@ export type ShopCreateWithoutCashMovementsInput = {
   closings?: Prisma.DailyClosingCreateNestedManyWithoutShopInput
   targets?: Prisma.ShopTargetCreateNestedManyWithoutShopInput
   categorySales?: Prisma.DailyCategorySaleCreateNestedManyWithoutShopInput
+  margins?: Prisma.ShopMarginCreateNestedManyWithoutShopInput
+  fixedCosts?: Prisma.MonthlyFixedCostCreateNestedManyWithoutShopInput
+  emiPayments?: Prisma.EmiPaymentCreateNestedManyWithoutShopInput
 }
 
 export type ShopUncheckedCreateWithoutCashMovementsInput = {
   id?: string
   businessId: string
   name: string
+  code?: string | null
   branch?: string | null
   address?: string | null
   city?: string | null
@@ -1713,6 +2388,7 @@ export type ShopUncheckedCreateWithoutCashMovementsInput = {
   contactNumber?: string | null
   openingDate?: Date | string | null
   status?: $Enums.EntityStatus
+  archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
@@ -1725,6 +2401,9 @@ export type ShopUncheckedCreateWithoutCashMovementsInput = {
   closings?: Prisma.DailyClosingUncheckedCreateNestedManyWithoutShopInput
   targets?: Prisma.ShopTargetUncheckedCreateNestedManyWithoutShopInput
   categorySales?: Prisma.DailyCategorySaleUncheckedCreateNestedManyWithoutShopInput
+  margins?: Prisma.ShopMarginUncheckedCreateNestedManyWithoutShopInput
+  fixedCosts?: Prisma.MonthlyFixedCostUncheckedCreateNestedManyWithoutShopInput
+  emiPayments?: Prisma.EmiPaymentUncheckedCreateNestedManyWithoutShopInput
 }
 
 export type ShopCreateOrConnectWithoutCashMovementsInput = {
@@ -1746,6 +2425,7 @@ export type ShopUpdateToOneWithWhereWithoutCashMovementsInput = {
 export type ShopUpdateWithoutCashMovementsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   branch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1754,6 +2434,7 @@ export type ShopUpdateWithoutCashMovementsInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   openingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1767,12 +2448,16 @@ export type ShopUpdateWithoutCashMovementsInput = {
   closings?: Prisma.DailyClosingUpdateManyWithoutShopNestedInput
   targets?: Prisma.ShopTargetUpdateManyWithoutShopNestedInput
   categorySales?: Prisma.DailyCategorySaleUpdateManyWithoutShopNestedInput
+  margins?: Prisma.ShopMarginUpdateManyWithoutShopNestedInput
+  fixedCosts?: Prisma.MonthlyFixedCostUpdateManyWithoutShopNestedInput
+  emiPayments?: Prisma.EmiPaymentUpdateManyWithoutShopNestedInput
 }
 
 export type ShopUncheckedUpdateWithoutCashMovementsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   branch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1781,6 +2466,7 @@ export type ShopUncheckedUpdateWithoutCashMovementsInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   openingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1793,11 +2479,15 @@ export type ShopUncheckedUpdateWithoutCashMovementsInput = {
   closings?: Prisma.DailyClosingUncheckedUpdateManyWithoutShopNestedInput
   targets?: Prisma.ShopTargetUncheckedUpdateManyWithoutShopNestedInput
   categorySales?: Prisma.DailyCategorySaleUncheckedUpdateManyWithoutShopNestedInput
+  margins?: Prisma.ShopMarginUncheckedUpdateManyWithoutShopNestedInput
+  fixedCosts?: Prisma.MonthlyFixedCostUncheckedUpdateManyWithoutShopNestedInput
+  emiPayments?: Prisma.EmiPaymentUncheckedUpdateManyWithoutShopNestedInput
 }
 
 export type ShopCreateWithoutTargetsInput = {
   id?: string
   name: string
+  code?: string | null
   branch?: string | null
   address?: string | null
   city?: string | null
@@ -1806,6 +2496,7 @@ export type ShopCreateWithoutTargetsInput = {
   contactNumber?: string | null
   openingDate?: Date | string | null
   status?: $Enums.EntityStatus
+  archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
@@ -1819,12 +2510,16 @@ export type ShopCreateWithoutTargetsInput = {
   closings?: Prisma.DailyClosingCreateNestedManyWithoutShopInput
   categorySales?: Prisma.DailyCategorySaleCreateNestedManyWithoutShopInput
   cashMovements?: Prisma.CashMovementCreateNestedManyWithoutShopInput
+  margins?: Prisma.ShopMarginCreateNestedManyWithoutShopInput
+  fixedCosts?: Prisma.MonthlyFixedCostCreateNestedManyWithoutShopInput
+  emiPayments?: Prisma.EmiPaymentCreateNestedManyWithoutShopInput
 }
 
 export type ShopUncheckedCreateWithoutTargetsInput = {
   id?: string
   businessId: string
   name: string
+  code?: string | null
   branch?: string | null
   address?: string | null
   city?: string | null
@@ -1833,6 +2528,7 @@ export type ShopUncheckedCreateWithoutTargetsInput = {
   contactNumber?: string | null
   openingDate?: Date | string | null
   status?: $Enums.EntityStatus
+  archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
@@ -1845,6 +2541,9 @@ export type ShopUncheckedCreateWithoutTargetsInput = {
   closings?: Prisma.DailyClosingUncheckedCreateNestedManyWithoutShopInput
   categorySales?: Prisma.DailyCategorySaleUncheckedCreateNestedManyWithoutShopInput
   cashMovements?: Prisma.CashMovementUncheckedCreateNestedManyWithoutShopInput
+  margins?: Prisma.ShopMarginUncheckedCreateNestedManyWithoutShopInput
+  fixedCosts?: Prisma.MonthlyFixedCostUncheckedCreateNestedManyWithoutShopInput
+  emiPayments?: Prisma.EmiPaymentUncheckedCreateNestedManyWithoutShopInput
 }
 
 export type ShopCreateOrConnectWithoutTargetsInput = {
@@ -1866,6 +2565,7 @@ export type ShopUpdateToOneWithWhereWithoutTargetsInput = {
 export type ShopUpdateWithoutTargetsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   branch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1874,6 +2574,7 @@ export type ShopUpdateWithoutTargetsInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   openingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1887,12 +2588,16 @@ export type ShopUpdateWithoutTargetsInput = {
   closings?: Prisma.DailyClosingUpdateManyWithoutShopNestedInput
   categorySales?: Prisma.DailyCategorySaleUpdateManyWithoutShopNestedInput
   cashMovements?: Prisma.CashMovementUpdateManyWithoutShopNestedInput
+  margins?: Prisma.ShopMarginUpdateManyWithoutShopNestedInput
+  fixedCosts?: Prisma.MonthlyFixedCostUpdateManyWithoutShopNestedInput
+  emiPayments?: Prisma.EmiPaymentUpdateManyWithoutShopNestedInput
 }
 
 export type ShopUncheckedUpdateWithoutTargetsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   branch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1901,6 +2606,7 @@ export type ShopUncheckedUpdateWithoutTargetsInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   openingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1913,11 +2619,15 @@ export type ShopUncheckedUpdateWithoutTargetsInput = {
   closings?: Prisma.DailyClosingUncheckedUpdateManyWithoutShopNestedInput
   categorySales?: Prisma.DailyCategorySaleUncheckedUpdateManyWithoutShopNestedInput
   cashMovements?: Prisma.CashMovementUncheckedUpdateManyWithoutShopNestedInput
+  margins?: Prisma.ShopMarginUncheckedUpdateManyWithoutShopNestedInput
+  fixedCosts?: Prisma.MonthlyFixedCostUncheckedUpdateManyWithoutShopNestedInput
+  emiPayments?: Prisma.EmiPaymentUncheckedUpdateManyWithoutShopNestedInput
 }
 
 export type ShopCreateManyBusinessInput = {
   id?: string
   name: string
+  code?: string | null
   branch?: string | null
   address?: string | null
   city?: string | null
@@ -1926,6 +2636,7 @@ export type ShopCreateManyBusinessInput = {
   contactNumber?: string | null
   openingDate?: Date | string | null
   status?: $Enums.EntityStatus
+  archivedAt?: Date | string | null
   monthlyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
@@ -1936,6 +2647,7 @@ export type ShopCreateManyBusinessInput = {
 export type ShopUpdateWithoutBusinessInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   branch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1944,6 +2656,7 @@ export type ShopUpdateWithoutBusinessInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   openingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1957,11 +2670,15 @@ export type ShopUpdateWithoutBusinessInput = {
   targets?: Prisma.ShopTargetUpdateManyWithoutShopNestedInput
   categorySales?: Prisma.DailyCategorySaleUpdateManyWithoutShopNestedInput
   cashMovements?: Prisma.CashMovementUpdateManyWithoutShopNestedInput
+  margins?: Prisma.ShopMarginUpdateManyWithoutShopNestedInput
+  fixedCosts?: Prisma.MonthlyFixedCostUpdateManyWithoutShopNestedInput
+  emiPayments?: Prisma.EmiPaymentUpdateManyWithoutShopNestedInput
 }
 
 export type ShopUncheckedUpdateWithoutBusinessInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   branch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1970,6 +2687,7 @@ export type ShopUncheckedUpdateWithoutBusinessInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   openingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1983,11 +2701,15 @@ export type ShopUncheckedUpdateWithoutBusinessInput = {
   targets?: Prisma.ShopTargetUncheckedUpdateManyWithoutShopNestedInput
   categorySales?: Prisma.DailyCategorySaleUncheckedUpdateManyWithoutShopNestedInput
   cashMovements?: Prisma.CashMovementUncheckedUpdateManyWithoutShopNestedInput
+  margins?: Prisma.ShopMarginUncheckedUpdateManyWithoutShopNestedInput
+  fixedCosts?: Prisma.MonthlyFixedCostUncheckedUpdateManyWithoutShopNestedInput
+  emiPayments?: Prisma.EmiPaymentUncheckedUpdateManyWithoutShopNestedInput
 }
 
 export type ShopUncheckedUpdateManyWithoutBusinessInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   branch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1996,6 +2718,7 @@ export type ShopUncheckedUpdateManyWithoutBusinessInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   openingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   monthlyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   dailyTarget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2017,6 +2740,9 @@ export type ShopCountOutputType = {
   targets: number
   categorySales: number
   cashMovements: number
+  margins: number
+  fixedCosts: number
+  emiPayments: number
 }
 
 export type ShopCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2028,6 +2754,9 @@ export type ShopCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   targets?: boolean | ShopCountOutputTypeCountTargetsArgs
   categorySales?: boolean | ShopCountOutputTypeCountCategorySalesArgs
   cashMovements?: boolean | ShopCountOutputTypeCountCashMovementsArgs
+  margins?: boolean | ShopCountOutputTypeCountMarginsArgs
+  fixedCosts?: boolean | ShopCountOutputTypeCountFixedCostsArgs
+  emiPayments?: boolean | ShopCountOutputTypeCountEmiPaymentsArgs
 }
 
 /**
@@ -2096,11 +2825,33 @@ export type ShopCountOutputTypeCountCashMovementsArgs<ExtArgs extends runtime.Ty
   where?: Prisma.CashMovementWhereInput
 }
 
+/**
+ * ShopCountOutputType without action
+ */
+export type ShopCountOutputTypeCountMarginsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ShopMarginWhereInput
+}
+
+/**
+ * ShopCountOutputType without action
+ */
+export type ShopCountOutputTypeCountFixedCostsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MonthlyFixedCostWhereInput
+}
+
+/**
+ * ShopCountOutputType without action
+ */
+export type ShopCountOutputTypeCountEmiPaymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EmiPaymentWhereInput
+}
+
 
 export type ShopSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   businessId?: boolean
   name?: boolean
+  code?: boolean
   branch?: boolean
   address?: boolean
   city?: boolean
@@ -2109,6 +2860,7 @@ export type ShopSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   contactNumber?: boolean
   openingDate?: boolean
   status?: boolean
+  archivedAt?: boolean
   monthlyTarget?: boolean
   dailyTarget?: boolean
   notes?: boolean
@@ -2123,6 +2875,9 @@ export type ShopSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   targets?: boolean | Prisma.Shop$targetsArgs<ExtArgs>
   categorySales?: boolean | Prisma.Shop$categorySalesArgs<ExtArgs>
   cashMovements?: boolean | Prisma.Shop$cashMovementsArgs<ExtArgs>
+  margins?: boolean | Prisma.Shop$marginsArgs<ExtArgs>
+  fixedCosts?: boolean | Prisma.Shop$fixedCostsArgs<ExtArgs>
+  emiPayments?: boolean | Prisma.Shop$emiPaymentsArgs<ExtArgs>
   _count?: boolean | Prisma.ShopCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["shop"]>
 
@@ -2130,6 +2885,7 @@ export type ShopSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   businessId?: boolean
   name?: boolean
+  code?: boolean
   branch?: boolean
   address?: boolean
   city?: boolean
@@ -2138,6 +2894,7 @@ export type ShopSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   contactNumber?: boolean
   openingDate?: boolean
   status?: boolean
+  archivedAt?: boolean
   monthlyTarget?: boolean
   dailyTarget?: boolean
   notes?: boolean
@@ -2150,6 +2907,7 @@ export type ShopSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   businessId?: boolean
   name?: boolean
+  code?: boolean
   branch?: boolean
   address?: boolean
   city?: boolean
@@ -2158,6 +2916,7 @@ export type ShopSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   contactNumber?: boolean
   openingDate?: boolean
   status?: boolean
+  archivedAt?: boolean
   monthlyTarget?: boolean
   dailyTarget?: boolean
   notes?: boolean
@@ -2170,6 +2929,7 @@ export type ShopSelectScalar = {
   id?: boolean
   businessId?: boolean
   name?: boolean
+  code?: boolean
   branch?: boolean
   address?: boolean
   city?: boolean
@@ -2178,6 +2938,7 @@ export type ShopSelectScalar = {
   contactNumber?: boolean
   openingDate?: boolean
   status?: boolean
+  archivedAt?: boolean
   monthlyTarget?: boolean
   dailyTarget?: boolean
   notes?: boolean
@@ -2185,7 +2946,7 @@ export type ShopSelectScalar = {
   updatedAt?: boolean
 }
 
-export type ShopOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "name" | "branch" | "address" | "city" | "state" | "managerName" | "contactNumber" | "openingDate" | "status" | "monthlyTarget" | "dailyTarget" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["shop"]>
+export type ShopOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "name" | "code" | "branch" | "address" | "city" | "state" | "managerName" | "contactNumber" | "openingDate" | "status" | "archivedAt" | "monthlyTarget" | "dailyTarget" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["shop"]>
 export type ShopInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   access?: boolean | Prisma.Shop$accessArgs<ExtArgs>
@@ -2196,6 +2957,9 @@ export type ShopInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   targets?: boolean | Prisma.Shop$targetsArgs<ExtArgs>
   categorySales?: boolean | Prisma.Shop$categorySalesArgs<ExtArgs>
   cashMovements?: boolean | Prisma.Shop$cashMovementsArgs<ExtArgs>
+  margins?: boolean | Prisma.Shop$marginsArgs<ExtArgs>
+  fixedCosts?: boolean | Prisma.Shop$fixedCostsArgs<ExtArgs>
+  emiPayments?: boolean | Prisma.Shop$emiPaymentsArgs<ExtArgs>
   _count?: boolean | Prisma.ShopCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ShopIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2217,11 +2981,15 @@ export type $ShopPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     targets: Prisma.$ShopTargetPayload<ExtArgs>[]
     categorySales: Prisma.$DailyCategorySalePayload<ExtArgs>[]
     cashMovements: Prisma.$CashMovementPayload<ExtArgs>[]
+    margins: Prisma.$ShopMarginPayload<ExtArgs>[]
+    fixedCosts: Prisma.$MonthlyFixedCostPayload<ExtArgs>[]
+    emiPayments: Prisma.$EmiPaymentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     businessId: string
     name: string
+    code: string | null
     branch: string | null
     address: string | null
     city: string | null
@@ -2230,6 +2998,7 @@ export type $ShopPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     contactNumber: string | null
     openingDate: Date | null
     status: $Enums.EntityStatus
+    archivedAt: Date | null
     monthlyTarget: runtime.Decimal | null
     dailyTarget: runtime.Decimal | null
     notes: string | null
@@ -2638,6 +3407,9 @@ export interface Prisma__ShopClient<T, Null = never, ExtArgs extends runtime.Typ
   targets<T extends Prisma.Shop$targetsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shop$targetsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShopTargetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   categorySales<T extends Prisma.Shop$categorySalesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shop$categorySalesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DailyCategorySalePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   cashMovements<T extends Prisma.Shop$cashMovementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shop$cashMovementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CashMovementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  margins<T extends Prisma.Shop$marginsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shop$marginsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShopMarginPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  fixedCosts<T extends Prisma.Shop$fixedCostsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shop$fixedCostsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MonthlyFixedCostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  emiPayments<T extends Prisma.Shop$emiPaymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shop$emiPaymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmiPaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2670,6 +3442,7 @@ export interface ShopFieldRefs {
   readonly id: Prisma.FieldRef<"Shop", 'String'>
   readonly businessId: Prisma.FieldRef<"Shop", 'String'>
   readonly name: Prisma.FieldRef<"Shop", 'String'>
+  readonly code: Prisma.FieldRef<"Shop", 'String'>
   readonly branch: Prisma.FieldRef<"Shop", 'String'>
   readonly address: Prisma.FieldRef<"Shop", 'String'>
   readonly city: Prisma.FieldRef<"Shop", 'String'>
@@ -2678,6 +3451,7 @@ export interface ShopFieldRefs {
   readonly contactNumber: Prisma.FieldRef<"Shop", 'String'>
   readonly openingDate: Prisma.FieldRef<"Shop", 'DateTime'>
   readonly status: Prisma.FieldRef<"Shop", 'EntityStatus'>
+  readonly archivedAt: Prisma.FieldRef<"Shop", 'DateTime'>
   readonly monthlyTarget: Prisma.FieldRef<"Shop", 'Decimal'>
   readonly dailyTarget: Prisma.FieldRef<"Shop", 'Decimal'>
   readonly notes: Prisma.FieldRef<"Shop", 'String'>
@@ -3273,6 +4047,78 @@ export type Shop$cashMovementsArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.CashMovementScalarFieldEnum | Prisma.CashMovementScalarFieldEnum[]
+}
+
+/**
+ * Shop.margins
+ */
+export type Shop$marginsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ShopMargin
+   */
+  select?: Prisma.ShopMarginSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ShopMargin
+   */
+  omit?: Prisma.ShopMarginOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShopMarginInclude<ExtArgs> | null
+  where?: Prisma.ShopMarginWhereInput
+  orderBy?: Prisma.ShopMarginOrderByWithRelationInput | Prisma.ShopMarginOrderByWithRelationInput[]
+  cursor?: Prisma.ShopMarginWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ShopMarginScalarFieldEnum | Prisma.ShopMarginScalarFieldEnum[]
+}
+
+/**
+ * Shop.fixedCosts
+ */
+export type Shop$fixedCostsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MonthlyFixedCost
+   */
+  select?: Prisma.MonthlyFixedCostSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MonthlyFixedCost
+   */
+  omit?: Prisma.MonthlyFixedCostOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MonthlyFixedCostInclude<ExtArgs> | null
+  where?: Prisma.MonthlyFixedCostWhereInput
+  orderBy?: Prisma.MonthlyFixedCostOrderByWithRelationInput | Prisma.MonthlyFixedCostOrderByWithRelationInput[]
+  cursor?: Prisma.MonthlyFixedCostWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MonthlyFixedCostScalarFieldEnum | Prisma.MonthlyFixedCostScalarFieldEnum[]
+}
+
+/**
+ * Shop.emiPayments
+ */
+export type Shop$emiPaymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the EmiPayment
+   */
+  select?: Prisma.EmiPaymentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the EmiPayment
+   */
+  omit?: Prisma.EmiPaymentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EmiPaymentInclude<ExtArgs> | null
+  where?: Prisma.EmiPaymentWhereInput
+  orderBy?: Prisma.EmiPaymentOrderByWithRelationInput | Prisma.EmiPaymentOrderByWithRelationInput[]
+  cursor?: Prisma.EmiPaymentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.EmiPaymentScalarFieldEnum | Prisma.EmiPaymentScalarFieldEnum[]
 }
 
 /**

@@ -6,7 +6,7 @@ import { formatCurrency } from "@/lib/utils";
 
 export default async function ExpensesPage() {
   const user = await requireUser();
-  const allowed = user.role === "ADMIN" ? undefined : user.shopAccess.map(x=>x.shopId);
+  const allowed = ["OWNER", "ADMIN", "ACCOUNTANT"].includes(user.role) ? undefined : user.shopAccess.map(x=>x.shopId);
   const [businesses, shops, categories, expenses] = await Promise.all([
     prisma.business.findMany({ where: { status: "ACTIVE" } }), prisma.shop.findMany({ where: { status: "ACTIVE", ...(allowed ? { id: { in: allowed } } : {}) } }),
     prisma.expenseCategory.findMany({ where: { isActive: true }, orderBy: { name: "asc" } }), prisma.expense.findMany({ where: allowed ? { shopId: { in: allowed } } : undefined, include: { category: true, shop: true }, orderBy: { expenseDate: "desc" }, take: 50 }),

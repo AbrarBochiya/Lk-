@@ -97,6 +97,41 @@ export type ExpenseCategory = Prisma.ExpenseCategoryModel
  */
 export type Expense = Prisma.ExpenseModel
 /**
+ * Model ShopMargin
+ * 
+ */
+export type ShopMargin = Prisma.ShopMarginModel
+/**
+ * Model MonthlyFixedCost
+ * 
+ */
+export type MonthlyFixedCost = Prisma.MonthlyFixedCostModel
+/**
+ * Model Loan
+ * 
+ */
+export type Loan = Prisma.LoanModel
+/**
+ * Model EmiPayment
+ * 
+ */
+export type EmiPayment = Prisma.EmiPaymentModel
+/**
+ * Model AccountingPeriod
+ * 
+ */
+export type AccountingPeriod = Prisma.AccountingPeriodModel
+/**
+ * Model ImportBatch
+ * 
+ */
+export type ImportBatch = Prisma.ImportBatchModel
+/**
+ * Model ImportRow
+ * 
+ */
+export type ImportRow = Prisma.ImportRowModel
+/**
  * Model CentralExpenseAllocation
  * 
  */

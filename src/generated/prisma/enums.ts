@@ -10,7 +10,12 @@
 */
 
 export const Role = {
+  OWNER: 'OWNER',
   ADMIN: 'ADMIN',
+  ACCOUNTANT: 'ACCOUNTANT',
+  SHOP_MANAGER: 'SHOP_MANAGER',
+  DATA_ENTRY: 'DATA_ENTRY',
+  VIEWER: 'VIEWER',
   MANAGER: 'MANAGER',
   STAFF: 'STAFF'
 } as const
@@ -50,10 +55,54 @@ export const AllocationMethod = {
   UNALLOCATED: 'UNALLOCATED',
   EQUAL: 'EQUAL',
   SALES_CONTRIBUTION: 'SALES_CONTRIBUTION',
+  GROSS_PROFIT: 'GROSS_PROFIT',
+  DIRECT: 'DIRECT',
+  CUSTOM: 'CUSTOM',
   MANUAL: 'MANUAL'
 } as const
 
 export type AllocationMethod = (typeof AllocationMethod)[keyof typeof AllocationMethod]
+
+
+export const SaleSource = {
+  MANUAL: 'MANUAL',
+  IMPORT: 'IMPORT'
+} as const
+
+export type SaleSource = (typeof SaleSource)[keyof typeof SaleSource]
+
+
+export const ExpenseKind = {
+  VARIABLE: 'VARIABLE',
+  FIXED: 'FIXED',
+  EMI: 'EMI',
+  ONE_TIME: 'ONE_TIME',
+  CENTRAL: 'CENTRAL',
+  CAPEX: 'CAPEX'
+} as const
+
+export type ExpenseKind = (typeof ExpenseKind)[keyof typeof ExpenseKind]
+
+
+export const PaymentStatus = {
+  UNPAID: 'UNPAID',
+  PARTIALLY_PAID: 'PARTIALLY_PAID',
+  PAID: 'PAID'
+} as const
+
+export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
+
+
+export const ImportStatus = {
+  PREVIEW: 'PREVIEW',
+  VALIDATED: 'VALIDATED',
+  COMPLETED: 'COMPLETED',
+  PARTIAL: 'PARTIAL',
+  FAILED: 'FAILED',
+  ROLLED_BACK: 'ROLLED_BACK'
+} as const
+
+export type ImportStatus = (typeof ImportStatus)[keyof typeof ImportStatus]
 
 
 export const BillStatus = {

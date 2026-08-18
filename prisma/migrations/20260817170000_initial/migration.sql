@@ -673,6 +673,3 @@ ALTER TABLE "ShopTarget" ADD CONSTRAINT "ShopTarget_shopId_fkey" FOREIGN KEY ("s
 -- AddForeignKey
 ALTER TABLE "AuditLog" ADD CONSTRAINT "AuditLog_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
-ALTER TABLE "Expense"
-ADD COLUMN "isFixed" BOOLEAN NOT NULL DEFAULT false,
-ADD COLUMN "frequency" TEXT;

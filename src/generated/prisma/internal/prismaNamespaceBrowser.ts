@@ -62,6 +62,13 @@ export const ModelName = {
   DailyCategorySale: 'DailyCategorySale',
   ExpenseCategory: 'ExpenseCategory',
   Expense: 'Expense',
+  ShopMargin: 'ShopMargin',
+  MonthlyFixedCost: 'MonthlyFixedCost',
+  Loan: 'Loan',
+  EmiPayment: 'EmiPayment',
+  AccountingPeriod: 'AccountingPeriod',
+  ImportBatch: 'ImportBatch',
+  ImportRow: 'ImportRow',
   CentralExpenseAllocation: 'CentralExpenseAllocation',
   Supplier: 'Supplier',
   SupplierBill: 'SupplierBill',
@@ -116,6 +123,7 @@ export const ShopScalarFieldEnum = {
   id: 'id',
   businessId: 'businessId',
   name: 'name',
+  code: 'code',
   branch: 'branch',
   address: 'address',
   city: 'city',
@@ -124,6 +132,7 @@ export const ShopScalarFieldEnum = {
   contactNumber: 'contactNumber',
   openingDate: 'openingDate',
   status: 'status',
+  archivedAt: 'archivedAt',
   monthlyTarget: 'monthlyTarget',
   dailyTarget: 'dailyTarget',
   notes: 'notes',
@@ -178,6 +187,8 @@ export const DailySaleScalarFieldEnum = {
   businessId: 'businessId',
   shopId: 'shopId',
   saleDate: 'saleDate',
+  saleTime: 'saleTime',
+  invoiceNumber: 'invoiceNumber',
   shift: 'shift',
   cashSales: 'cashSales',
   upiSales: 'upiSales',
@@ -185,6 +196,13 @@ export const DailySaleScalarFieldEnum = {
   bankSales: 'bankSales',
   otherSales: 'otherSales',
   returns: 'returns',
+  discount: 'discount',
+  tax: 'tax',
+  amountReceived: 'amountReceived',
+  customerName: 'customerName',
+  customerPhone: 'customerPhone',
+  source: 'source',
+  cancelledAt: 'cancelledAt',
   cogs: 'cogs',
   billCount: 'billCount',
   customerCount: 'customerCount',
@@ -257,6 +275,10 @@ export const ExpenseScalarFieldEnum = {
   paymentMethod: 'paymentMethod',
   vendor: 'vendor',
   notes: 'notes',
+  isFixed: 'isFixed',
+  kind: 'kind',
+  paidDate: 'paidDate',
+  frequency: 'frequency',
   allocationMethod: 'allocationMethod',
   status: 'status',
   reversalOfId: 'reversalOfId',
@@ -267,6 +289,120 @@ export const ExpenseScalarFieldEnum = {
 } as const
 
 export type ExpenseScalarFieldEnum = (typeof ExpenseScalarFieldEnum)[keyof typeof ExpenseScalarFieldEnum]
+
+
+export const ShopMarginScalarFieldEnum = {
+  id: 'id',
+  shopId: 'shopId',
+  marginPercent: 'marginPercent',
+  effectiveFrom: 'effectiveFrom',
+  effectiveTo: 'effectiveTo',
+  note: 'note',
+  createdById: 'createdById',
+  createdAt: 'createdAt'
+} as const
+
+export type ShopMarginScalarFieldEnum = (typeof ShopMarginScalarFieldEnum)[keyof typeof ShopMarginScalarFieldEnum]
+
+
+export const MonthlyFixedCostScalarFieldEnum = {
+  id: 'id',
+  businessId: 'businessId',
+  shopId: 'shopId',
+  name: 'name',
+  category: 'category',
+  periodMonth: 'periodMonth',
+  amount: 'amount',
+  allocationMethod: 'allocationMethod',
+  paymentStatus: 'paymentStatus',
+  paymentDate: 'paymentDate',
+  paymentMethod: 'paymentMethod',
+  vendor: 'vendor',
+  notes: 'notes',
+  recurringKey: 'recurringKey',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MonthlyFixedCostScalarFieldEnum = (typeof MonthlyFixedCostScalarFieldEnum)[keyof typeof MonthlyFixedCostScalarFieldEnum]
+
+
+export const LoanScalarFieldEnum = {
+  id: 'id',
+  businessId: 'businessId',
+  name: 'name',
+  lender: 'lender',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  isActive: 'isActive',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LoanScalarFieldEnum = (typeof LoanScalarFieldEnum)[keyof typeof LoanScalarFieldEnum]
+
+
+export const EmiPaymentScalarFieldEnum = {
+  id: 'id',
+  loanId: 'loanId',
+  shopId: 'shopId',
+  dueDate: 'dueDate',
+  paidDate: 'paidDate',
+  totalAmount: 'totalAmount',
+  principalAmount: 'principalAmount',
+  interestAmount: 'interestAmount',
+  paymentStatus: 'paymentStatus',
+  allocationMethod: 'allocationMethod',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EmiPaymentScalarFieldEnum = (typeof EmiPaymentScalarFieldEnum)[keyof typeof EmiPaymentScalarFieldEnum]
+
+
+export const AccountingPeriodScalarFieldEnum = {
+  id: 'id',
+  businessId: 'businessId',
+  periodMonth: 'periodMonth',
+  closedAt: 'closedAt',
+  closedById: 'closedById',
+  note: 'note'
+} as const
+
+export type AccountingPeriodScalarFieldEnum = (typeof AccountingPeriodScalarFieldEnum)[keyof typeof AccountingPeriodScalarFieldEnum]
+
+
+export const ImportBatchScalarFieldEnum = {
+  id: 'id',
+  businessId: 'businessId',
+  dataType: 'dataType',
+  fileName: 'fileName',
+  status: 'status',
+  totalRows: 'totalRows',
+  validRows: 'validRows',
+  invalidRows: 'invalidRows',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  completedAt: 'completedAt',
+  rolledBackAt: 'rolledBackAt'
+} as const
+
+export type ImportBatchScalarFieldEnum = (typeof ImportBatchScalarFieldEnum)[keyof typeof ImportBatchScalarFieldEnum]
+
+
+export const ImportRowScalarFieldEnum = {
+  id: 'id',
+  batchId: 'batchId',
+  rowNumber: 'rowNumber',
+  rawData: 'rawData',
+  error: 'error',
+  recordId: 'recordId'
+} as const
+
+export type ImportRowScalarFieldEnum = (typeof ImportRowScalarFieldEnum)[keyof typeof ImportRowScalarFieldEnum]
 
 
 export const CentralExpenseAllocationScalarFieldEnum = {

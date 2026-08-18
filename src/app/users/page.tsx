@@ -4,7 +4,7 @@ import { requireUser } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 
 export default async function UsersPage() {
-  const current = await requireUser(["ADMIN"]);
+  const current = await requireUser(["OWNER", "ADMIN"]);
   const [users, shops] = await Promise.all([
     prisma.user.findMany({ include: { shopAccess: { include: { shop: true } } }, orderBy: { createdAt: "asc" } }),
     prisma.shop.findMany({ where: { status: "ACTIVE" }, orderBy: { name: "asc" } }),
@@ -17,7 +17,7 @@ export default async function UsersPage() {
         <label className="text-sm font-semibold">Name<input className="input mt-2" name="name" required /></label>
         <label className="text-sm font-semibold">Email<input className="input mt-2" name="email" type="email" required /></label>
         <label className="text-sm font-semibold">Temporary password<input className="input mt-2" name="password" type="password" minLength={12} required /></label>
-        <label className="text-sm font-semibold">Role<select className="input mt-2" name="role"><option>STAFF</option><option>MANAGER</option><option>ADMIN</option></select></label>
+        <label className="text-sm font-semibold">Role<select className="input mt-2" name="role"><option>DATA_ENTRY</option><option>SHOP_MANAGER</option><option>ACCOUNTANT</option><option>VIEWER</option><option>ADMIN</option><option>OWNER</option><option>STAFF</option><option>MANAGER</option></select></label>
         {shops.length > 0 && <fieldset className="sm:col-span-2 lg:col-span-4"><legend className="text-sm font-semibold">Shop access</legend><div className="mt-2 flex flex-wrap gap-4">{shops.map(shop=><label className="flex items-center gap-2 text-sm" key={shop.id}><input name="shopIds" type="checkbox" value={shop.id}/>{shop.name}{shop.branch ? ` — ${shop.branch}` : ""}</label>)}</div></fieldset>}
         <button className="button-primary sm:w-fit" type="submit">Create user</button>
       </form>

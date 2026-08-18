@@ -46,6 +46,10 @@ export type ExpenseMinAggregateOutputType = {
   paymentMethod: $Enums.PaymentMethod | null
   vendor: string | null
   notes: string | null
+  isFixed: boolean | null
+  kind: $Enums.ExpenseKind | null
+  paidDate: Date | null
+  frequency: string | null
   allocationMethod: $Enums.AllocationMethod | null
   status: $Enums.RecordStatus | null
   reversalOfId: string | null
@@ -67,6 +71,10 @@ export type ExpenseMaxAggregateOutputType = {
   paymentMethod: $Enums.PaymentMethod | null
   vendor: string | null
   notes: string | null
+  isFixed: boolean | null
+  kind: $Enums.ExpenseKind | null
+  paidDate: Date | null
+  frequency: string | null
   allocationMethod: $Enums.AllocationMethod | null
   status: $Enums.RecordStatus | null
   reversalOfId: string | null
@@ -88,6 +96,10 @@ export type ExpenseCountAggregateOutputType = {
   paymentMethod: number
   vendor: number
   notes: number
+  isFixed: number
+  kind: number
+  paidDate: number
+  frequency: number
   allocationMethod: number
   status: number
   reversalOfId: number
@@ -119,6 +131,10 @@ export type ExpenseMinAggregateInputType = {
   paymentMethod?: true
   vendor?: true
   notes?: true
+  isFixed?: true
+  kind?: true
+  paidDate?: true
+  frequency?: true
   allocationMethod?: true
   status?: true
   reversalOfId?: true
@@ -140,6 +156,10 @@ export type ExpenseMaxAggregateInputType = {
   paymentMethod?: true
   vendor?: true
   notes?: true
+  isFixed?: true
+  kind?: true
+  paidDate?: true
+  frequency?: true
   allocationMethod?: true
   status?: true
   reversalOfId?: true
@@ -161,6 +181,10 @@ export type ExpenseCountAggregateInputType = {
   paymentMethod?: true
   vendor?: true
   notes?: true
+  isFixed?: true
+  kind?: true
+  paidDate?: true
+  frequency?: true
   allocationMethod?: true
   status?: true
   reversalOfId?: true
@@ -269,6 +293,10 @@ export type ExpenseGroupByOutputType = {
   paymentMethod: $Enums.PaymentMethod
   vendor: string | null
   notes: string | null
+  isFixed: boolean
+  kind: $Enums.ExpenseKind
+  paidDate: Date | null
+  frequency: string | null
   allocationMethod: $Enums.AllocationMethod
   status: $Enums.RecordStatus
   reversalOfId: string | null
@@ -313,6 +341,10 @@ export type ExpenseWhereInput = {
   paymentMethod?: Prisma.EnumPaymentMethodFilter<"Expense"> | $Enums.PaymentMethod
   vendor?: Prisma.StringNullableFilter<"Expense"> | string | null
   notes?: Prisma.StringNullableFilter<"Expense"> | string | null
+  isFixed?: Prisma.BoolFilter<"Expense"> | boolean
+  kind?: Prisma.EnumExpenseKindFilter<"Expense"> | $Enums.ExpenseKind
+  paidDate?: Prisma.DateTimeNullableFilter<"Expense"> | Date | string | null
+  frequency?: Prisma.StringNullableFilter<"Expense"> | string | null
   allocationMethod?: Prisma.EnumAllocationMethodFilter<"Expense"> | $Enums.AllocationMethod
   status?: Prisma.EnumRecordStatusFilter<"Expense"> | $Enums.RecordStatus
   reversalOfId?: Prisma.StringNullableFilter<"Expense"> | string | null
@@ -342,6 +374,10 @@ export type ExpenseOrderByWithRelationInput = {
   paymentMethod?: Prisma.SortOrder
   vendor?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
+  isFixed?: Prisma.SortOrder
+  kind?: Prisma.SortOrder
+  paidDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  frequency?: Prisma.SortOrderInput | Prisma.SortOrder
   allocationMethod?: Prisma.SortOrder
   status?: Prisma.SortOrder
   reversalOfId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -375,6 +411,10 @@ export type ExpenseWhereUniqueInput = Prisma.AtLeast<{
   paymentMethod?: Prisma.EnumPaymentMethodFilter<"Expense"> | $Enums.PaymentMethod
   vendor?: Prisma.StringNullableFilter<"Expense"> | string | null
   notes?: Prisma.StringNullableFilter<"Expense"> | string | null
+  isFixed?: Prisma.BoolFilter<"Expense"> | boolean
+  kind?: Prisma.EnumExpenseKindFilter<"Expense"> | $Enums.ExpenseKind
+  paidDate?: Prisma.DateTimeNullableFilter<"Expense"> | Date | string | null
+  frequency?: Prisma.StringNullableFilter<"Expense"> | string | null
   allocationMethod?: Prisma.EnumAllocationMethodFilter<"Expense"> | $Enums.AllocationMethod
   status?: Prisma.EnumRecordStatusFilter<"Expense"> | $Enums.RecordStatus
   createdById?: Prisma.StringFilter<"Expense"> | string
@@ -403,6 +443,10 @@ export type ExpenseOrderByWithAggregationInput = {
   paymentMethod?: Prisma.SortOrder
   vendor?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
+  isFixed?: Prisma.SortOrder
+  kind?: Prisma.SortOrder
+  paidDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  frequency?: Prisma.SortOrderInput | Prisma.SortOrder
   allocationMethod?: Prisma.SortOrder
   status?: Prisma.SortOrder
   reversalOfId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -432,6 +476,10 @@ export type ExpenseScalarWhereWithAggregatesInput = {
   paymentMethod?: Prisma.EnumPaymentMethodWithAggregatesFilter<"Expense"> | $Enums.PaymentMethod
   vendor?: Prisma.StringNullableWithAggregatesFilter<"Expense"> | string | null
   notes?: Prisma.StringNullableWithAggregatesFilter<"Expense"> | string | null
+  isFixed?: Prisma.BoolWithAggregatesFilter<"Expense"> | boolean
+  kind?: Prisma.EnumExpenseKindWithAggregatesFilter<"Expense"> | $Enums.ExpenseKind
+  paidDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Expense"> | Date | string | null
+  frequency?: Prisma.StringNullableWithAggregatesFilter<"Expense"> | string | null
   allocationMethod?: Prisma.EnumAllocationMethodWithAggregatesFilter<"Expense"> | $Enums.AllocationMethod
   status?: Prisma.EnumRecordStatusWithAggregatesFilter<"Expense"> | $Enums.RecordStatus
   reversalOfId?: Prisma.StringNullableWithAggregatesFilter<"Expense"> | string | null
@@ -450,6 +498,10 @@ export type ExpenseCreateInput = {
   paymentMethod: $Enums.PaymentMethod
   vendor?: string | null
   notes?: string | null
+  isFixed?: boolean
+  kind?: $Enums.ExpenseKind
+  paidDate?: Date | string | null
+  frequency?: string | null
   allocationMethod?: $Enums.AllocationMethod
   status?: $Enums.RecordStatus
   createdAt?: Date | string
@@ -476,6 +528,10 @@ export type ExpenseUncheckedCreateInput = {
   paymentMethod: $Enums.PaymentMethod
   vendor?: string | null
   notes?: string | null
+  isFixed?: boolean
+  kind?: $Enums.ExpenseKind
+  paidDate?: Date | string | null
+  frequency?: string | null
   allocationMethod?: $Enums.AllocationMethod
   status?: $Enums.RecordStatus
   reversalOfId?: string | null
@@ -496,6 +552,10 @@ export type ExpenseUpdateInput = {
   paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   vendor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFixed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kind?: Prisma.EnumExpenseKindFieldUpdateOperationsInput | $Enums.ExpenseKind
+  paidDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  frequency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   allocationMethod?: Prisma.EnumAllocationMethodFieldUpdateOperationsInput | $Enums.AllocationMethod
   status?: Prisma.EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -522,6 +582,10 @@ export type ExpenseUncheckedUpdateInput = {
   paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   vendor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFixed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kind?: Prisma.EnumExpenseKindFieldUpdateOperationsInput | $Enums.ExpenseKind
+  paidDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  frequency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   allocationMethod?: Prisma.EnumAllocationMethodFieldUpdateOperationsInput | $Enums.AllocationMethod
   status?: Prisma.EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
   reversalOfId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -545,6 +609,10 @@ export type ExpenseCreateManyInput = {
   paymentMethod: $Enums.PaymentMethod
   vendor?: string | null
   notes?: string | null
+  isFixed?: boolean
+  kind?: $Enums.ExpenseKind
+  paidDate?: Date | string | null
+  frequency?: string | null
   allocationMethod?: $Enums.AllocationMethod
   status?: $Enums.RecordStatus
   reversalOfId?: string | null
@@ -563,6 +631,10 @@ export type ExpenseUpdateManyMutationInput = {
   paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   vendor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFixed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kind?: Prisma.EnumExpenseKindFieldUpdateOperationsInput | $Enums.ExpenseKind
+  paidDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  frequency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   allocationMethod?: Prisma.EnumAllocationMethodFieldUpdateOperationsInput | $Enums.AllocationMethod
   status?: Prisma.EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -581,6 +653,10 @@ export type ExpenseUncheckedUpdateManyInput = {
   paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   vendor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFixed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kind?: Prisma.EnumExpenseKindFieldUpdateOperationsInput | $Enums.ExpenseKind
+  paidDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  frequency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   allocationMethod?: Prisma.EnumAllocationMethodFieldUpdateOperationsInput | $Enums.AllocationMethod
   status?: Prisma.EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
   reversalOfId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -617,6 +693,10 @@ export type ExpenseCountOrderByAggregateInput = {
   paymentMethod?: Prisma.SortOrder
   vendor?: Prisma.SortOrder
   notes?: Prisma.SortOrder
+  isFixed?: Prisma.SortOrder
+  kind?: Prisma.SortOrder
+  paidDate?: Prisma.SortOrder
+  frequency?: Prisma.SortOrder
   allocationMethod?: Prisma.SortOrder
   status?: Prisma.SortOrder
   reversalOfId?: Prisma.SortOrder
@@ -642,6 +722,10 @@ export type ExpenseMaxOrderByAggregateInput = {
   paymentMethod?: Prisma.SortOrder
   vendor?: Prisma.SortOrder
   notes?: Prisma.SortOrder
+  isFixed?: Prisma.SortOrder
+  kind?: Prisma.SortOrder
+  paidDate?: Prisma.SortOrder
+  frequency?: Prisma.SortOrder
   allocationMethod?: Prisma.SortOrder
   status?: Prisma.SortOrder
   reversalOfId?: Prisma.SortOrder
@@ -663,6 +747,10 @@ export type ExpenseMinOrderByAggregateInput = {
   paymentMethod?: Prisma.SortOrder
   vendor?: Prisma.SortOrder
   notes?: Prisma.SortOrder
+  isFixed?: Prisma.SortOrder
+  kind?: Prisma.SortOrder
+  paidDate?: Prisma.SortOrder
+  frequency?: Prisma.SortOrder
   allocationMethod?: Prisma.SortOrder
   status?: Prisma.SortOrder
   reversalOfId?: Prisma.SortOrder
@@ -917,6 +1005,10 @@ export type EnumPaymentMethodFieldUpdateOperationsInput = {
   set?: $Enums.PaymentMethod
 }
 
+export type EnumExpenseKindFieldUpdateOperationsInput = {
+  set?: $Enums.ExpenseKind
+}
+
 export type EnumAllocationMethodFieldUpdateOperationsInput = {
   set?: $Enums.AllocationMethod
 }
@@ -974,6 +1066,10 @@ export type ExpenseCreateWithoutBusinessInput = {
   paymentMethod: $Enums.PaymentMethod
   vendor?: string | null
   notes?: string | null
+  isFixed?: boolean
+  kind?: $Enums.ExpenseKind
+  paidDate?: Date | string | null
+  frequency?: string | null
   allocationMethod?: $Enums.AllocationMethod
   status?: $Enums.RecordStatus
   createdAt?: Date | string
@@ -998,6 +1094,10 @@ export type ExpenseUncheckedCreateWithoutBusinessInput = {
   paymentMethod: $Enums.PaymentMethod
   vendor?: string | null
   notes?: string | null
+  isFixed?: boolean
+  kind?: $Enums.ExpenseKind
+  paidDate?: Date | string | null
+  frequency?: string | null
   allocationMethod?: $Enums.AllocationMethod
   status?: $Enums.RecordStatus
   reversalOfId?: string | null
@@ -1050,6 +1150,10 @@ export type ExpenseScalarWhereInput = {
   paymentMethod?: Prisma.EnumPaymentMethodFilter<"Expense"> | $Enums.PaymentMethod
   vendor?: Prisma.StringNullableFilter<"Expense"> | string | null
   notes?: Prisma.StringNullableFilter<"Expense"> | string | null
+  isFixed?: Prisma.BoolFilter<"Expense"> | boolean
+  kind?: Prisma.EnumExpenseKindFilter<"Expense"> | $Enums.ExpenseKind
+  paidDate?: Prisma.DateTimeNullableFilter<"Expense"> | Date | string | null
+  frequency?: Prisma.StringNullableFilter<"Expense"> | string | null
   allocationMethod?: Prisma.EnumAllocationMethodFilter<"Expense"> | $Enums.AllocationMethod
   status?: Prisma.EnumRecordStatusFilter<"Expense"> | $Enums.RecordStatus
   reversalOfId?: Prisma.StringNullableFilter<"Expense"> | string | null
@@ -1068,6 +1172,10 @@ export type ExpenseCreateWithoutShopInput = {
   paymentMethod: $Enums.PaymentMethod
   vendor?: string | null
   notes?: string | null
+  isFixed?: boolean
+  kind?: $Enums.ExpenseKind
+  paidDate?: Date | string | null
+  frequency?: string | null
   allocationMethod?: $Enums.AllocationMethod
   status?: $Enums.RecordStatus
   createdAt?: Date | string
@@ -1092,6 +1200,10 @@ export type ExpenseUncheckedCreateWithoutShopInput = {
   paymentMethod: $Enums.PaymentMethod
   vendor?: string | null
   notes?: string | null
+  isFixed?: boolean
+  kind?: $Enums.ExpenseKind
+  paidDate?: Date | string | null
+  frequency?: string | null
   allocationMethod?: $Enums.AllocationMethod
   status?: $Enums.RecordStatus
   reversalOfId?: string | null
@@ -1138,6 +1250,10 @@ export type ExpenseCreateWithoutCreatedByInput = {
   paymentMethod: $Enums.PaymentMethod
   vendor?: string | null
   notes?: string | null
+  isFixed?: boolean
+  kind?: $Enums.ExpenseKind
+  paidDate?: Date | string | null
+  frequency?: string | null
   allocationMethod?: $Enums.AllocationMethod
   status?: $Enums.RecordStatus
   createdAt?: Date | string
@@ -1163,6 +1279,10 @@ export type ExpenseUncheckedCreateWithoutCreatedByInput = {
   paymentMethod: $Enums.PaymentMethod
   vendor?: string | null
   notes?: string | null
+  isFixed?: boolean
+  kind?: $Enums.ExpenseKind
+  paidDate?: Date | string | null
+  frequency?: string | null
   allocationMethod?: $Enums.AllocationMethod
   status?: $Enums.RecordStatus
   reversalOfId?: string | null
@@ -1192,6 +1312,10 @@ export type ExpenseCreateWithoutUpdatedByInput = {
   paymentMethod: $Enums.PaymentMethod
   vendor?: string | null
   notes?: string | null
+  isFixed?: boolean
+  kind?: $Enums.ExpenseKind
+  paidDate?: Date | string | null
+  frequency?: string | null
   allocationMethod?: $Enums.AllocationMethod
   status?: $Enums.RecordStatus
   createdAt?: Date | string
@@ -1217,6 +1341,10 @@ export type ExpenseUncheckedCreateWithoutUpdatedByInput = {
   paymentMethod: $Enums.PaymentMethod
   vendor?: string | null
   notes?: string | null
+  isFixed?: boolean
+  kind?: $Enums.ExpenseKind
+  paidDate?: Date | string | null
+  frequency?: string | null
   allocationMethod?: $Enums.AllocationMethod
   status?: $Enums.RecordStatus
   reversalOfId?: string | null
@@ -1278,6 +1406,10 @@ export type ExpenseCreateWithoutCategoryInput = {
   paymentMethod: $Enums.PaymentMethod
   vendor?: string | null
   notes?: string | null
+  isFixed?: boolean
+  kind?: $Enums.ExpenseKind
+  paidDate?: Date | string | null
+  frequency?: string | null
   allocationMethod?: $Enums.AllocationMethod
   status?: $Enums.RecordStatus
   createdAt?: Date | string
@@ -1302,6 +1434,10 @@ export type ExpenseUncheckedCreateWithoutCategoryInput = {
   paymentMethod: $Enums.PaymentMethod
   vendor?: string | null
   notes?: string | null
+  isFixed?: boolean
+  kind?: $Enums.ExpenseKind
+  paidDate?: Date | string | null
+  frequency?: string | null
   allocationMethod?: $Enums.AllocationMethod
   status?: $Enums.RecordStatus
   reversalOfId?: string | null
@@ -1348,6 +1484,10 @@ export type ExpenseCreateWithoutReversalInput = {
   paymentMethod: $Enums.PaymentMethod
   vendor?: string | null
   notes?: string | null
+  isFixed?: boolean
+  kind?: $Enums.ExpenseKind
+  paidDate?: Date | string | null
+  frequency?: string | null
   allocationMethod?: $Enums.AllocationMethod
   status?: $Enums.RecordStatus
   createdAt?: Date | string
@@ -1373,6 +1513,10 @@ export type ExpenseUncheckedCreateWithoutReversalInput = {
   paymentMethod: $Enums.PaymentMethod
   vendor?: string | null
   notes?: string | null
+  isFixed?: boolean
+  kind?: $Enums.ExpenseKind
+  paidDate?: Date | string | null
+  frequency?: string | null
   allocationMethod?: $Enums.AllocationMethod
   status?: $Enums.RecordStatus
   reversalOfId?: string | null
@@ -1397,6 +1541,10 @@ export type ExpenseCreateWithoutReversalOfInput = {
   paymentMethod: $Enums.PaymentMethod
   vendor?: string | null
   notes?: string | null
+  isFixed?: boolean
+  kind?: $Enums.ExpenseKind
+  paidDate?: Date | string | null
+  frequency?: string | null
   allocationMethod?: $Enums.AllocationMethod
   status?: $Enums.RecordStatus
   createdAt?: Date | string
@@ -1422,6 +1570,10 @@ export type ExpenseUncheckedCreateWithoutReversalOfInput = {
   paymentMethod: $Enums.PaymentMethod
   vendor?: string | null
   notes?: string | null
+  isFixed?: boolean
+  kind?: $Enums.ExpenseKind
+  paidDate?: Date | string | null
+  frequency?: string | null
   allocationMethod?: $Enums.AllocationMethod
   status?: $Enums.RecordStatus
   createdById: string
@@ -1457,6 +1609,10 @@ export type ExpenseUpdateWithoutReversalInput = {
   paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   vendor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFixed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kind?: Prisma.EnumExpenseKindFieldUpdateOperationsInput | $Enums.ExpenseKind
+  paidDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  frequency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   allocationMethod?: Prisma.EnumAllocationMethodFieldUpdateOperationsInput | $Enums.AllocationMethod
   status?: Prisma.EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1482,6 +1638,10 @@ export type ExpenseUncheckedUpdateWithoutReversalInput = {
   paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   vendor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFixed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kind?: Prisma.EnumExpenseKindFieldUpdateOperationsInput | $Enums.ExpenseKind
+  paidDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  frequency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   allocationMethod?: Prisma.EnumAllocationMethodFieldUpdateOperationsInput | $Enums.AllocationMethod
   status?: Prisma.EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
   reversalOfId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1512,6 +1672,10 @@ export type ExpenseUpdateWithoutReversalOfInput = {
   paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   vendor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFixed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kind?: Prisma.EnumExpenseKindFieldUpdateOperationsInput | $Enums.ExpenseKind
+  paidDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  frequency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   allocationMethod?: Prisma.EnumAllocationMethodFieldUpdateOperationsInput | $Enums.AllocationMethod
   status?: Prisma.EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1537,6 +1701,10 @@ export type ExpenseUncheckedUpdateWithoutReversalOfInput = {
   paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   vendor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFixed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kind?: Prisma.EnumExpenseKindFieldUpdateOperationsInput | $Enums.ExpenseKind
+  paidDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  frequency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   allocationMethod?: Prisma.EnumAllocationMethodFieldUpdateOperationsInput | $Enums.AllocationMethod
   status?: Prisma.EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1556,6 +1724,10 @@ export type ExpenseCreateWithoutAllocationsInput = {
   paymentMethod: $Enums.PaymentMethod
   vendor?: string | null
   notes?: string | null
+  isFixed?: boolean
+  kind?: $Enums.ExpenseKind
+  paidDate?: Date | string | null
+  frequency?: string | null
   allocationMethod?: $Enums.AllocationMethod
   status?: $Enums.RecordStatus
   createdAt?: Date | string
@@ -1581,6 +1753,10 @@ export type ExpenseUncheckedCreateWithoutAllocationsInput = {
   paymentMethod: $Enums.PaymentMethod
   vendor?: string | null
   notes?: string | null
+  isFixed?: boolean
+  kind?: $Enums.ExpenseKind
+  paidDate?: Date | string | null
+  frequency?: string | null
   allocationMethod?: $Enums.AllocationMethod
   status?: $Enums.RecordStatus
   reversalOfId?: string | null
@@ -1616,6 +1792,10 @@ export type ExpenseUpdateWithoutAllocationsInput = {
   paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   vendor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFixed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kind?: Prisma.EnumExpenseKindFieldUpdateOperationsInput | $Enums.ExpenseKind
+  paidDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  frequency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   allocationMethod?: Prisma.EnumAllocationMethodFieldUpdateOperationsInput | $Enums.AllocationMethod
   status?: Prisma.EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1641,6 +1821,10 @@ export type ExpenseUncheckedUpdateWithoutAllocationsInput = {
   paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   vendor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFixed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kind?: Prisma.EnumExpenseKindFieldUpdateOperationsInput | $Enums.ExpenseKind
+  paidDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  frequency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   allocationMethod?: Prisma.EnumAllocationMethodFieldUpdateOperationsInput | $Enums.AllocationMethod
   status?: Prisma.EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
   reversalOfId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1662,6 +1846,10 @@ export type ExpenseCreateManyBusinessInput = {
   paymentMethod: $Enums.PaymentMethod
   vendor?: string | null
   notes?: string | null
+  isFixed?: boolean
+  kind?: $Enums.ExpenseKind
+  paidDate?: Date | string | null
+  frequency?: string | null
   allocationMethod?: $Enums.AllocationMethod
   status?: $Enums.RecordStatus
   reversalOfId?: string | null
@@ -1680,6 +1868,10 @@ export type ExpenseUpdateWithoutBusinessInput = {
   paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   vendor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFixed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kind?: Prisma.EnumExpenseKindFieldUpdateOperationsInput | $Enums.ExpenseKind
+  paidDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  frequency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   allocationMethod?: Prisma.EnumAllocationMethodFieldUpdateOperationsInput | $Enums.AllocationMethod
   status?: Prisma.EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1704,6 +1896,10 @@ export type ExpenseUncheckedUpdateWithoutBusinessInput = {
   paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   vendor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFixed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kind?: Prisma.EnumExpenseKindFieldUpdateOperationsInput | $Enums.ExpenseKind
+  paidDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  frequency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   allocationMethod?: Prisma.EnumAllocationMethodFieldUpdateOperationsInput | $Enums.AllocationMethod
   status?: Prisma.EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
   reversalOfId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1726,6 +1922,10 @@ export type ExpenseUncheckedUpdateManyWithoutBusinessInput = {
   paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   vendor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFixed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kind?: Prisma.EnumExpenseKindFieldUpdateOperationsInput | $Enums.ExpenseKind
+  paidDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  frequency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   allocationMethod?: Prisma.EnumAllocationMethodFieldUpdateOperationsInput | $Enums.AllocationMethod
   status?: Prisma.EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
   reversalOfId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1746,6 +1946,10 @@ export type ExpenseCreateManyShopInput = {
   paymentMethod: $Enums.PaymentMethod
   vendor?: string | null
   notes?: string | null
+  isFixed?: boolean
+  kind?: $Enums.ExpenseKind
+  paidDate?: Date | string | null
+  frequency?: string | null
   allocationMethod?: $Enums.AllocationMethod
   status?: $Enums.RecordStatus
   reversalOfId?: string | null
@@ -1764,6 +1968,10 @@ export type ExpenseUpdateWithoutShopInput = {
   paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   vendor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFixed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kind?: Prisma.EnumExpenseKindFieldUpdateOperationsInput | $Enums.ExpenseKind
+  paidDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  frequency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   allocationMethod?: Prisma.EnumAllocationMethodFieldUpdateOperationsInput | $Enums.AllocationMethod
   status?: Prisma.EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1788,6 +1996,10 @@ export type ExpenseUncheckedUpdateWithoutShopInput = {
   paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   vendor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFixed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kind?: Prisma.EnumExpenseKindFieldUpdateOperationsInput | $Enums.ExpenseKind
+  paidDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  frequency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   allocationMethod?: Prisma.EnumAllocationMethodFieldUpdateOperationsInput | $Enums.AllocationMethod
   status?: Prisma.EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
   reversalOfId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1810,6 +2022,10 @@ export type ExpenseUncheckedUpdateManyWithoutShopInput = {
   paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   vendor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFixed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kind?: Prisma.EnumExpenseKindFieldUpdateOperationsInput | $Enums.ExpenseKind
+  paidDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  frequency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   allocationMethod?: Prisma.EnumAllocationMethodFieldUpdateOperationsInput | $Enums.AllocationMethod
   status?: Prisma.EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
   reversalOfId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1831,6 +2047,10 @@ export type ExpenseCreateManyCreatedByInput = {
   paymentMethod: $Enums.PaymentMethod
   vendor?: string | null
   notes?: string | null
+  isFixed?: boolean
+  kind?: $Enums.ExpenseKind
+  paidDate?: Date | string | null
+  frequency?: string | null
   allocationMethod?: $Enums.AllocationMethod
   status?: $Enums.RecordStatus
   reversalOfId?: string | null
@@ -1851,6 +2071,10 @@ export type ExpenseCreateManyUpdatedByInput = {
   paymentMethod: $Enums.PaymentMethod
   vendor?: string | null
   notes?: string | null
+  isFixed?: boolean
+  kind?: $Enums.ExpenseKind
+  paidDate?: Date | string | null
+  frequency?: string | null
   allocationMethod?: $Enums.AllocationMethod
   status?: $Enums.RecordStatus
   reversalOfId?: string | null
@@ -1868,6 +2092,10 @@ export type ExpenseUpdateWithoutCreatedByInput = {
   paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   vendor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFixed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kind?: Prisma.EnumExpenseKindFieldUpdateOperationsInput | $Enums.ExpenseKind
+  paidDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  frequency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   allocationMethod?: Prisma.EnumAllocationMethodFieldUpdateOperationsInput | $Enums.AllocationMethod
   status?: Prisma.EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1893,6 +2121,10 @@ export type ExpenseUncheckedUpdateWithoutCreatedByInput = {
   paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   vendor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFixed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kind?: Prisma.EnumExpenseKindFieldUpdateOperationsInput | $Enums.ExpenseKind
+  paidDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  frequency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   allocationMethod?: Prisma.EnumAllocationMethodFieldUpdateOperationsInput | $Enums.AllocationMethod
   status?: Prisma.EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
   reversalOfId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1915,6 +2147,10 @@ export type ExpenseUncheckedUpdateManyWithoutCreatedByInput = {
   paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   vendor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFixed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kind?: Prisma.EnumExpenseKindFieldUpdateOperationsInput | $Enums.ExpenseKind
+  paidDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  frequency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   allocationMethod?: Prisma.EnumAllocationMethodFieldUpdateOperationsInput | $Enums.AllocationMethod
   status?: Prisma.EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
   reversalOfId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1932,6 +2168,10 @@ export type ExpenseUpdateWithoutUpdatedByInput = {
   paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   vendor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFixed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kind?: Prisma.EnumExpenseKindFieldUpdateOperationsInput | $Enums.ExpenseKind
+  paidDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  frequency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   allocationMethod?: Prisma.EnumAllocationMethodFieldUpdateOperationsInput | $Enums.AllocationMethod
   status?: Prisma.EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1957,6 +2197,10 @@ export type ExpenseUncheckedUpdateWithoutUpdatedByInput = {
   paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   vendor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFixed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kind?: Prisma.EnumExpenseKindFieldUpdateOperationsInput | $Enums.ExpenseKind
+  paidDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  frequency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   allocationMethod?: Prisma.EnumAllocationMethodFieldUpdateOperationsInput | $Enums.AllocationMethod
   status?: Prisma.EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
   reversalOfId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1979,6 +2223,10 @@ export type ExpenseUncheckedUpdateManyWithoutUpdatedByInput = {
   paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   vendor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFixed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kind?: Prisma.EnumExpenseKindFieldUpdateOperationsInput | $Enums.ExpenseKind
+  paidDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  frequency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   allocationMethod?: Prisma.EnumAllocationMethodFieldUpdateOperationsInput | $Enums.AllocationMethod
   status?: Prisma.EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
   reversalOfId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1998,6 +2246,10 @@ export type ExpenseCreateManyCategoryInput = {
   paymentMethod: $Enums.PaymentMethod
   vendor?: string | null
   notes?: string | null
+  isFixed?: boolean
+  kind?: $Enums.ExpenseKind
+  paidDate?: Date | string | null
+  frequency?: string | null
   allocationMethod?: $Enums.AllocationMethod
   status?: $Enums.RecordStatus
   reversalOfId?: string | null
@@ -2016,6 +2268,10 @@ export type ExpenseUpdateWithoutCategoryInput = {
   paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   vendor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFixed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kind?: Prisma.EnumExpenseKindFieldUpdateOperationsInput | $Enums.ExpenseKind
+  paidDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  frequency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   allocationMethod?: Prisma.EnumAllocationMethodFieldUpdateOperationsInput | $Enums.AllocationMethod
   status?: Prisma.EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2040,6 +2296,10 @@ export type ExpenseUncheckedUpdateWithoutCategoryInput = {
   paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   vendor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFixed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kind?: Prisma.EnumExpenseKindFieldUpdateOperationsInput | $Enums.ExpenseKind
+  paidDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  frequency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   allocationMethod?: Prisma.EnumAllocationMethodFieldUpdateOperationsInput | $Enums.AllocationMethod
   status?: Prisma.EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
   reversalOfId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2062,6 +2322,10 @@ export type ExpenseUncheckedUpdateManyWithoutCategoryInput = {
   paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   vendor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFixed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kind?: Prisma.EnumExpenseKindFieldUpdateOperationsInput | $Enums.ExpenseKind
+  paidDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  frequency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   allocationMethod?: Prisma.EnumAllocationMethodFieldUpdateOperationsInput | $Enums.AllocationMethod
   status?: Prisma.EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
   reversalOfId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2114,6 +2378,10 @@ export type ExpenseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   paymentMethod?: boolean
   vendor?: boolean
   notes?: boolean
+  isFixed?: boolean
+  kind?: boolean
+  paidDate?: boolean
+  frequency?: boolean
   allocationMethod?: boolean
   status?: boolean
   reversalOfId?: boolean
@@ -2144,6 +2412,10 @@ export type ExpenseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   paymentMethod?: boolean
   vendor?: boolean
   notes?: boolean
+  isFixed?: boolean
+  kind?: boolean
+  paidDate?: boolean
+  frequency?: boolean
   allocationMethod?: boolean
   status?: boolean
   reversalOfId?: boolean
@@ -2171,6 +2443,10 @@ export type ExpenseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   paymentMethod?: boolean
   vendor?: boolean
   notes?: boolean
+  isFixed?: boolean
+  kind?: boolean
+  paidDate?: boolean
+  frequency?: boolean
   allocationMethod?: boolean
   status?: boolean
   reversalOfId?: boolean
@@ -2198,6 +2474,10 @@ export type ExpenseSelectScalar = {
   paymentMethod?: boolean
   vendor?: boolean
   notes?: boolean
+  isFixed?: boolean
+  kind?: boolean
+  paidDate?: boolean
+  frequency?: boolean
   allocationMethod?: boolean
   status?: boolean
   reversalOfId?: boolean
@@ -2207,7 +2487,7 @@ export type ExpenseSelectScalar = {
   updatedAt?: boolean
 }
 
-export type ExpenseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "shopId" | "categoryId" | "expenseDate" | "type" | "description" | "amount" | "paymentMethod" | "vendor" | "notes" | "allocationMethod" | "status" | "reversalOfId" | "createdById" | "updatedById" | "createdAt" | "updatedAt", ExtArgs["result"]["expense"]>
+export type ExpenseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "shopId" | "categoryId" | "expenseDate" | "type" | "description" | "amount" | "paymentMethod" | "vendor" | "notes" | "isFixed" | "kind" | "paidDate" | "frequency" | "allocationMethod" | "status" | "reversalOfId" | "createdById" | "updatedById" | "createdAt" | "updatedAt", ExtArgs["result"]["expense"]>
 export type ExpenseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   shop?: boolean | Prisma.Expense$shopArgs<ExtArgs>
@@ -2260,6 +2540,10 @@ export type $ExpensePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     paymentMethod: $Enums.PaymentMethod
     vendor: string | null
     notes: string | null
+    isFixed: boolean
+    kind: $Enums.ExpenseKind
+    paidDate: Date | null
+    frequency: string | null
     allocationMethod: $Enums.AllocationMethod
     status: $Enums.RecordStatus
     reversalOfId: string | null
@@ -2709,6 +2993,10 @@ export interface ExpenseFieldRefs {
   readonly paymentMethod: Prisma.FieldRef<"Expense", 'PaymentMethod'>
   readonly vendor: Prisma.FieldRef<"Expense", 'String'>
   readonly notes: Prisma.FieldRef<"Expense", 'String'>
+  readonly isFixed: Prisma.FieldRef<"Expense", 'Boolean'>
+  readonly kind: Prisma.FieldRef<"Expense", 'ExpenseKind'>
+  readonly paidDate: Prisma.FieldRef<"Expense", 'DateTime'>
+  readonly frequency: Prisma.FieldRef<"Expense", 'String'>
   readonly allocationMethod: Prisma.FieldRef<"Expense", 'AllocationMethod'>
   readonly status: Prisma.FieldRef<"Expense", 'RecordStatus'>
   readonly reversalOfId: Prisma.FieldRef<"Expense", 'String'>

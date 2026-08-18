@@ -29,6 +29,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .input:focus { border-color: var(--primary-bright); box-shadow: 0 0 0 3px rgba(29, 106, 73, .1); outline: none; }
 .button-primary { min-height: 46px; border: 0; border-radius: 12px; padding: 0 18px; background: var(--primary); color: white; font-weight: 700; cursor: pointer; }
 .button-primary:hover { background: #0c3323; }
+.button-secondary { min-height: 42px; display:inline-flex; align-items:center; border:1px solid var(--border); border-radius:12px; padding:0 14px; background:white; font-weight:700; cursor:pointer; }
+.button-danger { min-height:42px; border:1px solid #e6b8bc; border-radius:12px; padding:0 14px; background:#fff4f4; color:var(--danger); font-weight:700; cursor:pointer; }
 
 @media (max-width: 767px) {
   .card { border-radius: 15px; }

@@ -9,6 +9,7 @@ LK Ledger Book is a PostgreSQL-backed internal finance application for multi-sho
 - Daily sales entry with duplicate constraints and central calculation functions for gross/net sales, profit, margins, contribution, and expense allocation.
 - PostgreSQL schema for businesses, shops, access, sales/categories, expenses/allocations, suppliers, bills, payments/allocations, ledger, closings, cash movements, targets, alerts, filters, documents, audit logs, and reversals.
 - Production Docker image, safe forward-only migrations, health endpoint, seed data, and unit tests.
+- Additive 2026 financial-management upgrade with safe shop archiving/deletion, effective margin history, invoice-aware sales, monthly fixed-cost and EMI structures, shared report filters, real P&L/cash-flow routes, expanded RBAC, and a secret-safe Data & Backup page.
 
 ## Architecture
 
@@ -90,6 +91,8 @@ Never use `prisma migrate reset` in production.
 ## Deployment
 
 See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md), [docs/BACKUP-RESTORE.md](docs/BACKUP-RESTORE.md), [docs/ADMIN-RECOVERY.md](docs/ADMIN-RECOVERY.md), and [docs/PRODUCTION-CHECKLIST.md](docs/PRODUCTION-CHECKLIST.md).
+
+For the coordinated 2026 upgrade, exact upload, verification, and rollback steps, see [docs/UPGRADE-2026-08.md](docs/UPGRADE-2026-08.md).
 
 ## Testing and troubleshooting
 
