@@ -166,6 +166,7 @@ model Shop {
   archivedAt    DateTime?
   monthlyTarget Decimal?     @db.Decimal(18, 2)
   dailyTarget   Decimal?     @db.Decimal(18, 2)
+  defaultMarginPercent Decimal @default(0) @db.Decimal(7, 4)
   notes         String?
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
@@ -254,6 +255,7 @@ model DailySale {
   source       SaleSource   @default(MANUAL)
   cancelledAt  DateTime?
   cogs         Decimal      @default(0) @db.Decimal(18, 2)
+  appliedMarginPercent Decimal @default(0) @db.Decimal(7, 4)
   billCount    Int          @default(0)
   customerCount Int         @default(0)
   notes        String?
