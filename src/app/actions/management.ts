@@ -113,10 +113,67 @@ export async function createMarginAction(data: FormData) {
 }
 
 export async function createFixedCostAction(data: FormData) {
-  const actor = await requireUser(); const shopId = text(data, "shopId") || null; if (shopId && !canAccessShop(actor, shopId)) return;
-  const cost = await prisma.monthlyFixedCost.create({ data: { businessId: text(data,"businessId"), shopId, name: text(data,"name"), category: text(data,"category"), periodMonth: new Date(`${text(data,"periodMonth")}-01T00:00:00.000Z`), amount: text(data,"amount"), allocationMethod: text(data,"allocationMethod") as never, paymentStatus: text(data,"paymentStatus") as never, paymentDate: text(data,"paymentDate") ? new Date(`${text(data,"paymentDate")}T00:00:00.000Z`) : null, paymentMethod: (text(data,"paymentMethod") || null) as never, vendor: text(data,"vendor") || null, notes: text(data,"notes") || null, recurringKey: text(data,"recurringKey") || null, createdById: actor.id } });
-  await writeAudit({ userId: actor.id, action:"CREATE", module:"FIXED_COSTS", recordId:cost.id, newValue:{ name:cost.name, amount:String(cost.amount), periodMonth:cost.periodMonth } });
-  revalidatePath("/expenses"); revalidatePath("/dashboard"); revalidatePath("/reports");
+  const actor = await requireUser();
+  const shopId = text(data, "shopId");
+  const periodMonthText = text(data, "periodMonth");
+  if (!shopId || !canAccessShop(actor, shopId) || !/^\d{4}-\d{2}$/.test(periodMonthText)) return;
+  const shop = await prisma.shop.findUnique({ where: { id: shopId }, select: { businessId: true } });
+  if (!shop) return;
+  const requestedMonths = Number(text(data, "repeatMonths") || "1");
+  const repeatMonths = [1, 3, 6, 12].includes(requestedMonths) ? requestedMonths : 1;
+  const firstMonth = new Date(`${periodMonthText}-01T00:00:00.000Z`);
+  const notes = text(data, "notes") || null;
+  const fields = [
+    { field: "rent", name: "Rent", category: "RENT" },
+    { field: "salaries", name: "Salaries", category: "SALARIES" },
+    { field: "electricity", name: "Electricity bill", category: "ELECTRICITY" },
+    { field: "teaAndOthers", name: "Tea and others", category: "TEA_AND_OTHERS" },
+    { field: "otherExpense", name: "Other expense", category: "OTHER_EXPENSE" },
+  ] as const;
+  const amounts = fields.map((entry) => ({ ...entry, amount: Number(text(data, entry.field) || "0") }));
+  if (amounts.some((entry) => !Number.isFinite(entry.amount) || entry.amount < 0)) return;
+  await prisma.$transaction(async (tx) => {
+    for (let offset = 0; offset < repeatMonths; offset += 1) {
+      const periodMonth = new Date(Date.UTC(firstMonth.getUTCFullYear(), firstMonth.getUTCMonth() + offset, 1));
+      for (const entry of amounts) {
+        const recurringKey = `${shopId}:${entry.category.toLowerCase()}`;
+        if (entry.amount === 0) {
+          await tx.monthlyFixedCost.deleteMany({ where: { businessId: shop.businessId, recurringKey, periodMonth } });
+        } else {
+          await tx.monthlyFixedCost.upsert({
+            where: { businessId_recurringKey_periodMonth: { businessId: shop.businessId, recurringKey, periodMonth } },
+            update: { shopId, name: entry.name, category: entry.category, amount: entry.amount, allocationMethod: "DIRECT", notes },
+            create: { businessId: shop.businessId, shopId, name: entry.name, category: entry.category, periodMonth, amount: entry.amount, allocationMethod: "DIRECT", paymentStatus: "UNPAID", notes, recurringKey, createdById: actor.id },
+          });
+        }
+      }
+    }
+  });
+  await writeAudit({ userId: actor.id, action: "CREATE", module: "FIXED_COSTS", recordId: shopId, newValue: { shopId, periodMonth: periodMonthText, repeatMonths, amounts } });
+  revalidatePath("/fixed-costs"); revalidatePath("/expenses"); revalidatePath("/dashboard"); revalidatePath("/reports");
+}
+
+export async function duplicateFixedCostsToNextMonthAction(data: FormData) {
+  const actor = await requireUser();
+  const shopId = text(data, "shopId");
+  const sourceMonthText = text(data, "sourceMonth");
+  if (!shopId || !canAccessShop(actor, shopId) || !/^\d{4}-\d{2}$/.test(sourceMonthText)) return;
+  const sourceMonth = new Date(`${sourceMonthText}-01T00:00:00.000Z`);
+  const targetMonth = new Date(Date.UTC(sourceMonth.getUTCFullYear(), sourceMonth.getUTCMonth() + 1, 1));
+  const sourceCosts = await prisma.monthlyFixedCost.findMany({ where: { shopId, periodMonth: sourceMonth } });
+  if (!sourceCosts.length) return;
+  await prisma.$transaction(async (tx) => {
+    for (const cost of sourceCosts) {
+      const recurringKey = cost.recurringKey || `${shopId}:${cost.category.toLowerCase().replace(/[^a-z0-9]+/g, "_")}`;
+      await tx.monthlyFixedCost.upsert({
+        where: { businessId_recurringKey_periodMonth: { businessId: cost.businessId, recurringKey, periodMonth: targetMonth } },
+        update: { shopId, name: cost.name, category: cost.category, amount: cost.amount, allocationMethod: cost.allocationMethod, notes: cost.notes },
+        create: { businessId: cost.businessId, shopId, name: cost.name, category: cost.category, periodMonth: targetMonth, amount: cost.amount, allocationMethod: cost.allocationMethod, paymentStatus: "UNPAID", notes: cost.notes, recurringKey, createdById: actor.id },
+      });
+    }
+  });
+  await writeAudit({ userId: actor.id, action: "CREATE", module: "FIXED_COSTS", recordId: shopId, newValue: { copiedFrom: sourceMonth, copiedTo: targetMonth, shopId } });
+  revalidatePath("/fixed-costs"); revalidatePath("/dashboard"); revalidatePath("/reports");
 }
 
 export async function createEmiPaymentAction(data: FormData) {
