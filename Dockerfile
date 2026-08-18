@@ -25,3 +25,4 @@ COPY --from=builder --chown=nextjs:nodejs /app/package.json ./package.json
 USER nextjs
 EXPOSE 3000
 CMD ["sh", "-c", "npx prisma migrate deploy && npx tsx scripts/bootstrap-admin.ts && node server.js"]
+RUN printf "memory_limit=4gb\n" > /usr/local/etc/php/conf.d/memory-limit.ini
