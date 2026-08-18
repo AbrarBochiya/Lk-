@@ -12,8 +12,11 @@ export async function createSaleAction(formData: FormData) {
   if (!parsed.success) return { ok: false, error: parsed.error.issues[0]?.message ?? "Invalid sale" };
   if (!canAccessShop(user, parsed.data.shopId)) return { ok: false, error: "You do not have access to this shop." };
   try {
-    const sale = await prisma.dailySale.create({ data: { ...parsed.data, createdById: user.id, updatedById: user.id } });
-    await writeAudit({ userId: user.id, action: "CREATE", module: "SALES", recordId: sale.id, newValue: parsed.data });
+    const shop = await prisma.shop.findUnique({ where: { id: parsed.data.shopId }, select: { businessId: true, status: true } });
+    if (!shop || shop.status !== "ACTIVE") return { ok: false, error: "Please select an active shop." };
+    const saleData = { ...parsed.data, businessId: shop.businessId, shift: "FULL_DAY", returns: 0, cogs: 0, billCount: 0, customerCount: 0, createdById: user.id, updatedById: user.id };
+    const sale = await prisma.dailySale.create({ data: saleData });
+    await writeAudit({ userId: user.id, action: "CREATE", module: "SALES", recordId: sale.id, newValue: saleData });
     ["/sales", "/dashboard", "/reports", "/cash-flow", "/profit"].forEach(path => revalidatePath(path));
     return { ok: true };
   } catch (error) {
