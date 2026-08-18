@@ -8,7 +8,12 @@ datasource db {
 }
 
 enum Role {
+  OWNER
   ADMIN
+  ACCOUNTANT
+  SHOP_MANAGER
+  DATA_ENTRY
+  VIEWER
   MANAGER
   STAFF
 }
@@ -32,7 +37,35 @@ enum AllocationMethod {
   UNALLOCATED
   EQUAL
   SALES_CONTRIBUTION
+  GROSS_PROFIT
+  DIRECT
+  CUSTOM
   MANUAL
+}
+enum SaleSource {
+  MANUAL
+  IMPORT
+}
+enum ExpenseKind {
+  VARIABLE
+  FIXED
+  EMI
+  ONE_TIME
+  CENTRAL
+  CAPEX
+}
+enum PaymentStatus {
+  UNPAID
+  PARTIALLY_PAID
+  PAID
+}
+enum ImportStatus {
+  PREVIEW
+  VALIDATED
+  COMPLETED
+  PARTIAL
+  FAILED
+  ROLLED_BACK
 }
 enum BillStatus {
   DRAFT
@@ -121,6 +154,7 @@ model Shop {
   businessId    String
   business      Business     @relation(fields: [businessId], references: [id])
   name          String
+  code          String?
   branch        String?
   address       String?
   city          String?
@@ -129,6 +163,7 @@ model Shop {
   contactNumber String?
   openingDate   DateTime?
   status        EntityStatus @default(ACTIVE)
+  archivedAt    DateTime?
   monthlyTarget Decimal?     @db.Decimal(18, 2)
   dailyTarget   Decimal?     @db.Decimal(18, 2)
   notes         String?
@@ -142,8 +177,12 @@ model Shop {
   targets       ShopTarget[]
   categorySales DailyCategorySale[]
   cashMovements CashMovement[]
+  margins       ShopMargin[]
+  fixedCosts    MonthlyFixedCost[]
+  emiPayments   EmiPayment[]
 
   @@unique([businessId, name])
+  @@unique([businessId, code])
   @@index([businessId, status])
 }
 
@@ -198,6 +237,8 @@ model DailySale {
   business     Business     @relation(fields: [businessId], references: [id])
   shop         Shop         @relation(fields: [shopId], references: [id])
   saleDate     DateTime     @db.Date
+  saleTime     DateTime?
+  invoiceNumber String?
   shift        String       @default("FULL_DAY")
   cashSales    Decimal      @default(0) @db.Decimal(18, 2)
   upiSales     Decimal      @default(0) @db.Decimal(18, 2)
@@ -205,6 +246,13 @@ model DailySale {
   bankSales    Decimal      @default(0) @db.Decimal(18, 2)
   otherSales   Decimal      @default(0) @db.Decimal(18, 2)
   returns      Decimal      @default(0) @db.Decimal(18, 2)
+  discount     Decimal      @default(0) @db.Decimal(18, 2)
+  tax          Decimal      @default(0) @db.Decimal(18, 2)
+  amountReceived Decimal?   @db.Decimal(18, 2)
+  customerName String?
+  customerPhone String?
+  source       SaleSource   @default(MANUAL)
+  cancelledAt  DateTime?
   cogs         Decimal      @default(0) @db.Decimal(18, 2)
   billCount    Int          @default(0)
   customerCount Int         @default(0)
@@ -222,6 +270,7 @@ model DailySale {
   categorySales DailyCategorySale[]
 
   @@unique([shopId, saleDate, shift])
+  @@unique([shopId, invoiceNumber])
   @@index([businessId, saleDate])
   @@index([shopId, saleDate])
   @@index([status])
@@ -287,6 +336,8 @@ model Expense {
   vendor      String?
   notes       String?
   isFixed     Boolean @default(false)
+  kind        ExpenseKind @default(VARIABLE)
+  paidDate    DateTime? @db.Date
   frequency   String?
   allocationMethod AllocationMethod @default(UNALLOCATED)
   status      RecordStatus @default(POSTED)
@@ -303,6 +354,117 @@ model Expense {
   @@index([businessId, expenseDate, type])
   @@index([shopId, expenseDate])
   @@index([categoryId, expenseDate])
+}
+
+model ShopMargin {
+  id            String   @id @default(cuid())
+  shopId        String
+  shop          Shop     @relation(fields: [shopId], references: [id])
+  marginPercent Decimal  @db.Decimal(7, 4)
+  effectiveFrom DateTime @db.Date
+  effectiveTo   DateTime? @db.Date
+  note          String?
+  createdById   String
+  createdAt     DateTime @default(now())
+  @@unique([shopId, effectiveFrom])
+  @@index([shopId, effectiveFrom, effectiveTo])
+}
+
+model MonthlyFixedCost {
+  id               String @id @default(cuid())
+  businessId       String
+  shopId            String?
+  shop              Shop? @relation(fields: [shopId], references: [id])
+  name              String
+  category          String
+  periodMonth       DateTime @db.Date
+  amount            Decimal @db.Decimal(18, 2)
+  allocationMethod  AllocationMethod @default(UNALLOCATED)
+  paymentStatus     PaymentStatus @default(UNPAID)
+  paymentDate       DateTime? @db.Date
+  paymentMethod     PaymentMethod?
+  vendor            String?
+  notes             String?
+  recurringKey      String?
+  createdById       String
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  @@unique([businessId, recurringKey, periodMonth])
+  @@index([businessId, periodMonth])
+  @@index([shopId, periodMonth])
+}
+
+model Loan {
+  id          String @id @default(cuid())
+  businessId  String
+  name        String
+  lender      String
+  startDate   DateTime @db.Date
+  endDate     DateTime? @db.Date
+  isActive    Boolean @default(true)
+  notes       String?
+  payments    EmiPayment[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  @@unique([businessId, name])
+}
+
+model EmiPayment {
+  id               String @id @default(cuid())
+  loanId           String
+  loan             Loan @relation(fields: [loanId], references: [id])
+  shopId           String?
+  shop             Shop? @relation(fields: [shopId], references: [id])
+  dueDate          DateTime @db.Date
+  paidDate         DateTime? @db.Date
+  totalAmount      Decimal @db.Decimal(18, 2)
+  principalAmount  Decimal @db.Decimal(18, 2)
+  interestAmount   Decimal @db.Decimal(18, 2)
+  paymentStatus    PaymentStatus @default(UNPAID)
+  allocationMethod AllocationMethod @default(UNALLOCATED)
+  notes             String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  @@unique([loanId, dueDate])
+  @@index([shopId, dueDate])
+}
+
+model AccountingPeriod {
+  id          String @id @default(cuid())
+  businessId  String
+  periodMonth DateTime @db.Date
+  closedAt    DateTime?
+  closedById  String?
+  note        String?
+  @@unique([businessId, periodMonth])
+}
+
+model ImportBatch {
+  id          String @id @default(cuid())
+  businessId  String
+  dataType    String
+  fileName    String
+  status      ImportStatus @default(PREVIEW)
+  totalRows   Int @default(0)
+  validRows   Int @default(0)
+  invalidRows Int @default(0)
+  createdById String
+  createdAt   DateTime @default(now())
+  completedAt DateTime?
+  rolledBackAt DateTime?
+  rows        ImportRow[]
+  @@index([businessId, createdAt])
+}
+
+model ImportRow {
+  id        String @id @default(cuid())
+  batchId   String
+  batch     ImportBatch @relation(fields: [batchId], references: [id], onDelete: Cascade)
+  rowNumber Int
+  rawData   Json
+  error     String?
+  recordId  String?
+  @@unique([batchId, rowNumber])
 }
 
 model CentralExpenseAllocation {
