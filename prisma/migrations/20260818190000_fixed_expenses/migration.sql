@@ -1,0 +1,3 @@
+ALTER TABLE "Expense"
+ADD COLUMN "isFixed" BOOLEAN NOT NULL DEFAULT false,
+ADD COLUMN "frequency" TEXT;
