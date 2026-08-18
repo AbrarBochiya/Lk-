@@ -286,6 +286,8 @@ model Expense {
   paymentMethod PaymentMethod
   vendor      String?
   notes       String?
+  isFixed     Boolean @default(false)
+  frequency   String?
   allocationMethod AllocationMethod @default(UNALLOCATED)
   status      RecordStatus @default(POSTED)
   reversalOfId String? @unique
