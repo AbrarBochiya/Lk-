@@ -1,0 +1,5 @@
+ALTER TABLE "Shop"
+ADD COLUMN "defaultMarginPercent" DECIMAL(7,4) NOT NULL DEFAULT 0;
+
+ALTER TABLE "DailySale"
+ADD COLUMN "appliedMarginPercent" DECIMAL(7,4) NOT NULL DEFAULT 0;
