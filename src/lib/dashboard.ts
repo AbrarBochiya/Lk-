@@ -1,13 +1,15 @@
 import { prisma } from "@/lib/db";
 import { calculateProfit, calculateSale, safePercent } from "@/lib/financial";
+import { dateRange } from "@/lib/filters";
 
 export async function getDashboardData(user: { role: string; shopAccess: Array<{ shopId: string }> }) {
-  const now = new Date(); const from = new Date(now.getFullYear(), now.getMonth(), 1);
+  const now = new Date();
+  const { from, to } = dateRange("this-month", now);
   const hasAllShops = ["OWNER", "ADMIN", "ACCOUNTANT"].includes(user.role);
   const shopWhere = hasAllShops ? {} : { shopId: { in: user.shopAccess.map((a) => a.shopId) } };
   const [sales, expenses, bills, shopCount] = await Promise.all([
-    prisma.dailySale.findMany({ where: { ...shopWhere, saleDate: { gte: from, lte: now }, status: { not: "REVERSED" } }, include: { shop: true }, orderBy: { saleDate: "asc" } }),
-    prisma.expense.findMany({ where: { ...shopWhere, expenseDate: { gte: from, lte: now }, status: { not: "REVERSED" } } }),
+      prisma.dailySale.findMany({ where: { ...shopWhere, saleDate: { gte: from, lte: to }, status: { not: "REVERSED" } }, include: { shop: true }, orderBy: { saleDate: "asc" } }),
+      prisma.expense.findMany({ where: { ...shopWhere, expenseDate: { gte: from, lte: to }, status: { not: "REVERSED" } } }),
     prisma.supplierBill.findMany({ where: { status: { in: ["UNPAID", "PARTIALLY_PAID", "OVERDUE"] } } }),
     prisma.shop.count({ where: { status: "ACTIVE", ...(hasAllShops ? {} : { id: { in: user.shopAccess.map((a) => a.shopId) } }) } }),
   ]);

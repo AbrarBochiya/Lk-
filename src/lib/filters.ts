@@ -1,5 +1,17 @@
 export type PeriodKey = "today"|"yesterday"|"this-week"|"last-week"|"this-month"|"last-month"|"this-fy"|"last-fy"|"calendar-year"|"custom";
-const day = (d: Date) => new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()));
+export const APP_TIME_ZONE = process.env.APP_TIME_ZONE?.trim() || "Asia/Kolkata";
+
+const day = (d: Date) => {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: APP_TIME_ZONE,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(d);
+  const value = (type: "year" | "month" | "day") =>
+    Number(parts.find((part) => part.type === type)?.value);
+  return new Date(Date.UTC(value("year"), value("month") - 1, value("day")));
+};
 const addDays = (d: Date, n: number) => new Date(d.getTime() + n * 86400000);
 export function dateRange(period: PeriodKey = "this-month", now = new Date(), customFrom?: string, customTo?: string) {
   const today = day(now); let from=today, to=today;
